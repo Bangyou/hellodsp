@@ -1,0 +1,7 @@
+\beamer@sectionintoc {3}{2.1 序列的傅里叶变换的定义}{6}{0}{1}
+\beamer@sectionintoc {4}{2.2 周期序列的离散傅里叶级数及傅里叶变换}{16}{0}{2}
+\beamer@sectionintoc {5}{2.3 序列的傅里叶变换的性质}{40}{0}{3}
+\beamer@sectionintoc {6}{例题}{68}{0}{4}
+\beamer@sectionintoc {7}{2.4 离散时域信号的傅里叶变换与模拟信号傅里叶变换的关系}{72}{0}{5}
+\beamer@sectionintoc {8}{2.5 序列的Z变换}{77}{0}{6}
+\beamer@sectionintoc {9}{2.6 利用Z变换分析信号和系统的频域特性}{124}{0}{7}

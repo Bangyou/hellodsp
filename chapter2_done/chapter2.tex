@@ -1,0 +1,3834 @@
+\documentclass[notheorems,compress,mathserif,table]{beamer}
+
+\useoutertheme{tree}
+\usecolortheme{whale}      % Outer color themes, 其他选择: whale, seahorse, dolphin . 换一个编译看看有什么不同.
+\usecolortheme{orchid}     % Inner color themes, 其他选择: lily, orchid
+\useinnertheme[shadow]{rounded} % 对 box 的设置: 圆角、有阴影.
+\setbeamercolor{sidebar}{bg=blue!50} % sidebar的颜色, 50%的蓝色.
+%\setbeamercolor{background canvas}{bg=blue!9} % 背景色, 9%的蓝色. 去掉下一行, 试一试这个.
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25] %%背景色, 上25%的蓝, 过渡到下白.
+\usefonttheme{serif}  % 字体. 个人偏好有轮廓的字体. 去掉这个设置编译, 就看到不同了.
+\setbeamertemplate{navigation symbols}{}   %% 去掉页面下方默认的导航条.
+%%------------------------常用宏包---------------------------------------------------------------------
+%%注意, beamer 会默认使用下列宏包: amsthm, graphicx, hyperref, color, xcolor, 等等
+%\usepackage{CJK}
+\usepackage{ctex}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,bm}
+\usepackage{mathrsfs}
+\usepackage{subfigure} %%图形或表格并排排列
+\usepackage{xmpmulti}  %%支持文中的 \multiinclude 等命令, 使 mp 文件逐帧出现. 具体讨论见 beamer 手册.
+\usepackage{colortbl,dcolumn}     %% 彩色表格
+%\logo{\includegraphics[height=0.09\textwidth]{ajln.jpg}}   %左上角科大logo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%重定义字体、字号命令 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\songti}{\CJKfamily{song}}        % 宋体
+%\newcommand{\fangsong}{\CJKfamily{fs}}        % 仿宋体
+%\newcommand{\kaishu}{\CJKfamily{kai}}         % 楷体
+%\newcommand{\heiti}{\CJKfamily{hei}}          % 黑体
+%\newcommand{\lishu}{\CJKfamily{li}}           % 隶书
+\newcommand{\youyuang}{\CJKfamily{you}}       % 幼圆
+\newcommand{\sanhao}{\fontsize{16pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%----------------------- Theorems ---------------------------------------------------------------------
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定义}
+\newtheorem{lemma}{引理}
+\newtheorem{example}{例题}
+\newtheorem{answer}{解：}
+\newtheorem{dablock}{}
+\newtheorem{jytg}{提纲}
+\newtheorem{daproof}{证明}
+\newtheorem{explain}{说明}
+\newtheorem{summary}{小结}
+
+\newtheorem{zhuyi}{注意}
+\newtheorem{shuoming}{说明}
+\newtheorem{wenti}{问题}
+\newtheorem{jielun}{结论}
+\newtheorem{yinli}{引理}
+%%----------------------------------------------------------------------------------------------------
+\title{\heiti 第2章\quad 时域离散信号和系统的频域分析}
+\author[\textcolor{blue}]{{\sihao\kaishu  笪邦友}}
+\institute{\sihao\lishu  \textcolor{violet}{中南民族大学~~ 电子信息工程学院}}
+\date{\fangsong\today} 
+
+\begin{document}
+%  \begin{CJK*}{GBK}{kai}
+\kaishu
+\frame{ \titlepage }
+%%---------------------------------------------------------------------------------------------------
+\section*{目录}
+\frame{\kaishu\frametitle{\kaishu 目录}\tableofcontents}
+\section*{前言}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{\kaishu 傅里叶变换的回顾}%[allowframebreaks][shrink]
+回顾一下模拟信号的傅里叶变换
+
+\begin{enumerate}
+	\item [(1)] 周期连续信号的傅里叶级数
+	\item [(2)] 非周期连续信号的傅里叶变换
+\end{enumerate}
+%例如，我们曾学习过模拟信号的傅里叶变换公式：
+%\begin{dablock}
+%\begin{align*}
+%  F(j\Omega) &= \int_{-\infty}^{\infty}f(t)e^{-j\Omega t}dt \\
+%  f(t)\quad  &= \frac{1}{2\pi}\int_{-\infty}^{\infty}F(j\Omega)e^{j\Omega t}d\Omega \qquad\qquad\qquad\qquad
+%\end{align*}
+%\end{dablock}
+\pause
+\begin{wenti}
+	对于离散信号，是否有傅里叶变换和傅里叶级数的相关概念？
+	\pause
+	\begin{enumerate}
+		\item 非周期离散信号的傅里叶变换
+		\item 周期离散信号的傅里叶级数和傅里叶变换
+	\end{enumerate}
+\end{wenti}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{2.1 序列的傅里叶变换的定义}
+
+%\subsection*{序列的傅里叶变换的定义}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{时域离散信号的傅里叶变换的定义}%[allowframebreaks][shrink]
+
+
+\begin{definition}
+设序列$x(n)$满足绝对可和条件，即$\sum_{n=-\infty}^{\infty}|x(n)|<\infty$，则定义
+\begin{equation*}
+	X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}
+\end{equation*}
+为序列的傅里叶变换，可用$FT$表示，即$X(e^{j\omega}) = FT\big[x(n)\big]$。
+\end{definition}
+\pause
+\par 显然有：
+\begin{enumerate}
+\item [(1)] $X(e^{j\omega})$ 是$\omega$ 的连续函数，被称为信号$x(n)$的频谱密度函数，其含义与连续信号的频谱密度函数相同。
+\item [(2)] $X(e^{j\omega})$ 是$\omega$ 的周期函数，周期为$T=2\pi$。
+\end{enumerate}
+%\newpage
+
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{问题：FT 的反变换}%[allowframebreaks][shrink]
+
+%  \begin{enumerate}
+已知序列$x(n)$的傅里叶变换为：
+\begin{equation*}
+X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}
+\end{equation*}
+% \item
+求$ X(e^{j\omega})$的反变换$x(n)$的表达式。%，也叫傅里叶反变换。
+\begin{equation*}
+x(n) = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]\frametitle{证明:}%[allowframebreaks][shrink]
+%证明:\par
+
+\begin{enumerate}
+\item [1]
+因为$X(e^{j\omega})$为连续函数，且$T=2\pi$，用$e^{j\omega m}$乘以定义式两边，
+并在$(-\pi,\pi)$内对$\omega$ 进行积分，这里$m,n\in Z$，
+可得：
+\begin{equation*}
+\begin{split}
+\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega m}d\omega &= \int_{-\pi}^{\pi}\left[\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\right]e^{j\omega m}d\omega \\
+&= \sum_{n=-\infty}^{\infty}x(n)\int_{-\pi}^{\pi}e^{j\omega(m-n)}d\omega
+\end{split}
+\end{equation*}
+\item [2]
+显然，关键是下式
+$$\int_{-\pi}^{\pi}e^{j\omega(m-n)}d\omega$$
+的求解。
+\newpage
+显然有
+\begin{equation*}
+\int_{-\pi}^{\pi}e^{j\omega(m-n)}d\omega = 2\pi\delta(n-m) =
+\left\{\begin{array}{r@{,\quad}l}
+2\pi  &n=m\\
+0     &\mbox{其他}
+\end{array} \right.
+\end{equation*}
+
+简单说明：
+\begin{enumerate}
+\item [(1)] 当$m-n=0$ 时，显然有$$\int_{-\pi}^{\pi}e^{j\omega\cdot 0}d\omega = 2\pi$$
+\item [(2)] 当$m-n\neq 0$时，不妨令$m-n=k$，$k$为整数，有
+\begin{equation*}
+\begin{split}
+	\int_{-\pi}^{\pi}e^{j\omega(m-n)}d\omega
+	&= \int_{-\pi}^{\pi}e^{j\omega k}d\omega \\
+	&= \int_{-\pi}^{\pi}cos(\omega k)d\omega + j\int_{-\pi}^{\pi}sin(\omega k)d\omega =0
+\end{split}
+\end{equation*}
+\end{enumerate}
+\item [3]那么有：
+\begin{equation*}
+\begin{split}
+\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega m}d\omega
+&= \int_{-\pi}^{\pi}\left[\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\right]e^{j\omega m}d\omega \\
+&= \sum_{n=-\infty}^{\infty}x(n)\int_{-\pi}^{\pi}e^{j\omega(m-n)}d\omega \\
+&= 2\pi\sum_{n=-\infty}^{\infty}x(n)\delta(n-m) \\
+&= 2\pi\cdot x(m)
+\end{split}
+\end{equation*}
+
+%                $$\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega m}d\omega
+%                  = 2\pi\sum_{n=-\infty}^{\infty}x(n)\delta(n-m) = 2\pi\cdot x(m)
+%                $$
+因此：
+\begin{equation*}
+x(m) = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega m}d\omega
+\end{equation*}
+\newpage
+前述有：
+\begin{equation*}
+x(m) = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega m}d\omega
+\end{equation*}
+\newline
+\item [4] 将$m$换为$n$，则可得到：
+\begin{equation*}
+x(n) = \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega
+\end{equation*}
+上式即为傅里叶变换的逆变换，
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{FT成立的充分条件}%[allowframebreaks][shrink]
+\begin{zhuyi}
+FT成立的充分条件为：
+\begin{equation*}
+\sum_{n=-\infty}^{\infty}|x(n)| <\infty
+\end{equation*}
+有些序列并不满足上述绝对可和条件，如周期函数，但如果引入冲激函数$\delta(\cdot)$，则其傅里叶变换也可得到。
+\end{zhuyi}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+设$x(n)= R_{N}(n)$，求$x(n)$的傅里叶变换。
+\end{example}
+
+\par\textbf{解}：
+\begin{equation*}
+\begin{split}
+X(e^{j\omega})
+&= \sum_{n=-\infty}^{\infty}R_{N}(n)e^{-j\omega n} \\
+&= \sum_{n=0}^{N-1}e^{-j\omega n}
+= \frac{1-e^{-j\omega N}}{1-e^{-j\omega}}\\
+&= \frac{e^{-j\omega N/2}(e^{j\omega N/2}-e^{-j\omega N/2})}{e^{-j\omega/2}(e^{j\omega/2}-e^{-j\omega/2})}\\
+&= e^{-j\frac{N-1}{2}\omega}\quad\cdot \quad \frac{sin(\omega N/2)}{sin(\omega/2)}
+\end{split}
+\end{equation*}
+
+
+
+%$$X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}R_{N}(n)e^{-j\omega n} = \sum_{n=0}^{N-1}e^{-j\omega n}= \frac{1-e^{-j\omega N}}{1-e^{-j\omega}}$$
+%\quad\quad\quad$$=\frac{e^{-j\omega N/2}(e^{j\omega N/2}-e^{-j\omega N/2})}{e^{-j\omega/2}(e^{j\omega/2}-e^{-j\omega/2})}%$$\quad\quad\quad$$
+%=e^{-j(N-1)\omega/2}\frac{sin(\omega N/2)}{sin(\omega/2)}$$
+\newpage
+$$\mbox{一般有}\quad\quad\quad  X(e^{j\omega}) = |X(e^{j\omega})|\cdot e^{j\varphi(\omega)}$$
+$$ |X(e^{j\omega})| = \left|\frac{sin(\omega N/2)}{sin(\omega/2)}\right| \quad\quad\quad\quad$$
+$$      \varphi(\omega) = -\frac{N-1}{2}\omega + \varphi_2(\omega) \quad\quad\quad\quad$$
+\begin{equation*}
+\mbox{其中：}\quad\quad\quad \varphi_2(\omega)
+= \left\{\begin{array}
+{r@{,\quad}l}
+0    &  \frac{sin(\omega N/2)}{sin(\omega/2)} >0\\
+\pi  &  \frac{sin(\omega N/2)}{sin(\omega/2)} <0
+\end{array} \right.
+\end{equation*}
+
+%\begin{figure}[h]
+%  % Requires \usepackage{graphicx}
+%  \includegraphics[width=0.2\textwidth]{blankpic.jpg}\\
+%  \caption{$R_{4}(n)$的幅度与相位曲线}
+%  %\label{}
+%\end{figure}
+
+\end{frame}
+
+
+\section{2.2 周期序列的离散傅里叶级数及傅里叶变换}
+\subsection*{周期序列展开为离散傅里叶级数}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{周期序列展开为离散傅里叶级数}%[allowframebreaks][shrink]
+
+
+\begin{enumerate}
+\item [1] DFS正变换
+\item [2] DFS反变换
+\item [3] 几点说明
+\end{enumerate}
+%周期序列不满足绝对可和的条件，因此它的傅里叶变换是不存在的。但周期序列可以展开为傅里叶级
+%数，引入奇异函数$\delta$，可以得到其傅里叶变换。
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{1、 DFS 正变换}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%\item [1] DFS正变换
+%\end{enumerate}
+\begin{theorem}
+设$\tilde{x}(n)$是以$N$为周期的离散序列，其必能展开为离散傅里叶级数，记做：
+\begin{equation*}%\label{}
+\tilde{x}(n) = \sum_{k=0}^{N-1}a_{k}\cdot e^{j\frac{2\pi}{N}kn}
+\end{equation*}
+式中$a_{k}$是傅里叶级数的系数。
+\end{theorem}
+
+
+%下面我们求系数$a_{k}$的表达式。
+
+\par 问题在于得到系数$a_{k}$的表达式。
+
+\end{frame}
+
+
+
+
+\begin{frame}[allowframebreaks]\frametitle{系数$a_{k}$ 的求解}%[allowframebreaks][shrink]
+\begin{enumerate}
+\item [(1)]
+等式两边同时乘以$e^{-j\frac{2\pi}{N}mn}$，并对$n$ 在一个周期内求和,
+且$0\leqslant m\leqslant N-1$，这里$m,k\in Z$，则有：
+\begin{equation*}
+\begin{split}
+\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}mn}
+&= \sum_{n=0}^{N-1}\left[\sum_{k=0}^{N-1}a_{k}e^{j\frac{2\pi}{N}kn}\right]e^{-j\frac{2\pi}{N}mn}\\
+&=  \sum_{k=0}^{N-1}a_{k}\left[\sum_{n=0}^{N-1}e^{j\frac{2\pi}{N}(k-m)n}\right]
+\end{split}
+\end{equation*}
+\end{enumerate}
+%\end{frame}
+%
+%
+%
+%
+%\begin{frame}[shrink]\frametitle{求解}%[allowframebreaks][shrink]
+
+
+\newpage
+\begin{enumerate}
+\item [(2)] 式中
+\begin{equation*}
+\sum_{n=0}^{N-1}e^{j\frac{2\pi}{N}(k-m)n} = N\cdot \delta(k-m)
+= \left\{\begin{array}
+{r@{,\quad}l}
+N&\mbox{$k=m$}\\0&\mbox{$k\neq m$}
+\end{array} \right.
+\end{equation*}
+
+简单说明：
+\begin{enumerate}\par
+\item  [(a)]当$m-k=0$时，显然成立，代入即可。
+\item  [(b)]当$m-k\neq 0$时，不妨令$k-m=p$，$p$为整数，有
+\begin{equation*}
+\begin{split}
+\sum_{n=0}^{N-1}e^{j\frac{2\pi}{N}(k-m)n}
+&= \sum_{n=0}^{N-1}e^{j\frac{2\pi}{N}pn} \\
+&= \frac{1-\left[e^{j\frac{2\pi}{N}p}\right]^{N}}{1-e^{j\frac{2\pi}{N}p}}
+= \frac{1-e^{j2\pi p}}{1-e^{j\frac{2\pi}{N}pn}}  =0
+\end{split}
+\end{equation*}
+\end{enumerate}
+\end{enumerate}
+%\end{frame}
+%
+%
+%
+%\begin{frame}[shrink]\frametitle{求解}%[allowframebreaks][shrink]
+
+\newpage
+\begin{enumerate}
+\item [(3)] 所以有
+
+$$\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}mn}=\sum_{k=0}^{N-1}a_{k}\cdot N\cdot \delta(k-m)
+= a_{m}\cdot N $$
+所以：
+$$a_{m} = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}mn}$$
+最后，将$m$替换为$k$，即有：
+$$a_{k} = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\quad\quad 0\leqslant k\leqslant N-1$$
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{DFS正变换}%[allowframebreaks][shrink]
+%\newpage
+%\begin{enumerate}
+%      \item  [(4)]
+令$\tilde{X}(k)=N\cdot a_{k}$，则有
+
+$$
+\tilde{X}(k) = \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\quad-\infty<k<\infty
+$$
+记做：
+\begin{equation*}
+\tilde{X}(k) = DFS[\tilde{x}(n)]
+= \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}%\quad\quad0<k<N-1
+\end{equation*}
+
+$\tilde{X}(k)$也是以$N$为周期的周期序列，称为周期序列$\tilde{x}(n)$的离散傅里叶级数系数，用$DFS$ 表示。记为$DFS[\tilde{x}(n)]=\tilde{X}(k)$
+%\end{enumerate}
+\end{frame}
+%故有
+%        $$a_{k} = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn} = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}(k+lN)n}=a_{k+N}$$
+%        显然$a_{k}$也是一个周期序列，满足$a_{k}=a_{k+lN}$\par
+%        令$\tilde{X}(k)=Na_{k}$，则有，
+%        \begin{equation}
+%            \tilde{X}(k) = \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\quad\quad0<k<N-1
+%        \end{equation}
+%        $\tilde{X}(k)$也是一个以N为周期的周期序列，称为周期序列$\tilde{x}(n)$的离散傅里叶级数。
+%
+
+
+\begin{frame}[shrink]\frametitle{2、$DFS$ 反变换}%[allowframebreaks][shrink]
+
+用$a_k = \frac{1}{N}\tilde{X}(k)$代入上式，可得：
+
+\begin{equation*}%\label{}
+\begin{split}
+\tilde{x}(n)
+&= \sum_{k=0}^{N-1}a_{k}e^{j\frac{2\pi}{N}kn} \qquad \qquad\qquad\qquad\qquad\qquad\qquad\\
+&= \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}  \\
+&= IDFS[\tilde{X}(k)]
+\end{split}
+\end{equation*}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{结论：$DFS$变换的表达式}%[allowframebreaks][shrink]
+
+上述两个公式可重写为：
+\begin{equation*}
+\left\{ \begin{aligned}
+\tilde{X}(k) &= DFS[\tilde{x}(n)]\quad  = \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}  \qquad(-\infty<k<\infty)\\
+\tilde{x}(n) &= IDFS[\tilde{X}(k)] =  \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}\quad(-\infty<n<\infty)
+\end{aligned} \right.
+\end{equation*}
+
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{3、几点说明}%[allowframebreaks][shrink]
+
+\begin{enumerate}
+\item [(1)] 若将$n$视为时间变量，$k$视为频率变量，则$DFS$表示时域$\rightarrow$频域的变换，$IDFS$ 表示从
+频域$\rightarrow$时域的变换。
+\item [(2)]
+$\tilde{x}(n)$与$\tilde{X}(k)$ 均是周期序列，且周期均为$N$\par
+\begin{enumerate}
+\item  [(a)] 周期序列虽然是无限长的，但只要知道一个周期数据，则整个序列的值可知。
+\item  [(b)] 周期序列与有限长序列有着本质联系。实际处理的序列均为有限长序列，设长度为$N$，如以$N$ 为周期进行周期延拓，则可得到一个周期序列$\tilde{x}(n)$。
+\end{enumerate}
+\item [(3)]  物理意义：
+$$\tilde{x}(n) = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}$$
+表明周期序列可分解为$N$次谐波，第$k$个谐波频率为$\omega_{k}=\frac{2\pi}{N}k$，幅度为$\frac{1}{N}\tilde{X}(k)$，
+$k=0,1,2,\cdots,N-1$。
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{周期序列的傅里叶变换}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{前言：周期序列的傅里叶变换}%[allowframebreaks][shrink]
+
+
+严格说，周期序列是不存在傅里叶变换的，因为周期序列不满足绝对可和条件，但引入冲激函数后，
+傅里叶变换条件可以放松，周期序列的傅里叶变换存在。
+\end{frame}
+
+
+
+
+
+\begin{frame}\frametitle{关键在于指数函数$e^{j\frac{2\pi}{N}kn}$的傅里叶变换}%[allowframebreaks][shrink]
+我们再来看一下$\tilde{x}(n)$的DFS公式。
+$$\tilde{x}(n) = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}$$
+
+$$FT\left[\tilde{x}(n)\right] = \frac{1}{N}\sum_{n=0}^{N-1}\tilde{X}(k)FT\left[e^{j\frac{2\pi}{N}kn}\right]$$
+显然，想要得到$\tilde{x}(n)$的傅里叶变换，关键在于得到指数函数$e^{j\frac{2\pi}{N}kn}$ 的傅里叶变换。
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsubsection*{复指数序列$e^{j\omega_{0}n}$的傅里叶变换*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{一、复指数序列$e^{j\omega_{0}n}$的傅里叶变换}%[allowframebreaks][shrink]
+教材讲授思路： \newline
+
+
+1  类比
+\quad\newline\quad
+
+\qquad 在模拟系统中，$x_{a}(t)= e^{j\Omega_{0} t}$的傅里叶变换是在$\Omega=\Omega_{0}$处的单位冲激函数，强度是$2\pi$，即
+\begin{equation*}
+X_{a}(j\Omega) = FT[x_{a}(t)] = \int_{-\infty}^{\infty}e^{j\Omega_{0}t}
+e^{-j\Omega t}dt = 2\pi\delta(\Omega-\Omega_{0})
+\end{equation*}
+$$
+\mbox{即： \quad\quad} e^{j\Omega_0 t} \longleftrightarrow 2\pi\delta(\Omega- \Omega_0)
+$$
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+2、 假设\par
+
+
+
+\qquad 对于时域离散系统，暂时假定$x(n)=e^{j\omega_{0}n}$傅里叶变换形式与模拟系统中的类似，可写作：
+$$
+e^{j\omega_0 n} \longleftrightarrow 2\pi\delta(\omega- \omega_0)
+$$
+
+但$e^{j\omega_{0}n}$为周期函数，有：
+$$e^{j\omega_{0}n} = e^{j(\omega_{0}+2\pi r)n}  \qquad (r\in Z,\quad -\infty< r <\infty)$$%\quad\quad\mbox{式中，$r$ 取整数}$$
+%\newpage
+%$$e^{j\omega_{0}n} = e^{j(\omega_{0}+2\pi r)n}$$%\quad\quad\mbox{式中，$r$取整数}$$
+%因为公式中，$r$取整数，
+那么，其傅里叶变换也应该是一个个冲激的叠加。即为：
+\begin{equation*}
+X(e^{j\omega_{0}})=FT[e^{j\omega_{0}n}]=\sum_{r=-\infty}^{\infty}2\pi
+\delta(\omega-\omega_{0}-2\pi r)
+\end{equation*}
+即：复指数序列$e^{j\omega_{0}n}$的傅里叶变换为在$\omega_{0}$处强度为$2\pi$的冲激函数，
+且以$2\pi$为周期延拓而成。
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+3、验证\par
+\qquad 上述推测给出，
+复指数序列$e^{j\omega_{0}n}$的傅里叶变换为在$\omega_{0}$处强度为$2\pi$的冲激函数，
+且以$2\pi$为周期延拓而成。
+
+\qquad 如果这种假设如果成立，则要求其反变换必须成立且唯一，并等于$e^{j\omega_{0}n}$，即验证：
+$IFT[X(e^{j\omega})] = e^{j\omega_0 n}$
+即：
+\begin{equation*}
+\begin{split}
+x(n) &= IFT[X(e^{j\omega})] \\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{r=-\infty}^{\infty}2\pi\delta(\omega-\omega_{0}-2\pi r)e^{j\omega n}d\omega\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}2\pi\cdot \delta(\omega-\omega_{0})e^{j\omega n}d\omega \qquad(\mbox{在$(-\pi,\pi)$之间})\\
+&= \int_{-\pi}^{\pi}\delta(\omega-\omega_{0})e^{j\omega n}d\omega = e^{j\omega_0 n}
+\end{split}
+\end{equation*}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{2 推导$x(n)=e^{j\omega_0 n}$的傅里叶变换}%[allowframebreaks][shrink]
+
+教材讲授思路较直观，这里将直接推导$x(n)=e^{j\omega_0 n}$的傅里叶变换，可与教材相互印证。思路如下
+\begin{dablock}
+\begin{enumerate}
+\item [(1)] 将$x(n)=e^{j\omega_0 n}$代入傅里叶变换公式：
+$$X(e^{j\omega})= \sum_{n=-\infty}^{\infty}e^{j\omega_{0}n}e^{-j\omega n}
+= \sum_{n=-\infty}^{\infty}e^{j(\omega_{0}-\omega) n}
+$$
+\item [(2)] 讨论：%这是一个等比数列求和的问题。
+可分两种情况讨论。
+\begin{enumerate}
+\item [(a)] 当$\omega_{0}-\omega\neq 2\pi r$时，$r$是整数。
+\item [(b)] 当$\omega_{0}-\omega= 2\pi r$时，$r$是整数。
+\begin{enumerate}
+\item 考察$X(e^{j\omega})$ 的形式
+\item 考察$X(e^{j\omega})$ 的强度。
+\end{enumerate}
+\end{enumerate}
+\item [(3)] 结论。
+\end{enumerate}
+\end{dablock}
+%下面将求解这个等比数列求和问题。
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{讨论：求解等比数列求和问题}%[allowframebreaks][shrink]
+可分两种情况讨论。
+\begin{enumerate}
+
+\item [(a)] 当$\omega_{0}-\omega\neq 2\pi r$ 时，$r$是整数。
+\begin{equation*}
+\begin{split}
+X(e^{j\omega})
+&= \sum_{n=-\infty}^{\infty}e^{j(\omega_{0}-\omega) n}\\
+&= \sum_{n=-\infty}^{0}e^{j(\omega_{0}-\omega) n}+
+\sum_{n=0}^{\infty}e^{j(\omega_{0}-\omega) n} -1\\
+(\mbox{令左边}n=-n)\quad  &= \sum_{n=0}^{\infty}e^{-j(\omega_{0}-\omega) n}+
+\sum_{n=0}^{\infty}e^{j(\omega_{0}-\omega) n} -1\\
+&= \frac{1}{1-e^{-j(\omega_{0}-\omega) }}+ \frac{1}{1-e^{j(\omega_{0}-\omega) }}-1\\
+&= \frac{e^{j(\omega_{0}-\omega) }}{e^{j(\omega_{0}-\omega) }-1}+
+\frac{-1}{e^{j(\omega_{0}-\omega) }-1}-1\\
+&= \frac{e^{j(\omega_{0}-\omega) }-1}{e^{j(\omega_{0}-\omega) }-1}-1 = 0
+\end{split}
+\end{equation*}
+% \item [(b)] 当$\omega_{0}-\omega= 2\pi r$ 时，$r$是整数的情况。
+\end{enumerate}
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{讨论：求解等比数列求和问题}%[allowframebreaks][shrink]
+\begin{enumerate}
+\item [(b)] 当$\omega_{0}-\omega= 2\pi r$ 时，$r$是整数。
+
+\begin{enumerate}
+\item 考察$X(e^{j\omega})$ 的形式：
+$$X(e^{j\omega})= \sum_{n=-\infty}^{\infty}e^{j(\omega_{0}-\omega) n}= \sum_{n=-\infty}^{\infty}1 = \infty$$
+可见，$X(e^{j\omega})$是一个间隔等于$2\pi$ 的冲激序列，而冲激出现在频率
+$\omega = \omega_{0}-2r\pi$ 上。
+\item 考察$X(e^{j\omega})$ 每个冲激的强度。可得到结论：\\
+$X(e^{j\omega})$ 在$\omega-\omega_{0}= 2\pi r$ 处出现的都是强度为$2\pi$的冲激。
+\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{说明： $X(e^{j\omega})$在$\omega-\omega_{0}= 2\pi r$ 处冲激强度}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%\item [(b)]考察每个冲激的强度。\par
+对$X(e^{j\omega})$在$\omega_{0}$附近的一个周期$(-\pi,\pi)$中求积分，可得：
+\begin{equation*}
+\begin{split}
+\int_{\omega_{0}-\pi}^{\omega_{0}+\pi}X(e^{j\omega})d\omega
+&= \int_{\omega_{0}-\pi}^{\omega_{0}+\pi}\sum_{n=-\infty}^{\infty}e^{j(\omega_{0}-\omega) n}d\omega \\
+&= \sum_{n=-\infty}^{\infty}\int_{\omega_{0}-\pi}^{\omega_{0}+\pi}e^{j(\omega_{0}-\omega) n}d\omega \\
+&= \sum_{n=-\infty}^{\infty}\int_{-\pi}^{\pi} e^{j \omega' n}d\omega' \quad(\mbox{令}\omega'= \omega_{0}-\omega)
+\end{split}
+\end{equation*}
+
+\begin{equation*}
+\mbox{我们知道：}    \int_{-\pi}^{\pi} e^{j \omega' n}d\omega' = 2\pi\delta(n)
+= \left\{\begin{array}
+{r@{,\quad}l}
+2\pi&\mbox{$n=0$}\\0&\mbox{$n\neq 0$}
+\end{array} \right.
+\end{equation*}
+$$\therefore\quad\quad\int_{\omega_{0}-\pi}^{\omega_{0}+\pi}X(e^{j\omega})d\omega=
+\sum_{n=-\infty}^{\infty}2\pi\delta(n) = 2\pi$$
+这说明$X(e^{j\omega})$在$\omega-\omega_{0}= 2\pi r,-\infty<r<\infty$处出现的都是
+强度为$2\pi$的冲激。
+%\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{推导$x(n)=e^{j\omega_0 n}$的傅里叶变换}%[allowframebreaks][shrink]
+\begin{enumerate}
+\item [(3)] 结论：\par
+所以$X(e^{j\omega})$是一个周期性为$2\pi$，强度为$2\pi$的冲激序列，即：
+\begin{equation*}
+FT[e^{j\omega_{0}n}] = \sum_{r=-\infty}^{\infty}2\pi\cdot\delta(\omega-\omega_{0}-2\pi r)
+\end{equation*}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsubsection*{一般周期序列的傅里叶变换}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{二、一般周期序列的傅里叶变换}%[allowframebreaks][shrink]
+
+
+\begin{enumerate}
+\item [(1)] 公式
+\end{enumerate}
+$$\tilde{x}(n)     = \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}$$%\vspace{-0.3cm}
+$$FT[\tilde{x}(n)] = \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k) FT\left[e^{j\frac{2\pi}{N}kn}\right]$$%\vspace{-0.3cm}
+$$\mbox{又因为:\qquad}FT\left[e^{j\omega_{0}n}\right] = \sum_{r=-\infty}^{\infty}2\pi\cdot\delta(\omega-\omega_{0}-2\pi r)
+\qquad\qquad\qquad\qquad$$
+令\quad$\omega_{0} = \frac{2\pi}{N}k$ \quad
+$$
+FT[\tilde{x}(n)] = \frac{2\pi}{N}\sum_{k=0}^{N-1}\tilde{X}(k)
+\sum_{r=-\infty}^{\infty}\delta(\omega-\frac{2\pi}{N}k-2\pi r)
+$$
+
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{公式的化简}%[allowframebreaks][shrink]
+显然，一般周期序列的傅里叶变换如下：
+$$FT[\tilde{x}(n)]
+= \frac{2\pi}{N}\sum_{k=0}^{N-1}\tilde{X}(k)\sum_{r=-\infty}^{\infty}\delta(\omega-\frac{2\pi}{N}k-2\pi r)
+$$
+
+公式还可以化简化简后，有：
+\begin{dablock}
+$$FT[\tilde{x}(n)] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)$$
+\end{dablock}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{公式化简过程}%[allowframebreaks][shrink]
+\begin{enumerate}
+\item 引理： 设序列$\tilde{x}(n)$ 周期为N，则有
+\end{enumerate}
+\begin{equation*}
+\sum_{n=0}^{mN-1}\tilde{x}(n) =
+\sum_{r=0}^{m-1}\sum_{n'=0}^{N-1}\tilde{x}(n'+rN) \quad\mbox{其中$0\leqslant n'\leqslant N-1$}
+\end{equation*}
+\textbf{理解：}很简单，周期序列$\tilde{x}(n)$ 的m个周期的和，等于每个周期的和，再乘以周期的个数（$m$）。
+
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{公式化简过程}%[allowframebreaks][shrink]
+$$
+\mbox{引理:}\qquad          \sum_{n=0}^{mN-1}\tilde{x}(n) =
+\sum_{r=0}^{m-1}\sum_{n'=0}^{N-1}\tilde{x}(n'+rN) \quad\mbox{其中$0\leqslant n'\leqslant N-1$}
+$$
+%$$\frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)\qquad
+%        \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
+
+\begin{equation*}
+\begin{split}
+\frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)
+&= \frac{2\pi}{N}\sum_{r=-\infty}^{\infty}\sum_{k'=0}^{N-1}\tilde{X}(k'+rN)\delta(\omega-\frac{2\pi}{N}(k'+rN))\\
+&= \frac{2\pi}{N}\sum_{r=-\infty}^{\infty}\sum_{k'=0}^{N-1}\tilde{X}(k') \delta(\omega-\frac{2\pi}{N}k'-2\pi r)\\
+&= \frac{2\pi}{N}\sum_{k'=0}^{N-1}\tilde{X}(k')\sum_{r=-\infty}^{\infty}\delta(\omega-\frac{2\pi}{N}k'-2\pi r)\\
+(\mbox{将}  k'\rightarrow k) \qquad
+&= \frac{2\pi}{N}\sum_{k=0}^{N-1}\tilde{X}(k)\sum_{r=-\infty}^{\infty}\delta(\omega-\frac{2\pi}{N}k-2\pi r)
+\end{split}
+\end{equation*}
+
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{求$\tilde{x}(n)$傅里叶变换的过程}%[allowframebreaks][shrink]
+求$\tilde{x}(n)$傅里叶变换的过程：
+
+\begin{enumerate}
+\item 求其离散傅里叶级数$\tilde{X}(k)$%= DFS[\tilde{x}(n)]$,
+\item 套公式。
+\begin{dablock}
+$$FT\big[\tilde{x}(n)\big] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)$$
+\end{dablock}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{例题}%[allowframebreaks][shrink]
+%\begin{example}
+%设$\tilde{x}(n)$如下图所示，求$FT[\tilde{x}(n)]$.
+%\newline\newline\newline\newline
+%\end{example}
+%\par\textbf{解}：$\tilde{x}(n)$为周期序列，且N=8，有：
+%     $$\tilde{X}(e^{j\omega})= FT[\tilde{x}(n)]
+%                             = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)$$
+%     $$\mbox{其中：\quad\quad} \tilde{X}(k) = DFS[\tilde{x}(n)]  = \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}$$
+%     \begin{equation*}
+%        \begin{split}
+%        \tilde{X}(k) &= \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn} \quad\quad (N =8)  \\
+%                     &= \sum_{n=0}^{3}e^{-j\frac{2\pi}{8}kn} = \frac{1-[e^{-j\frac{2\pi}{8}k}]^{4}}{1-e^{-j\frac{2\pi}{8}k}} \\
+%                     &= \frac{e^{-j\frac{4\pi}{8}k}(e^{j\frac{4\pi}{8}k} - e^{-j\frac{4\pi}{8}k})}
+%                             {e^{-j\frac{\pi}{8}k} (e^{j\frac{ \pi}{8}k} - e^{-j\frac{ \pi}{8}k})}\\
+%                     &= \frac{\sin(\frac{\pi}{2}k)}{\sin(\frac{\pi}{8}k)}\cdot e^{-j\frac{3\pi}{8}k}
+%        \end{split}
+%     \end{equation*}
+%     $$\tilde{X}(e^{j\omega})=  \frac{\pi}{4}\sum_{k=-\infty}^{\infty} e^{-j\frac{3\pi}{8}k}
+%                             \frac{\sin(\frac{\pi}{2}k)}{\sin(\frac{\pi}{8}k)} \delta(\omega-\frac{\pi}{4}k)$$
+%     \newpage
+%     画出幅频特性图(考虑一个周期)
+%     \begin{enumerate}
+%       \item $k=0$ 时，对应$\delta(\omega)$，               强度为$\pi$
+%       \item $k=1$ 时，对应$\delta(\omega-\frac{1}{4}\pi)$，强度为 $\frac{\pi/4}{sin(\pi/8)}$
+%       \item $k=2$ 时，对应$\delta(\omega-\frac{1}{2}\pi)$，强度为 $0$
+%       \item $k=3$ 时，对应$\delta(\omega-\frac{3}{4}\pi)$，强度为 $\frac{\pi/4}{sin(3\pi/8)}$
+%       \item $k=4$ 时，对应$\delta(\omega-\pi)$，           强度为 $0$
+%       \item $k=5$ 时，对应$\delta(\omega-\frac{5}{4}\pi)$，强度为 $\frac{\pi/4}{sin(3\pi/8)}$
+%       \item $k=6$ 时，对应$\delta(\omega-\frac{3}{2}\pi)$，强度为 $0$
+%       \item $k=7$ 时，对应$\delta(\omega-\frac{7}{4}\pi)$，强度为 $\frac{\pi/4}{sin(\pi/8)}$
+%       \item $k=8$ 时，对应$\delta(\omega-2\pi)$，          强度为 $\pi$
+%     \end{enumerate}
+%     \newpage
+%     幅频特性图如下：
+%    \begin{figure}
+%      \centering
+%      % Requires \usepackage{graphicx}
+%      \includegraphics[width=0.8\textwidth]{blankpic.jpg}
+%      %\caption{}\label{}
+%    \end{figure}
+%
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{例题}%[allowframebreaks][shrink]
+%\begin{example}
+%设$x(n) = a^{n}u(n)$如下图所示，求$FT[x(n)]$.
+%\par\textbf{解}：
+%\begin{equation}
+%    \begin{split}
+%    X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}a^{n}u(n) e^{-j\omega n} = \sum_{n=0}^{\infty}a^{n} e^{-j\omega n}
+%                   = \sum_{n=0}^{\infty}(ae^{-j\omega})^{n} \\
+%                   &= \frac{1}{1- ae^{-j\omega} }
+%    \end{split}
+%\end{equation}
+%\end{example}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{2.3 序列的傅里叶变换的性质}
+
+\subsection*{FT的周期性}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{FT的周期性}%[allowframebreaks][shrink]
+\begin{dablock}
+在FT的定义式中，$n$取整数，显然有
+\begin{equation*}
+X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n} = \sum_{n=-\infty}^{\infty}x(n)e^{-j(\omega+2\pi M)n}
+\end{equation*}
+成立，式中$M$为整数，显然$X(e^{j\omega})$ 是$\omega$ 的周期函数，且周期为$2\pi$.
+
+\end{dablock}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{线性}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{线性}%[allowframebreaks][shrink]
+\begin{dablock}
+设$X_{1}(e^{j\omega})= FT[x_{1}(n)]$，$X_{2}(e^{j\omega})= FT[x_{2}(n)]$，那么
+\begin{equation*}
+FT[ax_{1}(n)+bx_{2}(n)] = aX_{1}(e^{j\omega}) + bX_{2}(e^{j\omega})
+\end{equation*}
+式中$a,b$为常数。
+\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\subsection{线性}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%
+%设$X_{1}(e^{j\omega})= FT[x_{1}(n)]$，$X_{2}(e^{j\omega})= FT[x_{2}(n)]$，那么
+%\begin{equation}
+%    FT[ax_{1}(n)+bx_{2}(n)] = aX_{1}(e^{j\omega}) + bX_{2}(e^{j\omega})
+%\end{equation}
+%式中$a,b$为常数。
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{时移与频移}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{时移与频移性质}%[allowframebreaks][shrink]
+
+设$X(e^{j\omega})= FT[x(n)]$，那么，%\vspace{-1cm}
+\begin{equation*}
+\begin{split}
+FT[x(n-n_{0})]           &= e^{-j\omega n_{0}}X(e^{j\omega})    \\
+FT[e^{j\omega_{0}n}x(n)] &= X(e^{j(\omega-\omega_{0})})\qquad\qquad\qquad\qquad
+\end{split}
+\end{equation*}
+\begin{shuoming}
+\begin{enumerate}
+\item 信号在时域的延时和在频域中的移相相对应，对信号的幅度不产生影响。
+\item 信号在时域乘以因子$e^{j\omega_{0}n}$, 等于在频域中将整个频谱向频率增加方向搬移了$\omega_{0}$。
+\end{enumerate}
+\end{shuoming}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{时移定理的证明}%[allowframebreaks][shrink]
+$$FT[x(n-n_0)] = \sum_{n=-\infty}^{\infty}x(n-n_0)\cdot e^{-j\omega n}$$
+\quad\quad 令$n-n_0 = m$，则有
+\begin{equation*}
+\begin{split}
+FT[x(n-n_0)] &= \sum_{m=-\infty}^{\infty}x(m)\cdot e^{-j\omega(n_0 +m)}\\
+&= \sum_{m=-\infty}^{\infty}x(m)\cdot e^{-j\omega n_0}\cdot e^{-j\omega m}\\
+&= e^{-j\omega n_0}\cdot\sum_{m=-\infty}^{\infty}x(m)\cdot e^{-j\omega m}\\
+&= e^{-j\omega n_0}\cdot X(e^{j\omega})
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{频移定理的证明}%[allowframebreaks][shrink]
+从左到右，有
+\begin{equation*}
+\begin{split}
+FT[e^{j\omega_{0}n}x(n)]
+&= \sum_{n=-\infty}^{\infty}x(n)\cdot e^{j\omega_{0}n}\cdot e^{-j\omega n}\\
+&= \sum_{n=-\infty}^{\infty}x(n)\cdot e^{-j(\omega-\omega_{0})n}\\
+&= X(e^{j(\omega-\omega_{0})})
+\end{split}
+\end{equation*}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{FT的对称性}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{共轭对称序列与共轭反对称序列}%[allowframebreaks][shrink]
+\begin{definition}
+\begin{enumerate}
+\item [(1)] 共轭对称序列\par\qquad
+如序列$x_{e}(n)$满足：
+$$x_{e}(n) = x_{e}^{*}(-n)$$
+\qquad 则称$x_{e}(n)$为共轭对称序列.
+\item [(2)] 共轭反对称序列\par\qquad
+如序列$x_{o}(n)$满足：
+$$x_{o}(n) = -x_{o}^{*}(-n)$$
+\qquad 则称$x_{o}(n)$为共轭反对称序列.
+\end{enumerate}
+\end{definition}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{共轭对称序列的性质}%[allowframebreaks][shrink]
+
+\begin{enumerate}
+\item [(1)] \textbf{共轭对称序列的实部是偶函数,而虚部是奇函数}。
+\par 证明：
+将序列$x_{e}(n)$用实部与虚部表示：%\vspace{-1cm}
+$$x_{e}(n) = x_{er}(n) + jx_{ei}(n)$$
+则有： \quad\quad\quad\quad
+$x_{e}^{*}(-n) = x_{er}(-n) - jx_{ei}(-n)$
+\par 根据共轭对称序列的定义式，有：
+\begin{equation*}
+\left\{ \begin{aligned}
+x_{er}(n) &= x_{er}(-n)\\
+x_{ei}(n) &= -x_{ei}(-n)
+\end{aligned} \right.
+\end{equation*}
+\pause
+\item [(2)]  \textbf{共轭反对称序列的实部是奇函数,而虚部是偶函数}。
+\par 证明：
+将序列$x_{o}(n)$用实部与虚部表示：
+$$x_{o}(n) = x_{or}(n) + jx_{oi}(n)$$\vspace{-0.5cm}
+同理可得：
+\begin{equation*}
+\left\{ \begin{aligned}
+x_{or}(n) &= -x_{or}(-n)\\
+x_{oi}(n) &= x_{oi}(-n)
+\end{aligned} \right.
+\end{equation*}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{序列可分解为共轭对称序列与共轭反对称序列之和}%[allowframebreaks][shrink]
+
+%  \begin{enumerate}
+%    \item [(1)] 一般序列都可以分解为共轭对称序列与共轭反对称序列之和，即：
+可假设
+\begin{equation*}
+x(n) = x_{e}(n) + x_{o}(n)%\vspace{-0.5cm}
+\end{equation*}
+%而式中的$x_{e}(n)$和$x_{o}(n)$ 都可以用原序列$x(n)$求出。
+将上式中的$n$用$-n$代替，可得
+\begin{equation*}
+x^{*}(-n) = x^{*}_{e}(-n) + x^{*}_{o}(-n) = x_{e}(n) - x_{o}(n)
+\end{equation*}
+对上述两个方程联立求解可得：
+\begin{equation*}
+\left\{ \begin{aligned}
+x_{e}(n) &= \frac{1}{2}[x(n) + x^{*}(-n)]\\
+x_{o}(n) &= \frac{1}{2}[x(n) - x^{*}(-n)]
+\end{aligned} \right.
+\end{equation*}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{序列可分解为实部序列和虚部序列之和}%[allowframebreaks][shrink]
+%
+%    \item [(2)]
+%    很显然，每个序列$x(n)$总能分解为实部序列$x_{r}(n)$ 和虚部序列$x_{i}(n)$，即：
+可设：
+$$x(n) = x_{r}(n)+j x_{i}(n)$$
+则有：
+$$x^*(n) = x_{r}(n)-j x_{i}(n)$$
+
+联立求解上述方程组，则实部序列$x_{r}(n)$ 和虚部序列$x_{i}(n)$总能用原序列表示为：
+\begin{equation*}
+\left\{ \begin{aligned}
+x_{r}(n) &= \frac{1}{2}[x(n) + x^{*}(n)]\\
+jx_{i}(n) &= \frac{1}{2}[x(n) - x^{*}(n)]
+\end{aligned} \right.
+\end{equation*}
+% \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[shrink]\frametitle{FT对称性的讨论}%[allowframebreaks][shrink]
+\begin{enumerate}
+
+\item [(1)] 时域离散序列$x(n)$可分解为实部序列与虚部序列之和，同时也能分解为共轭对称序列与共轭反对称序列之和。
+\item [(2)] 序列$x(n)$的傅里叶变换$X(e^{j\omega)})$ 同样可分解为实部序列与虚部序列之和，也同时也能分解为共轭对称序列与共轭反对称序列之和。
+\end{enumerate}
+
+\begin{wenti}
+那么，他们之间的关系如何呢？我们将从下面几个方面考虑。
+
+\begin{enumerate}
+\item  实序列与虚序列的傅里叶变换
+%\par 设$\quad\quad x(n) = x_{r}(n)+jx_{i}(n), \quad X(e^{j\omega}) = FT[x(n)]$
+%        \begin{enumerate}
+%            \item 时域序列的实部部分的傅里叶变换，对应其频域序列的共轭对称部分。
+%            \item 时域序列的虚部部分的傅里叶变换后，对应其频域序列的共轭反对称部分。
+%        \end{enumerate}
+\item 共轭对称序列与共轭反对称序列的傅里叶变换
+%        \begin{enumerate}
+%            \item 时域序列的共轭对称部分的傅里叶变换后，对应其频域序列的实部部分。
+%            \item 时域序列的共轭反对称部分的傅里叶变换对应其频域序列的虚部部分。
+%        \end{enumerate}
+\end{enumerate}
+\end{wenti}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{时域序列的实数部分的傅里叶变换}%[allowframebreaks][shrink]
+\begin{wenti}
+前述时域序列可分解为实部序列与虚部序列之和，即：
+$$x(n) = x_{r}(n)+j x_{i}(n) \qquad\qquad     \mbox{且有：} X(e^{j\omega}) = FT[x(n)] $$
+% 时域序列的实部部分的傅里叶变换，对应其频域序列的共轭对称部分，即：
+%    $$x_{r}(n)\quad \Longleftrightarrow \quad X_{e}(e^{j\omega}) $$
+那么，实部序列$x_{r}(n)$的傅里叶变换，对应$X(e^{j\omega})$那个部分呢？
+\end{wenti}
+\par 前述有：\quad\quad $ x_{r}(n) = \frac{1}{2}[x(n) + x^{*}(n)]$
+$$FT[x_{r}(n)] = \frac{1}{2}(FT[x(n)] + FT[x^{*}(n)])$$
+而
+\begin{equation*}
+\begin{split}
+FT[x^{*}(n)])
+&= \sum_{n=-\infty}^{\infty}x^{*}(n)e^{-j\omega n}
+= \left[\sum_{n=-\infty}^{\infty}x(n)e^{-j(-\omega) n}\right]^{*}
+= X^{*}(e^{-j\omega})
+\end{split}
+\end{equation*}
+%    那么
+%    \begin{equation*}
+%    \begin{split}
+%    FT[x_{r}(n)] &= \frac{1}{2}(FT[x(n)] + FT[x^{*}(n)])
+%                                    = \frac{1}{2}\left[X(e^{j\omega}) + X^{*}(e^{-j\omega})\right] \\
+%                                   &= X_{e}(e^{j\omega})
+%    \end{split}
+%    \end{equation*}
+
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{ 时域序列的实数部分的傅里叶变换}%[allowframebreaks][shrink]
+
+那么
+\begin{equation*}
+\begin{split}
+FT[x_{r}(n)] &= \frac{1}{2}(FT[x(n)] + FT[x^{*}(n)]) \qquad\qquad\qquad \\
+&= \frac{1}{2}\left[X(e^{j\omega}) + X^{*}(e^{-j\omega})\right] \\
+&= X_{e}(e^{j\omega})
+\end{split}
+\end{equation*}
+
+\begin{jielun}
+时域序列的实部部分的傅里叶变换，对应其频域序列的共轭对称部分，即：
+$$x_{r}(n)\quad \Longleftrightarrow \quad X_{e}(e^{j\omega}) $$
+\end{jielun}
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{ 时域序列的虚部部分的傅里叶变换}%[allowframebreaks][shrink]
+%时域序列的虚部部分的傅里叶变换后，对应其频域序列的共轭反对称部分，即：
+%$$jx_i(n) \Longleftrightarrow X_{o}(e^{j\omega})$$
+同理，有：
+\begin{equation*}
+\begin{split}
+FT[jx_{i}(n)] &= \frac{1}{2}(FT[x(n)] - FT[x^{*}(n)]) \qquad\qquad\qquad\\
+&= \frac{1}{2}\left[X(e^{j\omega}) - X^{*}(e^{-j\omega})\right] \\
+&= X_{o}(e^{j\omega})
+\end{split}
+\end{equation*}
+
+\begin{jielun}
+时域序列的虚数部分的傅里叶变换，对应其频域序列的共轭反对称部分，即：
+$$jx_i(n) \Longleftrightarrow X_{o}(e^{j\omega})$$
+\end{jielun}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{时域序列的共轭对称部分的傅里叶变换}%[allowframebreaks][shrink]
+
+\begin{wenti}
+序列$x(n)$总可分为共轭对称部分$x_{e}(n)$ 和共轭反对称部分$x_{o}(n)$之和，即：
+$$x(n) = x_{e}(n)+x_{o}(n) \qquad\qquad     \mbox{且有：} X(e^{j\omega}) = FT[x(n)] $$
+% 时域序列的实部部分的傅里叶变换，对应其频域序列的共轭对称部分，即：
+%    $$x_{r}(n)\quad \Longleftrightarrow \quad X_{e}(e^{j\omega}) $$
+那么，共轭对称序列$x_{e}(n)$和共轭反对称序列$x_{o}(n)$ 的傅里叶变换，对应$X(e^{j\omega})$那个部分呢？
+\end{wenti}
+
+%共轭对称序列与共轭反对成序列的傅里叶变换
+%\par 任意序列$x(n)$总可分为共轭对称部分$x_{e}(n)$和共轭反对称部分$x_{o}(n)$之和，即，
+%$$x(n) = x_{e}(n)+x_{o}(n)$$
+%那么有：
+%\begin{enumerate}
+%\item 时域序列的共轭对称部分的傅里叶变换后，对应其频域序列的实部部分，即：
+%                  $$x_{e}(n) \Longleftrightarrow X_{R}(e^{j\omega})$$
+%证明：
+\par 前述有：\quad $ x_{e}(n) = \frac{1}{2}[x(n) + x^{*}(-n)]$,
+$$FT[x_{e}(n)] = \frac{1}{2}(FT[x(n)] + FT[x^{*}(-n)])$$
+\begin{equation*}
+\begin{split}
+FT[x^{*}(-n)])&= \sum_{n=-\infty}^{\infty}x^{*}(-n)e^{-j\omega n}
+= \sum_{m=-\infty}^{\infty}x^{*}(m)e^{j\omega m}\quad\mbox{（令$m=-n$})\\
+&= \left[\sum_{m=-\infty}^{\infty}x(m)e^{-j\omega m}\right]^{*}
+= X^{*}(e^{j\omega})
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{时域序列的共轭对称部分的傅里叶变换}%[allowframebreaks][shrink]
+那么
+\begin{equation*}
+\begin{split}
+FT[x_{e}(n)] &= \frac{1}{2}(FT[x(n)] + FT[x^{*}(-n)])
+= \frac{1}{2}\left[X(e^{j\omega}) + X^{*}(e^{j\omega})\right] \\
+&= X_{R}(e^{j\omega}) %= RE[X(e^{j\omega})]
+\end{split}
+\end{equation*}
+
+
+\begin{jielun}
+时域序列的共轭对称部分的傅里叶变换，对应其频域序列的实部部分，即：
+$$x_{e}(n) \Longleftrightarrow X_{R}(e^{j\omega})$$
+\end{jielun}
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{时域序列的共轭反对称部分的傅里叶变换}%[allowframebreaks][shrink]
+
+
+%              \item 时域序列的共轭反对称部分的傅里叶变换对应其频域序列的虚部部分，即：
+%              $$x_{o}(n) \Longleftrightarrow jX_{I}(e^{j\omega})$$
+同理，有：
+\begin{equation*}
+\begin{split}
+FT[x_{o}(n)] &= \frac{1}{2}(FT[x(n)] - FT[x^{*}(-n)])\qquad\qquad\qquad\qquad \\
+&= \frac{1}{2}\left[X(e^{j\omega}) - X^{*}(e^{j\omega})\right] \\
+&= jX_{I}(e^{j\omega}) %= IM[X(e^{j\omega})]
+\end{split}
+\end{equation*}
+%          \end{enumerate}
+\begin{jielun}
+时域序列的共轭反对称部分的傅里叶变换对应其频域序列的虚部部分，即：
+$$x_{o}(n) \Longleftrightarrow jX_{I}(e^{j\omega})$$
+\end{jielun}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{结论}%[allowframebreaks][shrink]
+
+\begin{enumerate}
+\item [1]一个域的实信号，对应另一个域的共轭对称信号，反之亦然;
+\newline
+\item [2]一个域的虚信号，对应另一个域的共轭反对称信号，反之亦然。
+\end{enumerate}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.4\textwidth]{blankpic.jpg}
+%\end{figure}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.8\textwidth]{blankpic.jpg}
+%\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{分析实序列$h(n)$的傅里叶变换$H(e^{j\omega})$的特性。}%[allowframebreaks][shrink]
+%\textbf{分析实序列$h(n)$的傅里叶变换$H(e^{j\omega})$ 的特性。}
+\begin{enumerate}
+\item [(1)] $\because\quad  h(n)$ 为实序列.
+\par $\therefore$\quad $H(e^{j\omega})$ 为共轭对称序列，即：$H(e^{j\omega})=H^{*}(e^{-j\omega})$
+$$\mbox{设：\quad\quad\quad} H(e^{j\omega}) = H_{R}(e^{j\omega}) + jH_{I}(e^{j\omega})\quad\quad\quad\quad\quad\quad$$
+则：$H_{R}(e^{j\omega})$为偶函数，而$H_{I}(e^{j\omega})$ 为奇函数。
+$$\mbox{设：\quad\quad\quad} H(e^{j\omega}) = |H(e^{j\omega})|\cdot e^{j\varphi(\omega)}\quad\quad\quad\quad\quad\quad$$
+$$\therefore \quad\quad |H(e^{j\omega})| = \sqrt{H_{R}^{2}(e^{j\omega}) +H_{I}^{2}(e^{j\omega})}$$
+$$\quad\quad \varphi(\omega) = \arctan\left(\frac{H_{I}(e^{j\omega})}{H_{R}(e^{j\omega})}\right)$$
+显然 $|H(e^{j\omega})|$ 是偶函数，而$\theta(\omega)$ 为奇函数。
+\item [(2)]  \textbf{结论：}\par
+实函数的幅频函数是偶函数，相频函数是奇函数，与模拟系统有相同的结论。
+\end{enumerate}
+
+%\begin{example}
+%利用FT的对称性，分析实因果序列$h(n)$的对称性，并推导其偶函数$h_{e}(n)$和奇函数$h_{o}(n)$
+%与$h(n)$之间的关系
+%\par\textbf{解}：
+%\end{example}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{卷积定理}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{时域卷积定理}%[allowframebreaks][shrink]
+
+\begin{theorem}
+
+时域两信号卷积，转换到频域服从相乘关系，即设$$y(n)=x(n)*h(n)$$
+则有
+\begin{equation*}
+Y(e^{j\omega})=X(e^{j\omega})\cdot H(e^{j\omega})
+\end{equation*}
+\end{theorem}
+%        \newpage
+%        \textbf{证明：}
+%          显然：$$y(n) = x(n)*h(n) = \sum_{m=-\infty}^{\infty}x(m)h(n-m)$$
+%          $$Y(e^{j\omega})= FT[y(n)] = \sum_{n=-\infty}^{\infty}\left[\sum_{m=-\infty}^{\infty}x(m)h(n-m)\right]
+%          e^{-j\omega n}$$
+%          \quad\quad 交换求和序：
+%          $$Y(e^{j\omega})= \sum_{m=-\infty}^{\infty}x(m)\left[\sum_{n=-\infty}^{\infty}h(n-m)e^{-j\omega n}\right]$$
+%          $$\mbox{而}\quad \sum_{n=-\infty}^{\infty}h(n-m)e^{-j\omega n} = FT[h(n-m)]
+%            = e^{-j\omega m}\cdot H(e^{j\omega})$$
+%          $$Y(e^{j\omega})= \sum_{m=-\infty}^{\infty}x(m)e^{-j\omega m}\cdot H(e^{j\omega})
+%                          = X(e^{j\omega})\cdot H(e^{j\omega})$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+
+\textbf{证明：}
+显然：$$y(n) = x(n)*h(n) = \sum_{m=-\infty}^{\infty}x(m)h(n-m)$$
+$$Y(e^{j\omega})= FT[y(n)] = \sum_{n=-\infty}^{\infty}\left[\sum_{m=-\infty}^{\infty}x(m)h(n-m)\right]
+e^{-j\omega n}$$
+\quad\quad 交换求和序：
+$$Y(e^{j\omega})= \sum_{m=-\infty}^{\infty}x(m)\left[\sum_{n=-\infty}^{\infty}h(n-m)e^{-j\omega n}\right]$$
+$$\mbox{而}\quad \sum_{n=-\infty}^{\infty}h(n-m)e^{-j\omega n} = FT[h(n-m)]
+= e^{-j\omega m}\cdot H(e^{j\omega})$$
+$$Y(e^{j\omega})= \sum_{m=-\infty}^{\infty}x(m)e^{-j\omega m}\cdot H(e^{j\omega})
+= X(e^{j\omega})\cdot H(e^{j\omega})$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{频域卷积定理}%[allowframebreaks][shrink]
+\begin{theorem}
+频域卷积定理：时域两信号相乘，转换到频域服从卷积关系，即，设
+$$ y(n)=h(n)\cdot x(n)  \quad\quad\quad\quad\quad\quad\mbox{}$$
+则：
+$$
+Y(e^{j\omega})= \frac{1}{2\pi}\int_{-\pi}^{\pi}H(e^{j\theta})X(e^{j(\omega-\theta)})d\theta=\frac{1}{2\pi}H(e^{j\omega})\ast X(e^{j\omega})
+$$
+
+
+\end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+\textbf{证明：}
+\begin{equation*}
+\begin{split}
+Y(e^{j\omega})  &= \sum_{n=-\infty}^{\infty}x(n)h(n)e^{-j\omega n} \\
+&= \sum_{n=-\infty}^{\infty}x(n)\left[\frac{1}{2\pi}
+\int_{-\pi}^{\pi}H(e^{j\theta})e^{j\theta n}d\theta\right]e^{-j\omega n}  \\
+&=  \frac{1}{2\pi}\int_{-\pi}^{\pi}H(e^{j\theta})
+\left[\sum_{n=-\infty}^{\infty}x(n)e^{-j(\omega-\theta) n}\right]d\theta\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}H(e^{j\theta})X(e^{j(\omega-\theta)})d\theta \\
+&= \frac{1}{2\pi}H(e^{j\theta})*X(e^{j\omega})
+\end{split}
+\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{帕斯维尔(Parseval)定理}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{帕斯维尔(Parseval) 定理—非周期序列的表达方式}%[allowframebreaks][shrink]
+%非周期序列的表达方式
+\begin{enumerate}
+\item 设$X(e^{j\omega})=FT[x(n)]$，则有
+\begin{equation*}
+\sum_{n=-\infty}^{\infty}|x(n)|^{2} = \frac{1}{2\pi}\int_{-\pi}^{\pi}|X(e^{j\omega})|^{2}d\omega
+\end{equation*}
+\item 物理意义：\textbf{信号在时域的总能量等于其在频域的总能量。}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+\textbf{ 证明:}
+\begin{equation*}
+\begin{split}
+\sum_{n=-\infty}^{\infty}|x(n)|^{2}
+&= \sum_{n=-\infty}^{\infty}x^{*}(n)x(n)\\
+&= \sum_{n=-\infty}^{\infty}x^{*}(n)\left[\frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega\right]\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})\sum_{n=-\infty}^{\infty}x^{*}(n)e^{j\omega n}d\omega \\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})\left[\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\right]^{*}d\omega \\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})X^{*}(e^{j\omega})d\omega \\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}|X(e^{j\omega})|^{2}d\omega
+\end{split}
+\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{帕斯维尔(Parseval) 定理—周期序列的表达方式}%[allowframebreaks][shrink]
+
+\begin{enumerate}
+\item 对于周期序列$\tilde{x}(n)$而言，则有
+\begin{equation*}
+\sum_{n=0}^{N-1}|\tilde{x}(n)|^{2} = \frac{1}{N}\sum_{k=0}^{N-1}|\tilde{X}(k)|^{2}
+\end{equation*}
+\item 物理意义：\textbf{周期序列在时域中一个周期的总能量等于其频域中一个周期的总能量。}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+\textbf{证明：}
+%    首先，写出DFS公式
+%    \begin{equation*}
+%       \left\{ \begin{aligned}
+%           \tilde{X}(k) &= \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\\
+%           \tilde{x}(n) &= \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}
+%       \end{aligned} \right.
+%     \end{equation*}
+\begin{equation*}
+\begin{split}
+\sum_{n=0}^{N-1}|\tilde{x}(n)|^{2}
+&= \sum_{n=0}^{N-1}\tilde{x}(n)\tilde{x}^{*}(n)\\
+&= \sum_{n=0}^{N-1}\tilde{x}(n)
+\left[\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}\right]^{*}\\
+&= \sum_{n=0}^{N-1}\tilde{x}(n)
+\left[\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}^{*}(k)e^{-j\frac{2\pi}{N}kn}\right]\\
+&= \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}^{*}(k)
+\left[\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\right]\\
+&= \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}^{*}(k)\tilde{X}(k)
+= \frac{1}{N}\sum_{k=0}^{N-1}|\tilde{X}(k)|^{2}
+\end{split}
+\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{作业}%[allowframebreaks][shrink]
+作业：
+\par 1,2,3,5,6,7,10,11,12,13,14,16, 17,18,24,27,28,29
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\section{例题}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[shrink]\frametitle{例题}%[allowframebreaks][shrink]
+%
+%\begin{example}
+%设$x(n)= R_{N}(n)$，求$x(n)$的FT。
+%\end{example}
+%\par\textbf{解}：
+%    \begin{equation*}
+%        \begin{split}
+%        X(e^{j\omega})
+%            &= \sum_{n=-\infty}^{\infty}R_{N}(n)e^{-j\omega n}  = \sum_{n=0}^{N-1}e^{-j\omega n}
+%                       = \frac{1-e^{-j\omega N}}{1-e^{-j\omega}}\\
+%                       &=\frac{e^{-j\omega N/2}(e^{j\omega N/2}-e^{-j\omega N/2})}{e^{-j\omega/2}(e^{j\omega/2}-e^{-j\omega/2})}\\
+%                       &=e^{-j(N-1)\omega/2}\frac{sin(\omega N/2)}{sin(\omega/2)}
+%        \end{split}
+%    \end{equation*}
+%    $$\mbox{一般有}\quad\quad\quad  X(e^{j\omega}) = |X(e^{j\omega})|\cdot e^{j\varphi(\omega)}$$
+%    $$ |X(e^{j\omega})| = \left|\frac{sin(\omega N/2)}{sin(\omega/2)}\right| \quad\quad\quad\quad
+%         \varphi(\omega) = -\frac{N-1}{2}\omega + \varphi_2(\omega)$$
+%    \begin{equation}
+%    \mbox{其中：}\quad\quad\quad \varphi_2(\omega)
+%            = \left\{\begin{array}
+%            {r@{,\quad}l}
+%            0    &  \frac{sin(\omega N/2)}{sin(\omega/2)} >0\\
+%            \pi  &  \frac{sin(\omega N/2)}{sin(\omega/2)} <0
+%            \end{array} \right.
+%    \end{equation}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+求$u(n)$的傅里叶变化$U(e^{j\omega}) )$.
+\end{example}
+\par\textbf{解}：
+$$\mbox{令： \quad\quad}  x(n) = u(n) -\frac{1}{2},\quad\quad\quad
+\mbox{则： \quad\quad} x(n-1) = u(n-1) - \frac{1}{2}$$
+$$x(n)-x(n-1) = u(n) - u(n-1) = \delta(n)\quad\quad\quad\quad (\mbox{注意}\delta(n) \leftrightarrow 1)$$
+$$\mbox{(时移定律)\quad}   X(e^{j\omega}) - e^{-j\omega}X(e^{j\omega}) = 1 \quad  \Longrightarrow\quad   X(e^{j\omega}) = \frac{1}{1-e^{-j\omega}}$$
+$$\therefore \quad\quad U(e^{j\omega}) = X(e^{j\omega}) + FT[\frac{1}{2}]$$
+$$ FT[e^{j\omega_0 n}] = \sum_{k=-\infty}^{\infty}2\pi\cdot\delta(\omega-\omega_{0}-2\pi k) $$
+$$\mbox{当$\omega_0 = 0$时\quad\quad}  FT\big[1 \big] = \sum_{k=-\infty}^{\infty}2\pi\cdot\delta(\omega-2\pi k) $$
+$$\therefore \quad\quad U(e^{j\omega}) = X(e^{j\omega}) + \sum_{k=-\infty}^{\infty}\pi\cdot\delta(\omega-2\pi k)$$
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{例题}%[allowframebreaks][shrink]
+\begin{example}
+设$\tilde{x}(n)= cos(\omega_0 n);\omega_0 =\pi/2$，求$\tilde{x}(n)$的FT。
+\end{example}
+\par\textbf{解}：
+$$\tilde{x}(n)=cos(\omega_0 n) = \frac{e^{j\omega_0 n} + e^{-j\omega_0 n}}{2}\quad\quad\quad\quad\quad\quad\quad\quad$$
+\begin{equation*}
+\begin{split}
+FT[cos(\omega_0 n)] &= \frac{1}{2}FT[e^{j\omega_0 n}] + \frac{1}{2}FT[e^{-j\omega_0 n}]\\
+&= \pi\cdot \sum_{r=-\infty}^{\infty}\delta(\omega-\omega_0 -2\pi r)
++ \pi\cdot \sum_{r=-\infty}^{\infty}\delta(\omega+\omega_0 -2\pi r)
+\end{split}
+\end{equation*}
+%\newline\newline\newline\newline
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{例题}%[allowframebreaks][shrink]
+\begin{example}
+设$x(n) = a^{n}u(n),\quad  |a|<1$，求$FT[x(n)]$.
+\par\textbf{解}：
+\begin{equation}
+\begin{split}
+X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}a^{n}u(n) e^{-j\omega n} = \sum_{n=0}^{\infty}a^{n} e^{-j\omega n}
+= \sum_{n=0}^{\infty}(ae^{-j\omega})^{n} \\
+&= \frac{1}{1- ae^{-j\omega} }    \quad\quad  |a|<1
+\end{split}
+\end{equation}
+\end{example}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+$$\mbox{试证明\quad\quad} FT\big[nx(n)\big] =  j\frac{dX(e^{j\omega})}{d\omega}\qquad\qquad\qquad$$
+\par\textbf{证}：
+\begin{equation*}
+\begin{split}
+X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}x(n) e^{-j\omega n} \\
+\frac{X(e^{j\omega})}{d\omega}
+&= \sum_{n=-\infty}^{\infty}x(n)\cdot -j\cdot n e^{-j\omega n} \\
+j\cdot \frac{X(e^{j\omega})}{d\omega}
+&= \sum_{n=-\infty}^{\infty}n\cdot x(n)e^{-j\omega n}  = FT\big[n\cdot x(n)\big]\\
+\mbox{即}：\quad\quad FT\big[nx(n)\big] &= j\cdot \frac{X(e^{j\omega})}{d\omega}
+\end{split}
+\end{equation*}
+\end{example}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+
+
+\section{2.4 离散时域信号的傅里叶变换与模拟信号傅里叶变换的关系}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{离散序列的傅里叶变换与模拟信号傅里叶变换的关系}%[allowframebreaks][shrink]
+在滤波器设计的学习中将对这一节内容做详细的讲述。\newline
+
+这里我们将首先给出相关结论。
+\begin{equation*}%\label{}
+X(e^{j\omega}) = \frac{1}{T}\sum_{k=-\infty}^{\infty}X_{a}(j\frac{\omega-2\pi k}{T})
+\end{equation*}
+\end{frame}
+
+\begin{frame}\frametitle{离散序列的傅里叶变换与模拟信号傅里叶变换的关系}%[allowframebreaks][shrink]
+
+一般说来，$x(n)$可被认为是从模拟信号$x_a(t)$采样得到，这个过程如下所示：
+$$x_a(t) \quad\longrightarrow  \quad \hat{x}_a(t) \quad\longrightarrow  \quad x(n) $$
+通俗的讲，前者是一个采样的过程，后者是一个抽象的过程。
+
+\begin{wenti}
+那么，$x(n)$的傅里叶变换$X(e^{j\omega})$ 与$x_a(t)$ 的傅里叶变换$X_{a}(j\Omega)$之间，有什么样的联系和区别，
+这是一个值得研究的问题。
+
+\end{wenti}
+
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{推导：}%[allowframebreaks][shrink]
+
+\begin{equation*}
+\begin{split}
+\hat{X}_a(j\Omega)
+&=  FT\left[\hat{x}_a(t)\right] =\int_{-\infty}^{\infty}\hat{x}_a(t)e^{-j\Omega t}dt\\
+&=  \int_{-\infty}^{\infty}\left[\sum_{n=-\infty}^{\infty}x_a(nT)\delta(t-nT)\right]e^{-j\Omega t}dt\\
+&=  \sum_{n=-\infty}^{\infty}x_a(nT)\left[\int_{-\infty}^{\infty}\delta(t-nT)e^{-j\Omega t}dt\right]\\
+&=  \sum_{n=-\infty}^{\infty}x_a(nT) \left[e^{-j\Omega nT} \right] \\
+&=  \sum_{n=-\infty}^{\infty}x_a(nT)e^{-j(\Omega T) n}
+%         =  X(e^{j(\Omega T)n}) \\
+%         &= X(e^{j\omega})|_{\omega = \Omega T } \\
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}\frametitle{推导}%[allowframebreaks][shrink]
+又因为：  $x(n) = x_a(nT)$，且令$\omega = \Omega T$，所以有：
+\begin{equation*}
+\begin{split}
+\hat{X}_a(j\Omega)  %&=  FT\left[\hat{x}_a(t)\right] =\int_{-\infty}^{\infty}\hat{x}_a(t)e^{-j\Omega t}dt\\
+&=  \sum_{n=-\infty}^{\infty}x_a(nT)e^{-j(\Omega T) n} \qquad\qquad\qquad\qquad \\
+&=  \sum_{n=-\infty}^{\infty}x(n)e^{-j(\Omega T) n} \\
+&= X(e^{j\omega})|_{\omega = \Omega T } \\
+%&=  X(e^{j\cdot(\Omega T)}) \\
+\end{split}
+\end{equation*}
+
+\begin{jielun}
+$$\hat{X}_a(j\Omega)  =
+%X(e^{j(\Omega T)n})  =
+X(e^{j\omega})|_{\omega = \Omega T } $$
+\end{jielun}
+
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{离散序列的傅里叶变换与模拟信号傅里叶变换的关系}%[allowframebreaks][shrink]
+又根据采样定理有：
+$$\hat{X}_a(j\Omega)   =  \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -k \Omega_s)\qquad (\Omega_s=\frac{2\pi}{T})
+\qquad\quad  $$
+所以有：
+
+\begin{jielun}
+\begin{equation*}
+\begin{split}
+X(e^{j\omega})\big|_{\omega = \Omega T }  =\hat{X}_a(j\Omega)  %= X(e^{j\cdot\Omega T})
+&= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -k \Omega_s) \\
+%&= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a\left(j\frac{T\Omega -k T\Omega_s}{T}\right) \\
+%&= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a\left(j\frac{\omega - 2\pi k}{T}\right)\\
+\end{split}
+\end{equation*}
+
+%$$X(e^{j\omega})\big|_{\omega = \Omega T } %= X(e^{j\cdot\Omega T})
+%= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\frac{T\Omega -k T\Omega_s}{T})
+%= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -k \Omega_s)$$
+\end{jielun}
+
+
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{2.5 序列的Z变换}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{序列的Z变换}%[allowframebreaks][shrink]
+
+\begin{enumerate}
+\item 在模拟信号和系统中，傅里叶变换用于频域分析，拉氏变换用于复频域分析，其实质为傅里叶变换的推广。
+\item 类似，时域离散信号与系统中，Z变换为序列傅里叶变换的推广，用于对序列进行复频域分析。
+\end{enumerate}
+
+
+
+Z变换在数字信号处理中起着很重要的作用，本节讨论其定义、收敛域、逆$Z$变换，性质等
+四个主要问题。
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{Z变换的定义及基本概念}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Z变换的定义}%[allowframebreaks][shrink]
+\begin{definition}
+序列$x(n)$的$Z$变换定义为：
+\begin{equation*} %\label{fol:sft}
+X(z) = \sum_{n=-\infty}^{\infty}x(n)z^{-n} \quad\quad\mbox{双边Z变换}
+\end{equation*}
+\begin{equation*} %\label{fol:sft}
+X(z) = \sum_{n=0}^{\infty}x(n)z^{-n}    \quad\quad\quad\mbox{单边Z变换}
+\end{equation*}
+式中$z$是一个复变量，它所在的平面称为$z$平面。对于因果序列，两者都一样。本书均使用双边$Z$变换定义。
+\end{definition}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{$Z$变换存在的充要条件}%[allowframebreaks][shrink]
+%$Z$变换收敛域的概念
+\begin{enumerate}
+\item [(1)]
+$Z$变换实际上为一个罗朗级数，其存在条件为该级数绝对收敛，也就是满足：
+$$\sum_{n=-\infty}^{\infty}|x(n)z^{-n}|  <\infty $$
+\begin{itemize}
+\item 满足罗朗级数收敛的$z$值取值范围称为$X(z)$的收敛域
+\end{itemize}
+%满足该条件的$z$值取值范围称为$X(z)$的收敛域。
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{$Z$变换收敛域的概念}%[allowframebreaks][shrink]
+%$Z$变换收敛域的概念
+\begin{enumerate}
+% \item [(1)] 满足罗朗级数收敛的$z$值取值范围称为$X(z)$的收敛域 \newline
+\item [(2)]一般$X(z)$的收敛域为环状域，即：$R_{x-}<|z|<R_{x+}$，也就是说:
+\begin{itemize}
+\item 收敛域是以$R_{x-}$和$R_{x+}$为收敛半径的两个圆形成的环状域。 \newline
+\item $R_{x-}$ 可以小到$0$，$R_{x+}$可以大到无穷大。
+\end{itemize}
+
+\end{enumerate}
+%此处画出收敛域形状图：
+%\newpage\newpage\newpage\newpage\newpage\newpage
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{$Z$变换的零极点的概念}%[allowframebreaks][shrink]
+
+常用的$Z$变换是一个有理函数，可用两个多项式之比表示。
+$$X(z) = \frac{P(z)}{Q(z)}$$
+$P(z)=0$的根，称为$X(z)$的零点。\par
+
+$Q(z)=0$的根，称为$X(z)$的极点。\par
+\begin{zhuyi}
+$X(z)$的性质主要取决于极点，在极点处$Z$变换不存在。
+\end{zhuyi}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{序列$Z$变换与傅里叶变换的关系}%[allowframebreaks][shrink]
+对比Z变换和傅里叶变换的公式：
+\begin{equation*}
+\begin{split}
+X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\\
+X(z) \:\:     &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}
+\end{split}
+\end{equation*}
+对比可得：$z = e^{j\omega}$，也就是说：
+%$$\mbox{\quad 即：\quad}X(e^{j\omega}) = X(z)|_{z=e^{j\omega}}$$
+$$X(e^{j\omega}) = X(z)|_{z=e^{j\omega}}$$
+即，单位圆上的$Z$变换就是序列的傅里叶变换。\par
+\begin{shuoming}
+\begin{enumerate}
+\item $Z$变换的收敛域必须包括$Z$平面的单位圆。
+\item 傅里叶变换是$Z$变换的特例。
+\end{enumerate}
+\end{shuoming}
+\quad\newline
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+求$x(n)=u(n)$的$Z$变换。\par
+\end{example}
+\begin{answer}
+%s\textbf{解：}
+$$X(z) = ZT[x(n)] = \sum_{n=-\infty}^{\infty}x(n)z^{- n} = \sum_{n=0}^{\infty}(z^{-1})^{ n} = \frac{1}{1-z^{-1}}$$
+\begin{enumerate}
+\item [1] 显然，$X(z)$的极点为$z=1$
+\item [2]$X(z)$存在的条件是： \quad $|z^{-1}|<1$\quad 即$|z|>1$
+\item [3]$Z$变换收敛域不包含单位圆，其傅里叶变换也不存在
+\item [4]引入冲激函数后，可得到其傅里叶变换。
+\end{enumerate}
+
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+\subsection*{Z变换收敛域的讨论}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{Z变换收敛域的讨论}%[allowframebreaks][shrink]
+%在$x(n)\leftrightarrow X(z)$时，
+使得$Z$变换存在，也就是使得洛朗级数绝对可和的$z$变换取值范围，
+为$Z$变换的收敛域。
+$$X(z)= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \cdots + x(-1)z+x(0)+x(1)z^{-1}+\cdots $$
+%注意： \textbf{收敛域取决于$x(n)$的性质。}\par
+%$x(n)$可分为以下四种类型：
+\begin{enumerate}
+\item 有限长序列
+\item 右序列
+\item 左序列
+\item 双边序列
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{有限长序列}%[allowframebreaks][shrink]
+\begin{equation*}
+x(n) = \left\{
+\begin{array}
+{r@{,\quad}l}
+x(n)    & \ n_1 \leqslant n \leqslant n_2    \mbox{(不全为0)}\\
+0\quad  & \mbox{其他 \quad\quad (全为0）}
+\end{array} \right.
+\end{equation*}
+\textbf{有限项级数求和必定收敛}。仅需考虑0 点，及$\infty$两点情况。\par 可分四种情况讨论
+\begin{enumerate}
+\item[$1^0$] $n_2 > n_1\geqslant 0$,\quad\quad 仅存在负幂级数，$0<|z|\leqslant \infty$ (因果序列)
+\item[$2^0$] $n_1 < n_2\leqslant 0$,\quad\quad 仅存在正幂级数，$0\leqslant|z|< \infty$
+\item[$3^0$] $n_1<0,n_2 >0$,        \quad 存在正负幂级数，$0<|z|<\infty$
+\item[$4^0$] $n_1 = 0, n_2 =0$,     \quad 整个$Z$ 平面。
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{有限长序列}%[allowframebreaks][shrink]
+\begin{example}
+求$x(n)=R_{N}(n)$的$Z$变换.\end{example}
+\begin{answer}
+%\textbf{解：}
+$$X(z)= \sum_{n=-\infty}^{\infty}R_{N}(n)z^{-n} = \sum_{n=0}^{N-1}(z^{-1})^{n} = \frac{1-z^{-N}}{1-z^{-1}}$$
+$X(z)$为有限长级数求和，必定收敛，只需考虑$z=0,z=\infty$两点。\par
+显然有： \quad\quad\quad $0<|z|\leqslant \infty$。
+\end{answer}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{右序列}%[shrink]
+
+\begin{equation*}
+x(n) = \left\{
+\begin{array}
+{r@{,\quad}l}
+x(n)    & n \geqslant n_1 \\
+0\quad  & n \leqslant n_1
+\end{array} \right.
+\end{equation*}
+%$$X(z)= \sum_{n=n_1}^{\infty}x(n)z^{-n} = \sum_{n=n_1}^{-1}x(n)z^{-n} + \sum_{n=0}^{\infty}x(n)z^{-n}$$
+%可以看出，左半为有限长序列，右半为因果序列。
+右边序列收敛域为Z平面上以原点为圆心的某个园外。\par
+可分两种情况讨论：
+\begin{enumerate}
+\item $n_1<0$时，存在正幂级数，$|z|$不能为$\infty$，\par 此时有: $R_{x-} <|z| <\infty$
+\item $n_1\geqslant0$时，为因果序列。有： \quad $R_{x-} <|z| \leqslant\infty$
+\end{enumerate}
+\begin{zhuyi}
+显然，当$x(n)$为因果序列时，其收敛域包含无穷远点。
+\end{zhuyi}
+%newline\newline\newline
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{左序列}%[allowframebreaks][shrink]
+\begin{equation*}
+x(n) = \left\{
+\begin{array}
+{r@{,\quad}l}
+x(n)    & n \leqslant n_2 \\
+0\quad  & n > n_2
+\end{array} \right.
+\end{equation*}
+%$$X(z)= \sum_{n=-\infty}^{n_2}x(n)z^{-n} $$
+左边序列收敛域为Z平面上以原点为圆心的某个园内。\par
+可分两种情况讨论：
+\begin{enumerate}
+\item $n_2>0$时，包含负项级数，收敛区不包括$0$ 点，此时有： \quad $0 <|z| < R_{x+}$
+\item $n_2\leqslant0$时，仅存在负项级数，此时有： \quad $0 \leqslant|z| <R_{x+}$
+\end{enumerate}
+%如下图： \newline\newline\newline\newline\newline\newline
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{双边序列}%[allowframebreaks][shrink]
+
+$$X(z)= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \sum_{n=-\infty}^{-1}x(n)z^{-n} + \sum_{n=0}^{\infty}x(n)z^{-n}$$
+\begin{enumerate}
+\item 可见双边序列由因果序列和反因果序列组成，两者的收敛域分别为：$R_{x-} <|z|$ 和$|z|<R_{x+}$。
+\item 双边序列取两者的交集，收敛域为： \quad$R_{x-} <|z|<R_{x+}\quad $，其为一环状区域。
+\item 如收敛域无交集，则ZT不存在。
+\end{enumerate}
+
+\par
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}      \textbf{求$x(n)=a^{n}u(n)$的$Z$ 变换及收敛域.（因果序列）}\end{example}
+\begin{answer}
+\begin{equation*}
+\begin{split}
+X(z) &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \sum_{n=0}^{\infty}\left(\frac{a}{z}\right)^{n}
+= \frac{1}{1-\frac{a}{z}} = \frac{z}{z-a}  %\mbox{\quad\quad 收敛域为：}  |z|>|a|
+\end{split}
+\end{equation*}
+$\mbox{\quad\quad 收敛域为：} \quad\quad |z|>|a|$
+\end{answer}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+\textbf{求$x(n)=-a^{n}u(-n-1)$的$Z$ 变换及收敛域.（反因果序列）}\end{example}
+\begin{answer}
+\begin{equation*}
+\begin{split}
+X(z)         &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = -\sum_{n=-\infty}^{-1}a^{n}z^{-n} \\
+\mbox{注意}：&\quad  \quad\quad\sum_{n=-\infty}^{-1}x(n)z^{-n} = \sum_{n=1}^{\infty}x(-n)z^{n}\\
+X(z)         &= -\sum_{n=1}^{\infty}a^{-n}z^{n} = -\frac{\frac{z}{a}}{1-\frac{z}{a}}= \frac{z}{z-a}
+\end{split}
+\end{equation*}
+$\mbox{\quad\quad 收敛域为：}  |z|<|a|$
+\end{answer}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{对于指数序列ZT的小结}%[allowframebreaks][shrink]
+\begin{summary}
+\begin{equation*}
+\begin{split}
+a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+-a^{n}u(-n-1) &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+\end{split}
+\end{equation*}
+\end{summary}
+\begin{explain}
+%  \textbf{说明：} \par
+不同的$x(n)$，其$Z$变换表达式可能相同，所以$Z$变换$X(z)$与收敛域联系在一起才有意义。即：
+$$X(z)\quad + \quad \mbox{收敛域}\quad\Longleftrightarrow x(n)$$
+\end{explain}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}     \textbf{设$x(n)=a^{|n|}$,$a\in R$，求$x(n)$ 的$Z$变换并给出收敛域.}\end{example}
+\begin{answer}
+\begin{equation*}
+\begin{split}
+X(z) &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \sum_{n=-\infty}^{\infty}a^{|n|}z^{-n} \\
+&= \sum_{n=-\infty}^{-1}a^{-n}z^{-n} + \sum_{n=0}^{\infty}a^{n}z^{-n}
+= \sum_{n=1}^{\infty}a^{n}z^{n} + \sum_{n=0}^{\infty}a^{n}z^{-n}\\
+&= \frac{az}{1-az} + \frac{1}{1-a z^{-1}} = \frac{1-a^{2}}{(1-az)(1-az^{-1})}
+\end{split}
+\end{equation*}
+收敛域需同时满足$|az|<1, |az^{-1}|<1,\mbox{即}：|a|<|z|<|\frac{1}{a}|$，这意味着必须有$|a|<1$，
+如果$|a|>1$,则无公共收敛域，$X(z)$ 不存在。
+\end{answer}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{逆Z变换}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{逆Z变换}%[allowframebreaks][shrink]
+
+已知$X(z)$及收敛域，求$x(n)$。
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{部分分式法}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{部分分式法}%[allowframebreaks][shrink]
+步骤：
+\begin{enumerate}
+\item  分解因式
+$$\frac{X(z)}{z}=\sum_{m=1}^{N}\frac{A_m}{z-z_m} \mbox{\quad\quad 部分分式和}\quad\quad\quad\quad\quad\quad\quad\quad$$
+$$\mbox{\quad\quad 其中系数为：} A_m =\left[\frac{X(z)}{z}(z-z_m)\right]_{z=z_m}$$
+
+\item 套公式。
+\begin{equation*}
+\begin{split}
+a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+-a^{n}u(-n-1) &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+\end{split}
+\end{equation*}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+设$$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad\quad 2<|z|<3$$
+\end{example}
+\textbf{解：}\par
+收敛域为圆环，显然$x(n)$为双边序列。
+\begin{equation*}
+\begin{split}
+\frac{X(z)}{z} &= \frac{5z^{-2}}{1+z^{-1} -6z^{-2}} =\frac{5}{z^2 + z -6}= \frac{5}{(z+3)(z-2)}\\
+&= \frac{A_1}{z-2} + \frac{A_2}{z+3}
+\end{split}
+\end{equation*}
+\begin{equation*}
+\begin{split}
+A_1   &= \left[\frac{X(z)}{z}(z-2)\right]_{z =2 } =\frac{5}{z+3}|_{z=2} =1\\
+A_2   &= \left[\frac{X(z)}{z}(z+3)\right]_{z =-3 } =\frac{5}{z-2}|_{z=-3} =-1
+\end{split}
+\end{equation*}
+$$\frac{X(z)}{z} = \frac{1}{z-2} - \frac{1}{z+3} \quad\quad \Longrightarrow\quad\quad X(z) = \frac{z}{z-2} - \frac{z}{z+3}$$
+我们知道：
+\begin{equation*}
+\left\{ \begin{aligned}
+a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+-a^{n}u(-n-1)   &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+\end{aligned} \right.
+\end{equation*}
+套公式：
+\begin{equation*}
+\begin{split}
+x(n)    &=  2^{n}u(n) - (-(-3)^{n}u(-n-1))\\
+&=  2^{n}u(n) +(-3)^{n}u(-n-1)
+\end{split}
+\end{equation*}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsubsection*{留数法（围线积分法）}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{留数法—逆Z 变换}%[allowframebreaks][shrink]
+
+$$X(z) = \sum_{n=-\infty}^{\infty}x(n)z^{-n}\quad\quad R_{x-} <|z|<R_{x+}$$
+则有：
+$$x(n) = \frac{1}{2\pi j}\oint_{c} X(z) z^{n-1}dz \quad\quad\quad\quad\quad\quad$$
+\par   \textbf{证明：}此处引入柯西积分定理（引入，不做证明）
+\begin{equation*}
+\frac{1}{2\pi j}\oint_{c} z^{m-1}dz = \left\{
+\begin{array}
+{r@{,\quad}l}
+1    & m   =  0 \\
+0    & m \neq 0
+\end{array} \right.
+\end{equation*}
+这里$C$为一个逆时针封闭曲线，那么：
+\begin{equation*}
+\begin{split}
+\frac{1}{2\pi j}\oint_{c} X(z) z^{k-1}dz
+&= \frac{1}{2\pi j}\oint_{c} \left[ \sum_{n=-\infty}^{\infty}x(n)z^{-n} z^{k-1}\right]dz \\
+&= \frac{1}{2\pi j}\oint_{c} \left[  \sum_{n=-\infty}^{\infty}x(n)z^{-n+k-1}\right]dz \\
+&= \sum_{n=-\infty}^{\infty}x(n)\left[\frac{1}{2\pi j}\oint_{c}  z^{-n+k-1}dz\right]   %        = x(k)
+\end{split}
+\end{equation*}
+显然，仅当$k=n$时，有：
+$$x(k) = \frac{1}{2\pi j}\oint_{c} X(z) z^{k-1}dz $$
+
+\newpage
+$$x(k) = \frac{1}{2\pi j}\oint_{c} X(z) z^{k-1}dz $$
+
+交换符号 $k \rightarrow n$，有：\vspace{-0.3cm}
+$$x(n) = \frac{1}{2\pi j}\oint_{c} X(z) z^{n-1}dz $$
+
+显然，给出反变换的公式后，关键在于求解这个围线积分。围线积分的直接求解非常麻烦。\newline
+
+
+\par 直接计算围线积分非常麻烦，可利用留数定理得到。
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{留数法——留数定理}%[allowframebreaks][shrink]
+%
+%
+\begin{theorem}
+%\item [a] 留数定理
+
+$$\frac{1}{2\pi j}\oint_{c} F(z)dz %= \sum_{k}Res\left[F(z),z_k\right]
+=\sum Res\left[F(z)\right]_{\mbox{C 内诸极点}} $$
+\end{theorem}
+
+%$$x(n) = \frac{1}{2\pi j}\oint_{c} X(z) z^{n-1}dz $$
+%设 $F(z) = X(z)\cdot z^{n-1}$, 则有
+%               $$x(n) = \frac{1}{2\pi j}\oint_{c} F(z)dz $$
+%               如$F(z)$在围线$C$内的极点为$z_k$，则根据留数定理，有：
+%
+%               $$ x(n) = \sum_{k}Res\left[F(z),z_k\right]  \quad\quad\quad\quad\quad\quad$$
+%               $\mbox{即：\quad\quad}x(n)$是围线$C$ 内所有极点的留数之和。
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{利用留数定理求逆Z变换}%[allowframebreaks][shrink]
+已知逆Z变换公式为：
+$$x(n) = \frac{1}{2\pi j}\oint_{c} X(z) z^{n-1}dz $$
+令$F(z) = X(z)\cdot z^{n-1}$, 则有
+$$x(n) = \frac{1}{2\pi j}\oint_{c} F(z)dz $$
+如$F(z)$在围线$C$内的极点为$z_k$，则根据留数定理，有：
+
+$$ x(n)= \frac{1}{2\pi j}\oint_{c} F(z)dz= \sum_{k}Res\left[F(z),z_k\right]  \quad$$
+$\mbox{即：\quad\quad}x(n)$是围线$C$ 内所有极点的留数之和。
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{留数法——留数的求法}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%\item [b] 留数的求法：\par
+%\end{enumerate}
+\begin{enumerate}
+\item 对于单阶极点：$z=z_0$，有
+$$Res\left[F(z),z_0\right] = F(z)(z-z_0)\big|_{z=z_0}$$
+\item 对于m阶高阶极点：$z=z_0$，有
+$$Res\left[X(z)\cdot z^{n-1},z_0\right] =\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
+$$    \frac{1}{(m-1)!}\frac{d^{m-1}}{dz^{m-1}}\left[F(z)(z-z_0)^{m}\right]_{z=z_0}$$
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{留数法——留数辅助定理}%[allowframebreaks][shrink]
+
+\textbf{对于高阶极点，一般难于求解，往往利用留数辅助定理。}\par
+\begin{theorem}
+设被积函数$F(z)=X(z)\cdot z^{n-1}$ 是有理函数，分母多项式的最高阶次大于等于分子多项式最高阶次$2$次以上，则有：
+$$\oint_{C\rightarrow \infty}F(z)dz = 0$$
+$$\therefore\quad\quad\quad \frac{1}{2\pi j}\oint_{C\rightarrow \infty}F(z)dz = 0$$
+即在整个$Z$平面内，该围线积分积分结果为$0$。
+\end{theorem}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{留数法——留数辅助定理}%[allowframebreaks][shrink]
+如果在$X(z)$收敛域内选取一个围线$C$，显然有：
+$$\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C内极点}} +
+\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C外极点}} =0$$
+在用留数法求$x(n)$时，如果围线$C$内存在高阶极点，可通过求围线外的一阶极点的留数，再取反即可。\par
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{留数法——留数辅助定理成立条件}%[allowframebreaks][shrink]
+\textbf{成立条件：}
+\begin{itemize}
+\item 留数辅助定理成立的条件是:$F(z) = X(z)\cdot z^{n-1}$ 的分母多项式的阶次大于等于分子阶次$2$ 次以上。
+$$\mbox{设：\quad} X(z) = \frac{P(z)}{Q(z)}\frac{\rightarrow M\mbox{次}}
+{\rightarrow N\mbox{次}}  \Longrightarrow  N-(M+n-1)\geqslant 2  $$
+$$\mbox{即：\quad} n< N-M \quad\quad \mbox{注意：此即为判断依据}$$
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+设$$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad 2<|z|<3,\quad\mbox{求}x(n)$$
+\end{example}
+\textbf{解：}\par
+\begin{enumerate}
+\item [(1)] $X(z) = \frac{5z}{z^2 + z -6} \quad\quad 2<|z|<3$，\newline
+\par 收敛域为圆环，显然$x(n)$为双边序列。
+$$F(z) = X(z)z^{n-1} = \frac{5z^n}{z^2 + z -6} = \frac{5z^n}{(z-2)(z+3)}$$
+\item [(2)] 确定收敛区域，确定围线$C$；
+\newpage
+\item [(3)] 对不同的$n$进行讨论
+\begin{enumerate}
+\item [(a)] $n\geqslant0$，显然极点为 $z =2$ ，$z=-3$，\\
+但围线C 内只有极点$z=2$，依留数定理，有
+\begin{equation*}
+\begin{split}
+x(n) &= \sum_{k}Res\left[X(z)z^{n-1},z_0 = 2\right]\\
+&= \left[X(z)z^{n-1}(z-z_0)\right]_{z_0 = 2} \\
+&= \left[\frac{5\cdot z^{n}}{(z+3)}\right]_{z = 2} = 2^n
+\end{split}
+\end{equation*}
+\item [(b)] 当$n<0$时，$C$内有极点$z=0$，$z=2$，$C$外有极点$z=-3$，且$z=0$处的极点为高阶极点，这时有：
+$$ X(z) = \frac{5z}{z^2+z-6}=\frac{P(z)}{Q(z)}\frac{\rightarrow M=1\mbox{次}}
+{\rightarrow N=2\mbox{次}}$$
+$$\mbox{有：\quad\quad}  n<N-M = 1\quad\mbox{适用于留数辅助定理}$$
+\begin{equation*}
+\begin{split}
+x(n) &=\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C 内诸极点}}    \\
+&= -\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C 外诸极点}}  \\
+&=\sum Res\left[X(z)z^{n-1}\right]_{z=0,z=2} \\
+&=-\sum Res\left[X(z)z^{n-1}\right]_{z=-3} \\
+&= -\left[\frac{5\cdot z^{n}}{(z-2)}\right]_{z = -3} = (-3)^n
+\end{split}
+\end{equation*}
+\end{enumerate}
+\begin{equation*}
+\therefore  x(n) = \left\{
+\begin{array}
+{r@{,\quad}l}
+2^n\quad  & n \geqslant  0 \\
+(-3)^{n} & n  < 0
+\end{array} \right.
+\end{equation*}
+$$\therefore\quad\quad x(n) = 2^{n}u(n) +(-3)^{n}u(-n-1)$$
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}已知
+$$ X(z)=\frac{1}{1-az^{-1}},\quad |z|>|a|,\mbox{求}x(n)$$\end{example}
+\textbf{解：}\par
+\begin{enumerate}
+\item [(1)] 因：
+$$X(z) = \frac{z}{z -a}, \quad\quad|z|>|a|$$
+收敛域为圆外，显然$x(n)$为因果序列。
+$$F(z) = X(z)z^{n-1} = \frac{z^n}{ z -a}$$ %= \frac{5z^n}{(z-2)(z+3)}
+\item [(2)] 确定收敛区域，围线$C$；
+\newpage
+\item [(3)] 显然有$n\geqslant0$，仅有极点$z =a$。
+\begin{equation*}
+\begin{split}
+x(n) &= \sum_{k}Res\left[\frac{z^n}{z-a},z=a\right]
+= \left[\frac{z^n}{z-a}(z-a)\right]_{z= a} \quad
+= a^n
+\end{split}
+\end{equation*}
+$\therefore\quad\quad x(n) = a^{n}u(n) $
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+\begin{example}
+设$$X(z)=\frac{1-a^2}{(1-az)(1-\frac{a}{z})},\quad |a|<|z|<\left|\frac{1}{a}\right|,\quad\mbox{求}x(n)$$
+\end{example}
+\textbf{解：}\par
+\begin{enumerate}
+\item [(1)] 收敛域为圆环，$|a|<|z|<\left|\frac{1}{a}\right|$, 显然$x(n)$为双边序列。令
+$$F(z) = \frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}$$
+\item [(2)] 确定收敛区域，围线$C$
+\newpage
+\item [(3)] 对不同的$n$进行讨论
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.3\textwidth]{blankpic.jpg}
+%\end{figure}
+\begin{enumerate}
+\item [(a)] $n\geqslant0$，显然C内有极点 $z =a$，有
+\begin{equation*}
+\begin{split}
+x(n) &= \sum_{k} Res\left[F(z),z = a\right] \\
+&= \frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}(z-a)|_{z=a}  =a^n
+\end{split}
+\end{equation*}
+\item [(b)] 当$n<0$时，$C$内有极点$z=0$，$z=a$，$C$外有极点$z=\frac{1}{a}$，且$z=0$ 处的极点为高阶极点，这时可利用留数辅助定理。\par
+首先看是否满足条件：
+$$\mbox{有：\quad} X(z) = \frac{(1-a^2)z}{(1-az)(z-a)}\frac{\rightarrow M=1\mbox{次}}
+{\rightarrow N=2\mbox{次}}$$
+$$\mbox{则：\quad\quad}  n<N-M = 1\mbox{适用于留数辅助定理}$$
+\end{enumerate}
+\end{enumerate}
+\newpage
+应用留数辅助定理可得：
+\begin{equation*}
+\begin{split}
+x(n) &= -\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C 外诸极点}}  \\
+&= -\frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}(z-\frac{1}{a})\Big|_{z=\frac{1}{a}} \\
+&= a^{-n}
+\end{split}
+\end{equation*}
+综合上述分析可得：
+\begin{equation*}
+x(n) = \left\{
+\begin{array}
+{r@{,\quad}l}
+a^n\quad  & n \geqslant  0 \\
+a^{-n}    & n  < 0
+\end{array} \right.
+\end{equation*}
+$$\therefore\quad\quad x(n) = a^{|n|}$$
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%    设$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad\quad 2<|z|<3$\par
+%\end{example}
+%    \textbf{解：}\par
+%    收敛域为圆环，显然$x(n)$为双边序列。
+%    \begin{equation*}
+%     \begin{split}
+%            \frac{X(z)}{z} &= \frac{5z^{-2}}{1+z^{-1} -6z^{-2}} =\frac{5z}{z^2 + z -6}= \frac{5z}{(z+3)(z-2)}\\
+%                           &= \frac{A_1}{z-2} + \frac{A_2}{z+3}
+%      \end{split}
+%    \end{equation*}
+%    \begin{equation*}
+%        \begin{split}
+%            A_1   &= \left[\frac{X(z)}{z}(z-2)\right]_{z =2 } =\frac{5}{z+3}|_{z=2} =1\\
+%            A_2   &= \left[\frac{X(z)}{z}(z+3)\right]_{z =-3 } =\frac{5}{z-2}|_{z=-} =1
+%        \end{split}
+%    \end{equation*}
+%    $$\frac{X(z)}{z} = \frac{1}{z-2} - \frac{1}{z+3} \quad\quad \Longrightarrow\quad\quad X(z) = \frac{z}{z-2} - \frac{z}{z+3}$$
+%    我们知道：
+%    \begin{equation}
+%        \left\{ \begin{aligned}
+%            a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+%          -a^{n}u(-n-1)   &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+%        \end{aligned} \right.
+%    \end{equation}
+%    套公式：
+%    \begin{equation*}
+%       \begin{split}
+%          x(n)    &=  2^{n}u(n) - (-(-3)^{n}u(-n-1)]\\
+%                  &=  2^{n}u(n) +(-3)^{n}u(-n-1)
+%       \end{split}
+%    \end{equation*}
+%
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%    设$$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad 2<|z|<3,\quad\mbox{求}x(n)$$
+%\end{example}
+%    \textbf{解：}\par
+%    \begin{enumerate}
+%      \item $X(z) = \frac{5z}{z^2 + z -6} \quad\quad 2<|z|<3$，收敛域为圆环，显然$x(n)$为双边序列。
+%            $$F(z) = X(z)z^{n-1} = \frac{5z^n}{z^2 + z -6} = \frac{5z^n}{(z-2)(z+3)}$$
+%      \item 确定收敛区域，围线$C$；
+%      \newpage
+%      \item 对不同的$n$进行讨论
+%      \begin{enumerate}
+%        \item $n\geqslant0$，显然极点为 $z =2$ ，$z=-3$，但围线内只有几点$z=2$，依留数定理，有
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= \sum_{k}Res\left[X(z)z^{n-1},z_0 = 2\right]\\
+%                        &= \left[X(z)z^{n-1}(z-z_0)\right]_{z_0 = 2} \\
+%                        &= \left[\frac{5\cdot z^{n}}{(z+3)}\right]_{z = 2} = 2^n
+%              \end{split}
+%              \end{equation*}
+%        \item 当$n<0$时，$C$内有极点$z=0$，$z=2$，$C$外有极点$z=-3$，且$z=0$处的极点为高阶极点，这时有：
+%              $$\mbox{设：\quad} X(z) = \frac{P(z)}{Q(z)}\frac{\rightarrow M=1\mbox{次}}
+%                            {\rightarrow N=2\mbox{次}}$$
+%              $$\mbox{有：\quad\quad}  n<N-M = 1\mbox{适用于留数辅助定理}$$
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &=\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C 内诸极点}}    \\
+%                        &= -\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C 外诸极点}}  \\
+%                        &=\sum Res\left[X(z)z^{n-1}\right]_{z=0,z=2} \\
+%                        &=-\sum Res\left[X(z)z^{n-1}\right]_{z=-3} \\
+%                        &= \left[\frac{5\cdot z^{n}}{(z-2)}\right]_{z = -3} = (-3)^n
+%              \end{split}
+%              \end{equation*}
+%      \end{enumerate}
+%      \begin{equation}
+%        \therefore  x(n) = \left\{
+%        \begin{array}
+%                {r@{,\quad}l}
+%                2^n\quad  & n \geqslant  0 \\
+%                (-3)^{n} & n  < 0
+%            \end{array} \right.
+%      \end{equation}
+%      $$\therefore\quad\quad x(n) = 2^{n}u(n) +(-3)^{n}u(-n-1)$$
+%    \end{enumerate}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}已知
+%    $$ X(z)=\frac{1}{1-az^{-1}},\quad |z|>|a|，\mbox{求}x(n)$$\end{example}
+%    \textbf{解：}\par
+%    \begin{enumerate}
+%      \item 因：
+%            $$X(z) = \frac{z}{z -a}, \quad\quad|z|>|a|$$，收敛域为圆外，显然$x(n)$为因果序列。
+%            $$F(z) = X(z)z^{n-1} = \frac{z^n}{ z -a}$$ %= \frac{5z^n}{(z-2)(z+3)}
+%      \item 确定收敛区域，围线$C$；
+%
+%      \item 显然有$n\geqslant0$，仅有极点$z =a$。
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= \sum_{k}Res\left[\frac{z^n}{z-a},z=a\right]
+%                         = \left[\frac{z^n}{z-a}(z-a)\right]_{z= a} \\
+%                        &=  a^n
+%              \end{split}
+%              \end{equation*}
+%      $\therefore\quad\quad x(n) = a^{n}u(n) $
+%    \end{enumerate}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%设$$X(z)=\frac{1-a^2}{(1-az)(1-\frac{a}{z})},\quad |a|<|z|<\left|\frac{1}{a}\right|,\quad\mbox{求}x(n)$$
+%\end{example}
+%    \textbf{解：}\par
+%    \begin{enumerate}
+%      \item $$F(z) = \frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}$$，
+%            收敛域为圆环，$|a|<|z|<\left|\frac{1}{a}\right|$, 显然$x(n)$为双边序列。
+%            %$$F(z) = X(z)z^{n-1} = \frac{5z^n}{z^2 + z -6} = \frac{5z^n}{(z-2)(z+3)}$$
+%      \item 确定收敛区域，围线$C$,对不同的$n$进行讨论
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.3\textwidth]{blankpic.jpg}
+%\end{figure}
+%      \begin{enumerate}
+%        \item $n\geqslant0$，显然C内有极点 $z =a$，有
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= \sum_{k} Res\left[F(z),z = a\right] \\
+%                        &= \frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}(z-a)|_{z=a}  =a^n
+%              \end{split}
+%              \end{equation*}
+%        \item 当$n<0$时，$C$内有极点$z=0$，$z=a$，$C$外有极点$z=\frac{1}{a}$，且$z=0$ 处的极点为高阶极点，这时有：
+%              $$\mbox{设：\quad} X(z) = X(z)=\frac{(1-a^2)z}{(1-az)(z-a)}\frac{\rightarrow M=1\mbox{次}}
+%                            {\rightarrow N=2\mbox{次}}$$
+%              $$\mbox{有：\quad\quad}  n<N-M = 1\mbox{适用于留数辅助定理}$$
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= -\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C 外诸极点}}  \\
+%                        &= -\frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}(z-\frac{1}{a})|_{z=\frac{1}{a}} \\
+%                        &= a^{-n}
+%              \end{split}
+%              \end{equation*}
+%      \end{enumerate}
+%      \begin{equation}
+%        \therefore  x(n) = \left\{
+%        \begin{array}
+%                {r@{,\quad}l}
+%                a^n\quad  & n \geqslant  0 \\
+%                a^{-n}    & n  < 0
+%            \end{array} \right.
+%      \end{equation}
+%      $$\therefore\quad\quad x(n) = a^{|n|}$$
+%    \end{enumerate}
+%
+%\end{frame}
+
+\subsection*{Z变换的性质和定理}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{移位性质}%[allowframebreaks][shrink]
+
+\begin{dablock}
+$$\mbox{设：\quad} x(n)\leftrightarrow X(z),\quad\quad \mbox{则：}x(n-n_{0})\leftrightarrow z^{-n_0}X(z)$$
+\end{dablock}
+\begin{daproof}
+\begin{equation*}
+\begin{split}
+ZT[x(n)]    &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+ZT[x(n-n_0)] &= \sum_{n=-\infty}^{\infty}x(n-n_0)z^{-n}\mbox{\quad\quad 令：}m= n-n_0\\
+&= \sum_{m=-\infty}^{\infty}x(m)z^{-(m+n_0)}  = z^{-n_0}\sum_{m=-\infty}^{\infty}x(m)z^{-m}\\
+&= z^{-n_0}X(z)
+\end{split}
+\end{equation*}
+\end{daproof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{序列乘以指数序列的性质}%[allowframebreaks][shrink]
+%序列乘以$n$的$ZT$
+\begin{dablock}
+$$\mbox{设：} x(n)\leftrightarrow X(z),R_{x^-}<|a^{-1}z|<R_{x^+} \quad y(n) = a^n x(n)\quad a\in R$$
+$$\mbox{则：}a^nx(n)\leftrightarrow X(a^{-1}z)\quad\quad |a|R_{x^-}<|z|<|a|R_{x^+} $$
+\end{dablock}
+\begin{daproof}
+\begin{equation*}
+\begin{split}
+X(z)            &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+Y(z)            &= \sum_{n=-\infty}^{\infty}a^nx(n)z^{-n} = \sum_{n=-\infty}^{\infty}x(n)(a^{-1}z)^{-n}\\
+&= X(a^{-1}z)
+\end{split}
+\end{equation*}
+$$\mbox{又}\because R_{x^-}<|a^{-1}z|<R_{x^+}\quad\therefore |a|R_{x^-}<|z|<|a|R_{x^+}$$
+\end{daproof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{序列乘以$n$的$ZT$}%[allowframebreaks][shrink]
+%序列乘以$n$的$ZT$
+\begin{dablock}
+$$\mbox{设：\quad} x(n)\leftrightarrow X(z),\quad\quad \mbox{则：}nx(n)\leftrightarrow -z\frac{dX(z)}{dz}$$
+
+\end{dablock}
+\begin{daproof}
+\begin{equation*}
+\begin{split}
+X(z)            &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+\frac{dX(z)}{dz} &= -\sum_{n=-\infty}^{\infty}x(n) n z^{-n-1}
+= -z^{-1}\sum_{n=-\infty}^{\infty}nx(n) z^{-n} \\
+&= -z^{-1}ZT[nx(n)]
+\end{split}
+\end{equation*}
+$$\therefore \quad ZT[nx(n)] = -z\frac{dX(z)}{dz}$$
+\end{daproof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{复共轭序列的ZT}%[allowframebreaks][shrink]
+%序列乘以$n$的$ZT$
+\begin{dablock}
+$$\mbox{设：\quad} x(n)\longleftrightarrow X(z),\quad\quad \mbox{则：}x^*(n)\longleftrightarrow X^*(z^*)$$
+
+\end{dablock}
+\begin{daproof}
+\begin{equation*}
+\begin{split}
+ZT[x(n)]    &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+ZT[x^*(n)]  &= \sum_{n=-\infty}^{\infty}x^*(n)z^{-n}
+= \sum_{n=-\infty}^{\infty}\left[x(n)(z^*)^{-n}\right]^* \\
+&= X^*(z^*)
+\end{split}
+\end{equation*}
+%$$\therefore \quad ZT[nx(n)] = -z\frac{dX(z)}{dz}$$
+\end{daproof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{初值定理}%[allowframebreaks][shrink]
+\begin{dablock}
+设$x(n)$是因果序列，$x(n)\leftrightarrow X(z)$，则有 $$x(0) = \lim_{z\rightarrow \infty} X(z)$$
+\end{dablock}
+\begin{daproof}
+\begin{equation*}
+\begin{split}
+X(z)         &= \sum_{n=0}^{\infty}x(n)z^{-n}= x(0) + x(1)z^{-1}+x(2)z^{-2}+\cdots\\
+\therefore\  x(0) &= \lim_{z\rightarrow \infty} X(z)
+\end{split}
+\end{equation*}
+\end{daproof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{终值定理}%[allowframebreaks][shrink]
+\begin{dablock}
+\quad 设$x(n)$是因果序列，其$Z$变换的极点，除可以有一个一阶极点在$z=1$ 上，其他极点都在单位园内，则：
+$$\lim_{n\rightarrow \infty}x(n) = \lim_{z\rightarrow 1}(z-1)X(z)$$
+\end{dablock}
+%\begin{daproof}
+\textbf{证明：}
+\begin{equation*}
+\begin{split}
+(z-1)X(z) &= zX(z) -X(z) \\
+&= ZT[x(n+1)] - ZT[x(n)]\quad\quad\mbox{根据移位性质}\\
+&= \sum_{n=-\infty}^{\infty}[x(n+1)-x(n)]z^{-n}  \\
+&  \because  x(n)\quad\mbox{因果} \therefore x(n)=0,n<0  \\
+(z-1)X(z) &= \lim_{n\rightarrow \infty}\left[\sum_{m=-1}^{n}x(m+1)z^{-m}- \sum_{m=0}^{n}x(m)z^{-m}\right]\\
+%                      &  \because (z-1)X(z)\mbox{在单位圆上无极点，上式两端对$z=1$取极限}\\
+%            \lim_{z\rightarrow 1}(z-1)X(z)
+%                      &= \lim_{n\rightarrow \infty}\left[\sum_{m=-1}^{n}x(m+1)- \sum_{m=0}^{n}x(m)\right]\\
+%                      &= \lim_{n\rightarrow \infty} \left[(x(0)+x(1)+\cdots +x(n+1))-(x(0)+x(1) + \cdots +x(n))\right] \\
+%                      &= \lim_{n\rightarrow \infty}x(n+1)\\
+%                      &= \lim_{n\rightarrow \infty}x(n)
+\end{split}
+\end{equation*}
+%        如$X(z)$在单位圆上没有极点，则$x(\infty)=0$
+%\end{daproof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{终值定理}%[allowframebreaks][shrink]
+%
+%        \quad 设$x(n)$是因果序列，其$Z$ 变换的极点，除可以有一个一阶极点在$z=1$ 上，其他极点都在单位园内，则：
+%        $$\lim_{n\rightarrow \infty}x(n) = \lim_{z\rightarrow 1}(z-1)X(z)$$
+%        证明：
+\vspace{-0.5cm}
+\begin{equation*}
+\begin{split}
+%            (z-1)X(z) &= zX(z) -X(z) \\
+%%                      &= ZT[x(n+1)] - ZT[x(n)]\quad\quad\mbox{根据移位性质}\\
+%                      &= \sum_{n=-\infty}^{\infty}[x(n+1)-x(n)]z^{-n}  \\
+%                      &  \because  x(n)\quad\mbox{因果} \therefore x(n)=0,n<0  \\
+(z-1)X(z) &= \lim_{n\rightarrow \infty}\left[\sum_{m=-1}^{n}x(m+1)z^{-m}- \sum_{m=0}^{n}x(m)z^{-m}\right]\\
+\because (z-1)X(z)       &\mbox{在单位圆上无极点，上式两端对$z=1$取极限}\\
+\lim_{z\rightarrow 1}(z-1)X(z)
+&= \lim_{n\rightarrow \infty}\left[\sum_{m=-1}^{n}x(m+1)- \sum_{m=0}^{n}x(m)\right]\\
+&= \lim_{n\rightarrow \infty} \big[(x(0)+x(1)+\cdots +x(n+1))\\
+&\quad  \qquad\qquad-(x(0)+x(1) + \cdots +x(n))\big] \\
+&= \lim_{n\rightarrow \infty}x(n+1)\\
+&= \lim_{n\rightarrow \infty}x(n)
+\end{split}
+\end{equation*}
+如$X(z)$在单位圆上没有极点，则$x(\infty)=0$
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{时域卷积定理}%[allowframebreaks][shrink]
+\begin{dablock}
+设
+$$X(n)\leftrightarrow X(z)$$
+$$h(n)\leftrightarrow H(z)$$
+$$y(n)\leftrightarrow Y(z)$$
+如$$y(n) = x(n)*h(n)$$
+则有：
+$$Y(z) = X(z)\cdot H(z)$$
+\end{dablock}
+%证明：
+%$$ y(n)      = x(n)*h(n) = \sum_{k=-\infty}^{\infty}x(k)h(n-k) $$
+%\begin{equation*}
+%\begin{split}
+%    %y(n)      &= x(n)*h(n) = \sum_{k=-\infty}^{\infty}x(k)h(n-k) \\
+%    Y(z)      &= \sum_{n=-\infty}^{\infty}y(n)z^{-n}
+%               =\sum_{n=-\infty}^{\infty}\left[\sum_{k=-\infty}^{\infty}x(k)h(n-k)\right]z^{-n} \\
+%              &= \sum_{k=-\infty}^{\infty}x(k)\sum_{n=-\infty}^{\infty}h(n-k)z^{-n}
+%              = \sum_{k=-\infty}^{\infty}x(k)\cdot z^{-k}\cdot H(z) \\
+%              &= H(z) \sum_{k=-\infty}^{\infty}x(k)\cdot z^{-k}  = X(z)\cdot H(z)
+%\end{split}
+%\end{equation*}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{时域卷积定理}%[allowframebreaks][shrink]
+
+%设\quad $X(n)\leftrightarrow X(z), \quad\quad h(n)\leftrightarrow H(z),\quad\quad y(n)\leftrightarrow Y(z)$\par
+%且\quad $y(n) = x(n)*h(n)$，则有：\quad\quad $Y(z) = X(z)\cdot H(z)$
+
+\begin{daproof}
+$$ y(n)      = x(n)*h(n) = \sum_{k=-\infty}^{\infty}x(k)h(n-k) $$
+\begin{equation*}
+\begin{split}
+%y(n)      &= x(n)*h(n) = \sum_{k=-\infty}^{\infty}x(k)h(n-k) \\
+Y(z)      &= \sum_{n=-\infty}^{\infty}y(n)z^{-n}
+=\sum_{n=-\infty}^{\infty}\left[\sum_{k=-\infty}^{\infty}x(k)h(n-k)\right]z^{-n} \\
+&= \sum_{k=-\infty}^{\infty}x(k)\sum_{n=-\infty}^{\infty}h(n-k)z^{-n}\\
+&= \sum_{k=-\infty}^{\infty}x(k)\cdot z^{-k}\cdot H(z) \\
+&= H(z) \sum_{k=-\infty}^{\infty}x(k)\cdot z^{-k}\quad\quad  = X(z)\cdot H(z)
+\end{split}
+\end{equation*}
+\end{daproof}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\section{利用Z变换分析信号和系统的频域特性}
+%\subsection{传输函数与系统函数}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{传输函数与系统函数}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%  \item 传输函数
+%
+%      \par $h(n)$为系统的单位脉冲响应，即为系统对单位脉冲序列$\delta(n)$的零状态响应：
+%      \begin{equation*}
+%      \begin{split}
+%      \mbox{令：}\quad H(e^{j\omega}) &= FT[h(n)] = \sum_{n=-\infty}^{\infty}h(n)e^{-j\omega n}\\
+%                         &= |H(e^{j\omega})|\cdot e^{j\varphi(\omega)}
+%      \end{split}
+%      \end{equation*}
+%
+%      这里$|H(e^{j\omega})|$称为幅频特性函数，$\varphi(\omega)$称为相频特性函数。
+%
+%  \item 系统函数
+%        $$h(n) \leftrightarrow H(z)\quad\quad : H(z)\mbox{称为系统函数}$$
+%        小结：
+%        \newline \newline \newline
+%\end{enumerate}
+%\end{frame}
+%
+%
+%\begin{frame}[shrink]\frametitle{系统函数$H(z)$与差分方程}%[allowframebreaks][shrink]
+%
+%        $$\mbox{已知}\sum_{k=0}^{N}a_k y(n-k) = \sum_{k=0}^{M}b_k x(n-k),\mbox{求其对应的}H(z).$$
+%        对方程两边进行Z变换， 设：$x(n)\leftrightarrow X(z)$,$y(n)\leftrightarrow Y(z)$,可得：
+%        \begin{equation*}
+%        \begin{split}
+%          ZT\left[\sum_{k=0}^{N}a_k y(n-k)\right] &= ZT\left[\sum_{k=0}^{M}b_k x(n-k)\right]\\
+%             \sum_{k=0}^{N}a_k z^{-k} Y(z)        &=  \sum_{k=0}^{M} b_k z^{-k} X(z)\\
+%             H(z) = \frac{Y(z)}{X(z)} &= \frac{\sum_{k=0}^{M} b_k z^{-k}}{\sum_{k=0}^{N}a_k z^{-k}}
+%          \end{split}
+%        \end{equation*}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[shrink]\frametitle{$H(e^{j\omega})$ 的物理意义-对于单频复指数信号$e^{j\omega n}$的响应}%[allowframebreaks][shrink]
+%
+% %        \textbf{(a)} 对于单频复指数信号$e^{j\omega n}$的响应\par
+%         $H(e^{j\omega})$表示系统对特征序列$e^{j\omega n}$的响应特性，这也是$H(e^{j\omega})$的物理意义。
+%
+%         如系统输入信号为$x(n)=e^{j\omega n}$ ，则输出信号为：
+%         $$y(n) = x(n)*h(n) = \sum_{m=-\infty}^{\infty}h(m)x(n-m)=\sum_{m=-\infty}^{\infty}h(m)e^{j\omega (n-m)}$$
+%         $$ = e^{j\omega n}\sum_{m=-\infty}^{\infty}h(m)e^{-j\omega m} =H(e^{j\omega})e^{j\omega n}\quad
+%         \quad\quad\quad\quad\quad $$
+%         $$\mbox{即：\quad} y(n) = H(e^{j\omega})e^{j\omega n} = |H(e^{j\omega})|e^{j(\omega n + \varphi(\omega))}  \quad
+%         \quad\quad\quad\quad\quad $$
+%         可见，系统的输入为单频复指数函数$e^{j\omega n}$时，输出仍为单频复指数函数，只不过幅度放大$|H(e^{j\omega})|$ 倍，相移$\varphi(\omega)$。
+%\end{frame}
+%\begin{frame}[shrink]\frametitle{$H(e^{j\omega})$ 的物理意义}%[allowframebreaks][shrink]
+%         \textbf{(b)}对正弦信号$x(n)=cos(\omega n)$ 的响应 %\par
+%         \begin{equation*}
+%          \begin{split}
+%            x(n)      &= cos(\omega n) = \frac{1}{2}(e^{j\omega n}+e^{-j\omega n}) \\
+%            y(n)      &= x(n)*h(n)\\
+%                      &= \frac{1}{2}\left(H(e^{j\omega})e^{j\omega n}+ H(e^{j(-\omega)})e^{-j\omega n}\right)\\
+%                      &= \frac{1}{2}\left(|H(e^{j\omega})|e^{j\varphi(\omega)}e^{j\omega n}+|H(e^{-j\omega})|e^{j\varphi(-\omega)}e^{-j\omega n}\right) \\
+%                      &\quad  \quad\quad\quad\quad\mbox{设}  h(n)\in R\quad H^{*}(e^{j\omega})=H(e^{-j\omega}) \\
+%                      &\quad  \quad\quad\therefore |H(e^{j\omega})| = |H(e^{-j\omega})|\quad \varphi(-\omega) = -\varphi(\omega) \\
+%                      &= \frac{1}{2}|H(e^{j\omega})|\left(e^{j(\varphi(\omega)+\omega n)}+e^{-j(\varphi(\omega)+\omega n)}\right)\\
+%                      &= |H(e^{j\omega})|cos(\omega n +\varphi(\omega))
+%          \end{split}
+%         \end{equation*}
+%         可见，线性时不变系统对单频正弦信号$cos(\omega n)$的响应为同频正弦信号，其幅度放大$|H(e^{j\omega n})|$ 倍，相移增加$\varphi(\omega)$
+%\end{frame}
+%\begin{frame}[shrink]\frametitle{说明}%[allowframebreaks][shrink]
+%         \textbf{(c) 说明：} \par
+%         对于一般序列x(n)，可通过傅立叶变换分解为一系列正弦函数的加权和。此时可通过$H(e^{j\omega n})$对不同的频率成分进行加权处理。
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\subsection{系统的因果性和稳定性}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%\item 因果系统的收敛域特点
+%     \begin{enumerate}
+%       \item
+%           $$\mbox{系统因果}\Longleftrightarrow h(n)=0,n<0\quad\mbox{(第一章讨论过)}$$
+%       \item 从Z变换的角度看，则有
+%           \begin{equation}
+%           \begin{split}
+%           \mbox{系统因果} &\longleftrightarrow   \mbox{$H(z)$的收敛域包含$\infty$点,或$|z|>R_{x^{-}}$}\\
+%                           &\quad\quad\quad       \mbox{即极点在某个圆内，收敛域在圆外}
+%           \end{split}
+%           \end{equation}
+%           \textbf{证明：} \par
+%           1 充分性 \quad($\Longleftarrow$)，设$H(z)$ 在$z=\infty$ 处收敛，往证系统因果。
+%           \begin{equation}
+%           \begin{split}
+%               H(z) &=  \sum_{n=-\infty}^{\infty}h(n)z^{-n}\\
+%                    &=  \underbrace{\sum_{n=-\infty}^{-1}h(n)z^{-n}}_{\mbox{正项级数}} \quad
+%                        + \quad\underbrace{\sum_{n=0}^{\infty}h(n)z^{-n}}_{\mbox{负项级数}}
+%           \end{split}
+%           \end{equation}
+%           如$z=\infty$处收敛，则必有$n\leqslant -1$ 时，$h(n)=0$  \par
+%           即： $n<0$时，$h(n)=0$,所以系统因果。
+%
+%           2 必要性 \quad($\Longrightarrow$)，设系统因果，往证$H(z)$在$z=\infty$ 处收敛。
+%           \par 因系统因果，则有$h(n)=0,n<0$,
+%           $$H(z)=\sum_{n=0}^{\infty}h(n)z^{-n}= h(0)+h(1)z^{-1}+h(2)z^{-2}+h(3)z^{-3}+\cdots$$
+%           显然，在$z=\infty$处，$H(z)$ 收敛。
+%     \end{enumerate}
+%
+%\item 系统稳定的收敛域的特点
+%
+%    \begin{enumerate}
+%      \item $$\mbox{系统稳定}\longleftrightarrow  \sum_{n=-\infty}^{\infty}|h(n)|<\infty
+%              \quad\mbox{也是$H(e^{j\omega})$ 存在的条件}$$
+%      \item 从Z变换的角度看，则有
+%            $$\mbox{系统稳定}\Longleftrightarrow  H(z)\mbox{的收敛域包含单位圆}$$
+%            \textbf{证明：} \par
+%           1 充分性 \quad($\Longleftarrow$)，已知$H(z)$收敛域包含单位圆，往证系统因果。
+%           \begin{equation*}
+%           \begin{split}
+%               H(z) &=  \sum_{n=-\infty}^{\infty}h(n)z^{-n}\\
+%                    &   \mbox{令$z=1$,则有} \\
+%               H(1) &=  \sum_{n=-\infty}^{\infty}h(n)  < \infty\\
+%               \therefore
+%               y(n) &= h(n)*x(n) = \sum_{k=-\infty}^{\infty}h(k)x(n-k)\\
+%                    & \because x(n)\mbox{为有界输入},\quad\therefore |x(n)|<B \\
+%               \therefore
+%               y(n) &= h(n)*x(n) = \sum_{k=-\infty}^{\infty}h(k)x(n-k)\leqslant B\sum_{k=-\infty}^{\infty}h(k)<\infty\\
+%                    &  \therefore \mbox{系统稳定}
+%           \end{split}
+%           \end{equation*}
+%
+%           2 必要性 \quad($\Longrightarrow$)，已知系统稳定，往证$H(z)$收敛域包含单位圆。
+%           \begin{equation*}
+%           \begin{split}
+%           \sum_{n=-\infty}^{\infty}|h(n)|
+%                  &= \sum_{n=-\infty}^{\infty}|h(n)|\cdot|e^{-j\omega n}|\quad\quad(\mbox{显然$|e^{-j\omega n}|=1$})\\
+%                  &\geqslant \left|\sum_{n=-\infty}^{\infty}h(n)e^{-j\omega n}\right| =
+%                                        \left|\left[\sum_{n=-\infty}^{\infty}h(n)z^{-n}\right]\right|_{z=e^{j\omega}}\\
+%                  &= \left|H(z)\right|_{z=e^{j\omega}}
+%           \end{split}
+%           \end{equation*}
+%           $$\because \quad\sum_{n=-\infty}^{\infty}|h(n)| <\infty
+%              \quad\quad\quad\therefore \left|H(z)|_{z=e^{j\omega}}\right|<\infty$$
+%           $H(z)$在单位圆上收敛，即$|z|=1$ 是收敛域的一部分。
+%    \end{enumerate}
+%\item 因果稳定系统的收敛域、极点分布特点
+%      \begin{equation*}
+%           \begin{split}
+%           \mbox{系统因果} &\Rightarrow  r<|z| \quad \mbox{收敛域在某个圆外(或收敛域包含无穷远点)}\\
+%           \mbox{系统稳定} &\Rightarrow    0 <r<1,     \quad \mbox{收敛域包含单位圆}
+%      \end{split}
+%      \end{equation*}
+%      系统因果稳定  ：1 $r<|z|\mbox{且} 0 <r<1 $ 或 2. X(z)的极点全部在单位圆内部。
+%\end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%    设$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad\quad 2<|z|<3$\par
+%\end{example}
+%    \textbf{解：}\par
+%    收敛域为圆环，显然$x(n)$为双边序列。
+%    \begin{equation*}
+%     \begin{split}
+%            \frac{X(z)}{z} &= \frac{5z^{-2}}{1+z^{-1} -6z^{-2}} =\frac{5z}{z^2 + z -6}= \frac{5z}{(z+3)(z-2)}\\
+%                           &= \frac{A_1}{z-2} + \frac{A_2}{z+3}
+%      \end{split}
+%    \end{equation*}
+%    \begin{equation*}
+%        \begin{split}
+%            A_1   &= \left[\frac{X(z)}{z}(z-2)\right]_{z =2 } =\frac{5}{z+3}|_{z=2} =1\\
+%            A_2   &= \left[\frac{X(z)}{z}(z+3)\right]_{z =-3 } =\frac{5}{z-2}|_{z=-} =1
+%        \end{split}
+%    \end{equation*}
+%    $$\frac{X(z)}{z} = \frac{1}{z-2} - \frac{1}{z+3} \quad\quad \Longrightarrow\quad\quad X(z) = \frac{z}{z-2} - \frac{z}{z+3}$$
+%    我们知道：
+%    \begin{equation}
+%        \left\{ \begin{aligned}
+%            a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+%          -a^{n}u(-n-1)   &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+%        \end{aligned} \right.
+%    \end{equation}
+%    套公式：
+%    \begin{equation*}
+%       \begin{split}
+%          x(n)    &=  2^{n}u(n) - (-(-3)^{n}u(-n-1)]\\
+%                  &=  2^{n}u(n) +(-3)^{n}u(-n-1)
+%       \end{split}
+%    \end{equation*}
+%
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%    设$$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad 2<|z|<3,\quad\mbox{求}x(n)$$
+%\end{example}
+%    \textbf{解：}\par
+%    \begin{enumerate}
+%      \item $X(z) = =\frac{5z}{z^2 + z -6} \quad\quad 2<|z|<3$，收敛域为圆环，显然$x(n)$ 为双边序列。
+%            $$F(z) = X(z)z^{n-1} = \frac{5z^n}{z^2 + z -6} = \frac{5z^n}{(z-2)(z+3)}$$
+%      \item 确定收敛区域，围线$C$；
+%      \newpage
+%      \item 对不同的$n$进行讨论
+%      \begin{enumerate}
+%        \item $n\geqslant0$，显然极点为 $z =2$ ，$z=-3$，但围线内只有几点$z=2$，依留数定理，有
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= \sum_{k}Res\left[X(z)z^{n-1},z_0 = 2\right]\\
+%                        &= \left[X(z)z^{n-1}(z-z_0)\right]_{z_0 = 2} \\
+%                        &= \left[\frac{5\cdot z^{n}}{(z+3)}\right]_{z = 2} = 2^n
+%              \end{split}
+%              \end{equation*}
+%        \item 当$n<0$时，$C$内有极点$z=0$，$z=2$，$C$外有极点$z=-3$，且$z=0$ 处的极点为高阶极点，这时有：
+%              $$\mbox{设：\quad} X(z) = \frac{P(z)}{Q(z)}\frac{\rightarrow M=1\mbox{次}}
+%                            {\rightarrow N=2\mbox{次}}$$
+%              $$\mbox{有：\quad\quad}  n<N-M = 1\mbox{适用于留数辅助定理}$$
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &=\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C内诸极点}}    \\
+%                        &= -\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C外诸极点}}  \\
+%                        &=\sum Res\left[X(z)z^{n-1}\right]_{z=0,z=2} \\
+%                        &=-\sum Res\left[X(z)z^{n-1}\right]_{z=-3} \\
+%                        &= \left[\frac{5\cdot z^{n}}{(z-2)}\right]_{z = -3} = (-3)^n
+%              \end{split}
+%              \end{equation*}
+%      \end{enumerate}
+%      \begin{equation}
+%        \therefore  x(n) = \left\{
+%        \begin{array}
+%                {r@{,\quad}l}
+%                2^n\quad  & n \geqslant  0 \\
+%                (-3)^{n} & n  < 0
+%            \end{array} \right.
+%      \end{equation}
+%      $$\therefore\quad\quad x(n) = 2^{n}u(n) +(-3)^{n}u(-n-1)$$
+%    \end{enumerate}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}已知
+%    $$ X(z)=\frac{1}{1-az^{-1}},\quad |z|>|a|，\mbox{求}x(n)$$\end{example}
+%    \textbf{解：}\par
+%    \begin{enumerate}
+%      \item 因：
+%            $$X(z) = \frac{z}{z -a}, \quad\quad|z|>|a|$$，收敛域为圆外，显然$x(n)$ 为因果序列。
+%            $$F(z) = X(z)z^{n-1} = \frac{z^n}{ z -a}$$ %= \frac{5z^n}{(z-2)(z+3)}
+%      \item 确定收敛区域，围线$C$；
+%
+%      \item 显然有$n\geqslant0$，仅有极点$z =a$。
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= \sum_{k}Res\left[\frac{z^n}{z-a},z=a\right]
+%                         = \left[\frac{z^n}{z-a}(z-a)\right]_{z= a} \\
+%                        &=  a^n
+%              \end{split}
+%              \end{equation*}
+%      $\therefore\quad\quad x(n) = a^{n}u(n) $
+%    \end{enumerate}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%设$$X(z)=\frac{1-a^2}{(1-az)(1-\frac{a}{z})},\quad |a|<|z|<\left|\frac{1}{a}\right|,\quad\mbox{求}x(n)$$
+%\end{example}
+%    \textbf{解：}\par
+%    \begin{enumerate}
+%      \item $$F(z) = \frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}$$，
+%            收敛域为圆环，$|a|<|z|<\left|\frac{1}{a}\right|$,显然$x(n)$ 为双边序列。
+%            %$$F(z) = X(z)z^{n-1} = \frac{5z^n}{z^2 + z -6} = \frac{5z^n}{(z-2)(z+3)}$$
+%      \item 确定收敛区域，围线$C$,对不同的$n$ 进行讨论
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.3\textwidth]{blankpic.jpg}
+%\end{figure}
+%      \begin{enumerate}
+%        \item $n\geqslant0$，显然C内有极点 $z =a$，有
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= \sum_{k} Res\left[F(z),z = a\right] \\
+%                        &= \frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}(z-a)|_{z=a}  =a^n
+%              \end{split}
+%              \end{equation*}
+%        \item 当$n<0$时，$C$内有极点$z=0$，$z=a$，$C$外有极点$z=\frac{1}{a}$，且$z=0$处的极点为高阶极点，这时有：
+%              $$\mbox{设：\quad} X(z) = X(z)=\frac{(1-a^2)z}{(1-az)(z-a)}\frac{\rightarrow M=1\mbox{次}}
+%                            {\rightarrow N=2\mbox{次}}$$
+%              $$\mbox{有：\quad\quad}  n<N-M = 1\mbox{适用于留数辅助定理}$$
+%              \begin{equation*}
+%              \begin{split}
+%                   x(n) &= -\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C外诸极点}}  \\
+%                        &= -\frac{(1-a^2)\cdot z^n}{-a(z-\frac{1}{a})(z-a)}(z-\frac{1}{a})|_{z=\frac{1}{a}} \\
+%                        &= a^{-n}
+%              \end{split}
+%              \end{equation*}
+%      \end{enumerate}
+%      \begin{equation}
+%        \therefore  x(n) = \left\{
+%        \begin{array}
+%                {r@{,\quad}l}
+%                a^n\quad  & n \geqslant  0 \\
+%                a^{-n}    & n  < 0
+%            \end{array} \right.
+%      \end{equation}
+%      $$\therefore\quad\quad x(n) = a^{|n|}$$
+%    \end{enumerate}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+%\section{序列的Z变换}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{前言}%[allowframebreaks][shrink]
+%
+%在模拟信号和系统中，傅里叶变换用于频域分析，拉氏变换用于复频域分析，其实质为傅里叶
+%变换的推广。类似，时域离散信号与系统中，Z 变换为序列傅里叶变换的推广，用于对序
+%列进行复频域分析。
+%
+%Z变换在数字信号处理中起着很重要的作用，本节讨论其定义、收敛域、逆$Z$变换，性质等
+%四个主要问题。
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\subsection*{Z变换的定义及基本概念}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{$Z$变换的定义}%[allowframebreaks][shrink]
+%\begin{definition}
+%序列$x(n)$的$Z$变换定义为：
+%    \begin{equation} %\label{fol:sft}
+%        X(z) = \sum_{n=-\infty}^{\infty}x(n)z^{-n} \quad\quad\mbox{双边Z变换}
+%    \end{equation}
+%    \begin{equation} %\label{fol:sft}
+%         X(z) = \sum_{n=0}^{\infty}x(n)z^{-n}    \quad\quad\mbox{单边Z变换}
+%    \end{equation}
+%    式中$z$是一个复变量，它所在的平面称为$z$ 平面。对于因果序列，两者都一样。本书均使用双边$Z$变换定义。
+%\end{definition}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{$Z$变换收敛域的概念}%[allowframebreaks][shrink]
+%$Z$变换收敛域的概念
+%      \begin{enumerate}
+%        \item $Z$变换实际上为一个罗朗级数，其存在条件为该级数绝对收敛，也就是满足：
+%              $$\sum_{n=-\infty}^{\infty}|x(n)z^{-n}|  <\infty $$
+%              满足该条件的$z$值取值范围称为$X(z)$的收敛域。
+%        \item 一般的收敛域为环状域，即：$R_{x-}<|z|<R_{x+}$，也就是说，收敛域是以$R_{x-}$和$R_{x+}$
+%              为收敛半径的两个圆形成的环状域。$R_{x-}$ 可以小到$0$，$R_{x+}$可以达到无穷大。
+%              \par 此处画出收敛域形状图：
+%              \newpage\newpage\newpage\newpage\newpage\newpage
+%      \end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%$Z$变换的零极点的概念\par
+%        常用的$Z$变换是一个有理函数，可用两个多项式之比表示。
+%        $$X(z) = \frac{P(z)}{Q(z)}$$
+%        $P(z)=0$的根，称为$X(z)$的零点。\par
+%        $Q(z)=0$的根，称为$X(z)$的极点。\par
+%        $X(z)$的性质主要取决于极点，在极点处$ZT$不存在。
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%序列$Z$变换与傅里叶变换的关系
+%        \begin{equation*}
+%          \begin{split}
+%          X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\\
+%          X(z)           &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}
+%          \end{split}
+%        \end{equation*}
+%        对比可得：
+%        $$z = e^{j\omega}\mbox{,\quad 即：\quad}X(e^{j\omega}) = X(z)|_{z=e^{j\omega}}$$
+%        即，单位圆上的$Z$变换就是序列的傅里叶变换。
+%        \begin{enumerate}[说明：]\par
+%          \item $Z$平面的单位圆一定要在$Z$ 变换的收敛域内。
+%          \item 傅里叶变换是$Z$变换的特例。
+%        \end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%\begin{example}
+%        求$x(n)=u(n)$的$Z$变换。\par
+%        \textbf{解：}
+%            $$X(z) = ZT[x(n)] = \sum_{n=-\infty}^{\infty}x(n)z^{- n} = \sum_{n=0}^{\infty}(z^{-1})^{ n} = \frac{1}{1-z^{-1}}$$
+%
+%            $X(z)$存在的条件是： \quad\quad $|z^{-1}|<1$\quad\quad 即$|z|>1$\par
+%            极点为$z=1$，单位圆上$Z$变换不存在，其傅里叶变换也不存在。\par
+%            但引入冲激函数后，可得到其傅里叶变换。
+%
+%        \end{example}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\subsection*{Z变换收敛域的讨论}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%在$x(n)\leftrightarrow X(z)$时，使得$Z$ 变换存在，也就是使得洛朗级数绝对可和的$z$ 变换取值范围，
+%为$Z$变换的收敛域。
+%
+%注意： 收敛域取决于$x(n)$的性质。
+%$$X(z)= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \cdots + x(-1)z+x(0)+x(1)z^{-1}+\cdots $$
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%  \item \textbf{有限长序列}\par
+%      \begin{equation}
+%            x(n) = \left\{
+%                \begin{array}
+%                    {r@{,\quad}l}
+%                    x(n)    & \ n_1 \leqslant n \leqslant n_2    \mbox{(不全为0)}\\
+%                    0\quad  & \mbox{其他 \quad\quad (全为0）}
+%                \end{array} \right.
+%      \end{equation}
+%      有限项级数求和必定收敛，仅需考虑0 点，及$\infty$ 两点情况。
+%      \begin{enumerate}[可分四种情况讨论:]\par
+%        \item[$1^0$] $n_2 > n_1\geqslant 0$,\quad\quad 仅存在负幂级数，$0<|z|\leqslant \infty$ (因果序列)
+%        \item[$2^0$] $n_1 < n_2\leqslant 0$,\quad\quad 仅存在正幂级数，$0\leqslant|z|< \infty$
+%        \item[$3^0$] $n_1<0,n_2 >0$,        \quad 存在正负幂级数，$0<|z|<\infty$
+%        \item[$4^0$] $n_1 = 0, n_2 =0$,     \quad 整个$Z$平面。
+%      \end{enumerate}
+%      \newpage
+%      \begin{example}
+%      求$x(n)=R_{N}(n)$的$Z$变换.\par
+%      \textbf{解：}
+%      $$X(z)= \sum_{n=-\infty}^{\infty}R_{N}(n)z^{-n} = \sum_{n=0}^{N-1}(z^{-1})^{n} = \frac{1-z^{-N}}{1-z^{-1}}$$
+%      $X(z)$为有限长级数求和，必定收敛，只需考虑$z=0,z=\infty$两点。\par
+%      显然有： \quad\quad\quad $0<|z|\leqslant \infty$。
+%      \end{example}
+%      \newpage
+%  \item \textbf{右序列}
+%      \begin{equation}
+%        x(n) = \left\{
+%            \begin{array}
+%                {r@{,\quad}l}
+%                x(n)    & n \geqslant n_1 \\
+%                0\quad  & n \leqslant n_1
+%            \end{array} \right.
+%      \end{equation}
+%      %$$X(z)= \sum_{n=n_1}^{\infty}x(n)z^{-n} = \sum_{n=n_1}^{-1}x(n)z^{-n} + \sum_{n=0}^{\infty}x(n)z^{-n}$$
+%      %可以看出，左半为有限长序列，右半为因果序列。
+%      右边序列收敛域为Z平面上以原点为圆心的某个园外。
+%      \begin{enumerate}[可分两种情况讨论：]\par
+%        \item $n_1<0$时，存在正幂级数，$|z|$ 不能为$\infty$，此时有: $R_{x-} <|z| <\infty$
+%        \item $n_1\geqslant0$时，为因果序列。有： \quad $R_{x-} <|z| \leqslant\infty$
+%      \end{enumerate}
+%      %如下图： \newline\newline\newline
+%      \newpage
+%  \item \textbf{左序列}
+%      \begin{equation}
+%        x(n) = \left\{
+%            \begin{array}
+%                {r@{,\quad}l}
+%                x(n)    & n \leqslant n_2 \\
+%                0\quad  & n > n_2
+%            \end{array} \right.
+%      \end{equation}
+%      %$$X(z)= \sum_{n=-\infty}^{n_2}x(n)z^{-n} $$
+%      左边序列收敛域为Z平面上以原点为圆心的某个园内。
+%      \begin{enumerate}[可分两种情况讨论：]\par
+%        \item $n_2>0$时，收敛区不包括$0$ 点，此时有： \quad $0 <|z| < R_{x+}$
+%        \item $n_2\leqslant0$时，有： \quad $0 \leqslant|z| <R_{x+}$
+%      \end{enumerate}
+%      %如下图： \newline\newline\newline\newline\newline\newline
+%     \newpage
+%  \item \textbf{双边序列}
+%      $$X(z)= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \sum_{n=-\infty}^{-1}x(n)z^{-n} + \sum_{n=0}^{\infty}x(n)z^{-n}$$
+%      可见双边序列由因果序列和反因果序列组成，两者的收敛域分别为：$R_{x-} <|z|$和$|z|<R_{x+}$\par
+%      双边序列取两者的交集，收敛域为： \quad$R_{x-} <|z|<R_{x+}\quad $，为一环状区域。\par
+%      如无交集，ZT不存在。
+%\end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%      \textbf{求$x(n)=a^{n}u(n)$的$Z$变换及收敛域.（因果序列）}\end{example}
+%      \textbf{解：}
+%      \begin{equation*}
+%        \begin{split}
+%            X(z) &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \sum_{n=0}^{\infty}\left(\frac{a}{z}\right)^{n}
+%                 = \frac{1}{1-\frac{a}{z}} = \frac{z}{z-a}  %\mbox{\quad\quad 收敛域为：}  |z|>|a|
+%        \end{split}
+%      \end{equation*}
+%      $\mbox{\quad\quad 收敛域为：} \quad\quad |z|>|a|$
+%  %\end{example}
+%  \begin{example}
+%      \textbf{求$x(n)=-a^{n}u(-n-1)$的$Z$ 变换及收敛域.（反因果序列）}\end{example}
+%
+%      \textbf{解：}
+%      \begin{equation*}
+%      \begin{split}
+%          X(z)         &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = -\sum_{n=-\infty}^{-1}a^{n}z^{-n} \\
+%          \mbox{注意}：&\quad  \quad\quad\sum_{n=-\infty}^{-1}x(n)z^{-n} = \sum_{n=1}^{\infty}x(-n)z^{n}\\
+%          X(z)         &= -\sum_{n=1}^{\infty}a^{-n}z^{n} = -\frac{\frac{z}{a}}{1-\frac{z}{a}}= \frac{z}{z-a}
+%      \end{split}
+%      \end{equation*}
+%      $\mbox{\quad\quad 收敛域为：}  |z|<|a|$
+%  %\end{example}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%\begin{example}
+%      \textbf{求$x(n)=-a^{n}u(-n-1)$的$Z$ 变换及收敛域.（反因果序列）}\newline
+%      \textbf{解：}
+%      \begin{equation*}
+%      \begin{split}
+%          X(z)         &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = -\sum_{n=-\infty}^{-1}a^{n}z^{-n} \\
+%          \mbox{注意}：&\quad  \quad\quad\sum_{n=-\infty}^{-1}x(n)z^{-n} = \sum_{n=1}^{\infty}x(-n)z^{n}\\
+%          X(z)         &= -\sum_{n=1}^{\infty}a^{-n}z^{n} = -\frac{\frac{z}{a}}{1-\frac{z}{a}}= \frac{z}{z-a}
+%      \end{split}
+%      \end{equation*}
+%      $\mbox{\quad\quad 收敛域为：}  |z|<|a|$
+%  \end{example}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%\textbf{小结：}
+%  \begin{equation*}
+%     \begin{split}
+%          a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+%          -a^{n}u(-n-1) &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+%     \end{split}
+%  \end{equation*}
+%  \textbf{说明：} 不同的$x(n)$，其$Z$变换表达式可能相同，所以$Z$变换$X(z)$与收敛域联系在一起才有意义。即：
+%  $$X(z)\quad + \quad \mbox{收敛域}\quad\Longleftrightarrow x(n)$$
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%    \textbf{求$x(n)=a^{|n|}$,$a$为实数，求$x(n)$的$Z$ 变换及收敛域.}\par
+%      \textbf{解：}
+%      \begin{equation*}
+%        \begin{split}
+%            X(z) &= \sum_{n=-\infty}^{\infty}x(n)z^{-n} = \sum_{n=-\infty}^{\infty}a^{|n|}z^{-n} \\
+%                 &= \sum_{n=-\infty}^{-1}a^{-n}z^{-n} + \sum_{n=0}^{\infty}a^{n}z^{-n}
+%                 = \sum_{n=1}^{\infty}a^{n}z^{n} + \sum_{n=0}^{\infty}a^{n}z^{-n}\\
+%                 &= \frac{az}{1-az} + \frac{1}{1-a z^{-1}} = \frac{1-a^{2}}{(1-az)(1-az^{-1})}
+%        \end{split}
+%      \end{equation*}
+%      $\mbox{\quad\quad 且收敛域需同时满足}  |az|<1, |az^{-1}|<1,\mbox{即}：|a|<|z|<|\frac{1}{a}| (|a|<1)$
+%
+%      $\mbox{如： \quad\quad} |a|>1,\mbox{\quad 无公共收敛域，则$X(z)$ 不存在。} $
+%\end{example}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection*{逆Z变换}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%
+%    已知$X(z)$及收敛域，求$x(n)$。
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\subsubsection*{部分分式法}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{部分分式法}%[allowframebreaks][shrink]
+%[步骤：]
+%\begin{enumerate}
+%  \item  分解因式
+%        $$\frac{X(z)}{z}=\sum_{m=1}^{N}\frac{A_m}{z-z_m} \mbox{\quad\quad 部分分式和}\quad\quad\quad\quad\quad\quad\quad\quad$$
+%        $$\mbox{\quad\quad 其中系数为：} A_m =\left[\frac{X(z)}{z}(z-z_m)\right]_{z=z_m}$$
+%
+%  \item 套公式。
+%\end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{example}
+%    设$$X(z)=\frac{5z^{-1}}{1+z^{-1} -6z^{-2}},\quad\quad 2<|z|<3$$
+%\end{example}
+%    \textbf{解：}\par
+%    收敛域为圆环，显然$x(n)$为双边序列。
+%    \begin{equation*}
+%     \begin{split}
+%            \frac{X(z)}{z} &= \frac{5z^{-2}}{1+z^{-1} -6z^{-2}} =\frac{5}{z^2 + z -6}= \frac{5}{(z+3)(z-2)}\\
+%                           &= \frac{A_1}{z-2} + \frac{A_2}{z+3}
+%      \end{split}
+%    \end{equation*}
+%    \begin{equation*}
+%        \begin{split}
+%            A_1   &= \left[\frac{X(z)}{z}(z-2)\right]_{z =2 } =\frac{5}{z+3}|_{z=2} =1\\
+%            A_2   &= \left[\frac{X(z)}{z}(z+3)\right]_{z =-3 } =\frac{5}{z-2}|_{z=-3} =-1
+%        \end{split}
+%    \end{equation*}
+%    $$\frac{X(z)}{z} = \frac{1}{z-2} - \frac{1}{z+3} \quad\quad \Longrightarrow\quad\quad X(z) = \frac{z}{z-2} - \frac{z}{z+3}$$
+%    我们知道：
+%    \begin{equation}
+%        \left\{ \begin{aligned}
+%            a^{n}u(n)     &\leftrightarrow \frac{z}{z-a} \quad\quad |z|>|a| \mbox{\quad\quad 因果序列}\\
+%          -a^{n}u(-n-1)   &\leftrightarrow \frac{z}{z-a} \quad\quad |z|<|a| \mbox{\quad\quad 反因果序列}
+%        \end{aligned} \right.
+%    \end{equation}
+%    套公式：
+%    \begin{equation*}
+%       \begin{split}
+%          x(n)    &=  2^{n}u(n) - (-(-3)^{n}u(-n-1))\\
+%                  &=  2^{n}u(n) +(-3)^{n}u(-n-1)
+%       \end{split}
+%    \end{equation*}
+%
+%
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\subsubsection*{留数法（围线积分法）}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%  \item [1] 逆Z变换：
+%          $$X(z) = \sum_{n=-\infty}^{\infty}x(n)z^{-n}\quad\quad R_{x-} <|z|<R_{x+}$$
+%          则有：
+%          $$x(n) = \frac{1}{2\pi j}\oint_{c} X(z) z^{n-1}dz \quad\quad\quad\quad\quad\quad$$
+%  \par   \textbf{证明：}此处引入柯西积分定理（引入，不做证明）
+%        \begin{equation}
+%            \frac{1}{2\pi j}\oint_{c} z^{m-1}dz = \left\{
+%            \begin{array}
+%                {r@{,\quad}l}
+%                1    & m   =  0 \\
+%                0    & m \neq 0
+%            \end{array} \right.
+%        \end{equation}
+%        这里$C$为一个逆时针封闭曲线，那么：
+%        \begin{equation*}
+%        \begin{split}
+%            \frac{1}{2\pi j}\oint_{c} X(z) z^{k-1}dz
+%                 &= \frac{1}{2\pi j}\oint_{c} \left[ \sum_{n=-\infty}^{\infty}x(n)z^{-n} z^{k-1}\right]dz \\
+%                 &= \frac{1}{2\pi j}\oint_{c} \left[  \sum_{n=-\infty}^{\infty}x(n)z^{-n+k-1}\right]dz \\
+%                 &= \sum_{n=-\infty}^{\infty}x(n)\left[\frac{1}{2\pi j}\oint_{c}  z^{-n+k-1}dz\right]   %        = x(k)
+%        \end{split}
+%    \end{equation*}
+%    显然，仅当$k=n$时，有：\vspace{-0.3cm}
+%    $$x(k) = \frac{1}{2\pi j}\oint_{c} X(z) z^{k-1}dz $$
+%    交换符号 $k \rightarrow n$，有：\vspace{-0.3cm}
+%    $$x(n) = \frac{1}{2\pi j}\oint_{c} X(z) z^{n-1}dz $$
+%
+%  \end{enumerate}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%\item [2]  留数定理
+%\end{enumerate}
+%       \par 直接计算围线积分非常麻烦，可利用留数定理得到。
+%       \begin{enumerate}
+%         \item [a] 设 $F(z) = X(z)\cdot z^{n-1}$,则有：
+%               $$x(n) = \frac{1}{2\pi j}\oint_{c} F(z)dz $$
+%               如$F(z)$在围线内的极点为$z_k$，则根据留数定理，有：
+%               $$\frac{1}{2\pi j}\oint_{c} F(z)dz = \sum_{k}Res\left[F(z),z_k\right] =
+%                \sum Res\left[F(z)\right]_{\mbox{C 内诸极点}} $$\vspace{-0.3cm}
+%               $$ x(n) = \sum_{k}Res\left[F(z),z_k\right]  \quad\quad\quad\quad\quad\quad$$
+%               $\mbox{即：\quad\quad}x(n)$是围线$C$ 内所有极点的留数之和。
+%         \item [b] 留数的求法：\par
+%               \begin{enumerate}
+%                 \item 对于单阶极点：$z=z_0$，有
+%                       $$Res\left[X(z)\cdot z^{n-1},z_0\right] = X(z)\cdot z^{n-1}(z-z_0)|_{z=z_0}$$
+%                 \item 对于m阶高阶极点：$z=z_0$，有
+%                       $$Res\left[X(z)\cdot z^{n-1},z_0\right] =
+%                           \frac{1}{(m-1)!}\frac{d^{m-1}}{dz^{m-1}}\left[X(z)\cdot z^{n-1}(z-z_0)^{m}\right]_{z=z_0}$$
+%               \end{enumerate}
+%         \item [c] 留数辅助定理\par
+%               \textbf{对于高阶极点，一般难于求解，往往利用留数辅助定理。}\par
+%               设被积函数$F(z)=X(z)\cdot z^{n-1}$是有理函数，分母的最高阶次大于等于分子最高阶次$2$次以上，则有：
+%               $$\oint_{C\rightarrow \infty}F(z)dz = 0$$
+%               $$\therefore\quad\quad\quad \frac{1}{2\pi j}\oint_{C\rightarrow \infty}F(z)dz = 0$$
+%               即在整个$Z$平面内，该围线积分积分结果为$0$。
+%
+%               如果在$X(z)$收敛域内选取一个围线$C$，显然有：
+%               $$\sum Res\left[X(z)z^{n-1}\right]_{\mbox{C内诸极点}} +
+%                               \sum Res\left[X(z)z^{n-1}\right]_{\mbox{C外诸极点}} =0$$
+%               在用留数法求$x(n)$时，如果围线$C$内存在高阶极点，可通过求围线外的一阶极点的留数，再取反即可。\par
+%               \textbf{成立条件：}
+%               \begin{itemize}
+%                 \item 留数辅助定理成立的条件是:$F(z) = X(z)\cdot z^{n-1}$的分母阶次大于等于分子阶次$2$ 次以上。
+%                     $$\mbox{设：\quad} X(z) = \frac{P(z)}{Q(z)}\frac{\rightarrow M\mbox{次}}
+%                            {\rightarrow N\mbox{次}}  \Longrightarrow  N-M-n+1\geqslant 2  $$
+%                     $$\mbox{即：\quad} n< N-M \quad\quad \mbox{注意：此即为判断依据}$$
+%               \end{itemize}
+%       \end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\subsection*{Z变换的性质和定理}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%  \item 线性（不讲，但注意收敛域的变化）
+%  \item 移位 （非常重要）
+%        $$\mbox{设：\quad} x(n)\leftrightarrow X(z),\quad\quad \mbox{则：}x(n-n_{0})\leftrightarrow z^{-n_0}X(z)$$
+%        证：
+%            \begin{equation*}
+%            \begin{split}
+%               ZT[x(n)]    &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+%              ZT[x(n-n_0)] &= \sum_{n=-\infty}^{\infty}x(n-n_0)z^{-n}\mbox{\quad\quad 令：}m= n-n_0\\
+%                           &= \sum_{m=-\infty}^{\infty}x(m)z^{-(m+n_0)}  = z^{-n_0}\sum_{m=-\infty}^{\infty}x(m)z^{-m}\\
+%                           &= z^{-n_0}X(z)
+%            \end{split}
+%            \end{equation*}
+%            \end{enumerate}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{序列乘以$n$的$ZT$}%[allowframebreaks][shrink]
+%序列乘以$n$的$ZT$
+%        $$\mbox{设：\quad} x(n)\leftrightarrow X(z),\quad\quad \mbox{则：}nx(n)\leftrightarrow -z\frac{dX(z)}{dz}$$
+%        证：从右到左：
+%            \begin{equation*}
+%            \begin{split}
+%               X(z)            &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\\
+%              \frac{dX(z)}{dz} &= -\sum_{n=-\infty}^{\infty}x(n) n z^{-n-1} \\
+%                               &= -z^{-1}\sum_{n=-\infty}^{\infty}nx(n) z^{-n} \\
+%                               &= -z^{-1}ZT[nx(n)]
+%            \end{split}
+%            \end{equation*}
+%            $$\therefore \quad ZT[nx(n)] = -z\frac{dX(z)}{dz}$$
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{初值定理}%[allowframebreaks][shrink]
+%
+%        \par 设$x(n)$是因果序列，$x(n)\leftrightarrow X(z)$，则有 $$x(0) = \lim_{z\rightarrow \infty} X(z)$$
+%        证明：
+%            \begin{equation*}
+%            \begin{split}
+%               X(z)         &= \sum_{n=0}^{\infty}x(n)z^{-n}= x(0) + x(1)z^{-1}+x(2)z^{-2}+\cdots\\
+%               \therefore\  x(0) &= \lim_{z\rightarrow \infty} X(z)
+%            \end{split}
+%            \end{equation*}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{终值定理}%[allowframebreaks][shrink]
+%
+%        \quad 设$x(n)$是因果序列，其$Z$ 变换的极点，除可以有一个一阶极点在$z=1$ 上，其他极点都在单位园内，则：
+%        $$\lim_{n\rightarrow \infty}x(n) = \lim_{z\rightarrow 1}(z-1)X(z)$$
+%        证明：
+%        \begin{equation*}
+%        \begin{split}
+%            (z-1)X(z) &= zX(z) -X(z) \\
+%                      &= ZT[x(n+1)] - ZT[x(n)]\quad\quad\mbox{根据移位性质}\\
+%                      &= \sum_{n=-\infty}^{\infty}[x(n+1)-x(n)]z^{-n}  \\
+%                      &  \because  x(n)\quad\mbox{因果} \therefore x(n)=0,n<0  \\
+%            (z-1)X(z) &= \lim_{n\rightarrow \infty}\left[\sum_{m=-1}^{n}x(m+1)z^{-m}- \sum_{m=0}^{n}x(m)z^{-m}\right]\\
+%                      &  \because (z-1)X(z)\mbox{在单位圆上无极点，上式两端对$z=1$取极限}\\
+%            \lim_{z\rightarrow 1}(z-1)X(z)
+%                      &= \lim_{n\rightarrow \infty}\left[\sum_{m=-1}^{n}x(m+1)- \sum_{m=0}^{n}x(m)\right]\\
+%                      &= \lim_{n\rightarrow \infty} \left[(x(0)+x(1)+\cdots +x(n+1))-(x(0)+x(1) + \cdots +x(n))\right] \\
+%                      &= \lim_{n\rightarrow \infty}x(n+1)\\
+%                      &= \lim_{n\rightarrow \infty}x(n)
+%        \end{split}
+%        \end{equation*}
+%        如$X(z)$在单位圆上没有极点，则$x(\infty)=0$
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{时域卷积定理}%[allowframebreaks][shrink]
+%
+%设\quad $X(n)\leftrightarrow X(z), \quad\quad h(n)\leftrightarrow H(z),\quad\quad y(n)\leftrightarrow Y(z)$\par
+%且\quad $y(n) = x(n)*h(n)$，则有：\quad\quad $Y(z) = X(z)\cdot H(z)$
+%
+%证明：
+%$$ y(n)      = x(n)*h(n) = \sum_{k=-\infty}^{\infty}x(k)h(n-k) $$
+%\begin{equation*}
+%\begin{split}
+%    %y(n)      &= x(n)*h(n) = \sum_{k=-\infty}^{\infty}x(k)h(n-k) \\
+%    Y(z)      &= \sum_{n=-\infty}^{\infty}y(n)z^{-n}
+%               =\sum_{n=-\infty}^{\infty}\left[\sum_{k=-\infty}^{\infty}x(k)h(n-k)\right]z^{-n} \\
+%              &= \sum_{k=-\infty}^{\infty}x(k)\sum_{n=-\infty}^{\infty}h(n-k)z^{-n}
+%              = \sum_{k=-\infty}^{\infty}x(k)\cdot z^{-k}\cdot H(z) \\
+%              &= H(z) \sum_{k=-\infty}^{\infty}x(k)\cdot z^{-k}  = X(z)\cdot H(z)
+%\end{split}
+%\end{equation*}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{2.6 利用Z变换分析信号和系统的频域特性}
+\subsection*{传输函数与系统函数}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{传输函数与系统函数}%[allowframebreaks][shrink]
+\begin{enumerate}
+\item 传输函数
+
+\par $h(n)$为系统的单位脉冲响应，即为系统对单位脉冲序列$\delta(n)$ 的零状态响应：
+\begin{equation*}
+\begin{split}
+\mbox{令：}\quad H(e^{j\omega}) &= FT[h(n)] = \sum_{n=-\infty}^{\infty}h(n)e^{-j\omega n}\\
+&= |H(e^{j\omega})|\cdot e^{j\varphi(\omega)}
+\end{split}
+\end{equation*}
+
+这里$|H(e^{j\omega})|$称为幅频特性函数，$\varphi(\omega)$称为相频特性函数。
+
+\item 系统函数
+$$h(n) \leftrightarrow H(z)\quad\quad : H(z)\mbox{称为系统函数}$$
+%小结：
+%        \newline \newline \newline
+\end{enumerate}
+\end{frame}
+%\begin{frame}[shrink]\frametitle{系统函数$H(z)$与差分方程}
+% 系统函数$H(z)$与差分方程
+%        $$\mbox{例：\quad 已知}\sum_{k=0}^{N}a_k y(n-k) = \sum_{k=0}^{M}b_k x(n-k),\mbox{求其对应的}H(z).$$
+%        对方程两边进行Z变换，可得：
+%        \begin{equation*}
+%        \begin{split}
+%          ZT\left[\sum_{k=0}^{N}a_k y(n-k)\right] &= ZT\left[\sum_{k=0}^{M}b_k x(n-k)\right]\\
+%            \mbox{设：}  x(n)\leftrightarrow X(z)       &   \quad \quad y(n)\leftrightarrow Y(z)  \\
+%             \sum_{k=0}^{N}a_k z^{-k} Y(z)        &=  \sum_{k=0}^{M} b_k z^{-k} X(z)\\
+%             H(z) = \frac{Y(z)}{X(z)} &= \frac{\sum_{k=0}^{M} b_k z^{-k}}{\sum_{k=0}^{N}a_k z^{-k}}
+%          \end{split}
+%        \end{equation*}
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{系统函数$H(z)$与差分方程}%[allowframebreaks][shrink]
+
+$$\mbox{已知}\sum_{k=0}^{N}a_k y(n-k) = \sum_{k=0}^{M}b_k x(n-k),\mbox{求其对应的}H(z).$$
+对方程两边进行Z变换， 设：$x(n)\leftrightarrow X(z)$,$y(n)\leftrightarrow Y(z)$, 可得：
+\begin{equation*}
+\begin{split}
+ZT\left[\sum_{k=0}^{N}a_k y(n-k)\right] &= ZT\left[\sum_{k=0}^{M}b_k x(n-k)\right]\\
+\sum_{k=0}^{N}a_k z^{-k} Y(z)        &=  \sum_{k=0}^{M} b_k z^{-k} X(z)\\
+H(z) = \frac{Y(z)}{X(z)} &= \frac{\sum_{k=0}^{M} b_k z^{-k}}{\sum_{k=0}^{N}a_k z^{-k}}
+\end{split}
+\end{equation*}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]\frametitle{系统对于单频复指数信号$e^{j\omega n}$ 的响应}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%  \item [(a)] 系统对于单频复指数信号$e^{j\omega n}$ 的响应\par
+%\end{enumerate}
+
+
+如系统输入信号为$x(n)=e^{j\omega n}$ ，则输出信号为：
+$$y(n) = x(n)*h(n) = \sum_{m=-\infty}^{\infty}h(m)x(n-m)=\sum_{m=-\infty}^{\infty}h(m)e^{j\omega (n-m)}$$
+$$ = e^{j\omega n}\sum_{m=-\infty}^{\infty}h(m)e^{-j\omega m} =H(e^{j\omega})e^{j\omega n}\quad
+\quad\quad\quad\quad\quad $$
+$$\mbox{即：\quad} y(n) = H(e^{j\omega})e^{j\omega n} = |H(e^{j\omega})|e^{j(\omega n + \varphi(\omega))}  \quad
+\quad\quad\quad\quad\quad $$
+
+
+% $$\mbox{即：\quad} y(n) = H(e^{j\omega})e^{j\omega n} = |H(e^{j\omega})|e^{j(\omega n + \varphi(\omega))}  \quad
+%         \quad\quad\quad\quad\quad $$
+
+可见，系统的输入为单频复指数函数$e^{j\omega n}$时，输出仍为单频复指数函数，只不过幅度放大$|H(e^{j\omega})|$ 倍，相移$\varphi(\omega)$。
+\newpage
+\textbf{ 所以，$H(e^{j\omega})$表示系统对特征序列$e^{j\omega n}$的响应特性，这也是$H(e^{j\omega})$的物理意义。}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{系统对正弦信号$x(n)=cos(\omega n)$ 的响应}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%  \item [(b)] 系统对正弦信号$x(n)=cos(\omega n)$ 的响应 %\par
+%\end{enumerate}
+\begin{equation*}
+\begin{split}
+x(n)      &= cos(\omega n) = \frac{1}{2}(e^{j\omega n}+e^{-j\omega n}) \\
+y(n)      &= x(n)*h(n)\\
+&= \frac{1}{2}\left(H(e^{j\omega})e^{j\omega n}+ H(e^{j(-\omega)})e^{-j\omega n}\right)\\
+&= \frac{1}{2}\left(|H(e^{j\omega})|e^{j\varphi(\omega)}e^{j\omega n}+|H(e^{-j\omega})|e^{j\varphi(-\omega)}e^{-j\omega n}\right) \\
+&\quad  \quad\quad\quad\quad\mbox{设}  h(n)\in R\quad H^{*}(e^{j\omega})=H(e^{-j\omega}) \\
+&\quad  \quad\quad\therefore |H(e^{j\omega})| = |H(e^{-j\omega})|\quad \varphi(-\omega) = -\varphi(\omega) \\
+&= \frac{1}{2}|H(e^{j\omega})|\left(e^{j(\varphi(\omega)+\omega n)}+e^{-j(\varphi(\omega)+\omega n)}\right)\\
+&= |H(e^{j\omega})|cos(\omega n +\varphi(\omega))
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{系统对正弦信号$x(n)=cos(\omega n)$ 的响应}%[allowframebreaks][shrink]
+对比：
+\begin{equation*}
+\begin{split}
+x(n)      &= cos(\omega n) = \frac{1}{2}(e^{j\omega n}+e^{-j\omega n}) \\
+y(n)
+&= \frac{1}{2}|H(e^{j\omega})|\left(e^{j(\varphi(\omega)+\omega n)}+e^{-j(\varphi(\omega)+\omega n)}\right)\\
+&= |H(e^{j\omega})|cos(\omega n +\varphi(\omega))
+\end{split}
+\end{equation*}
+
+可见，线性时不变系统对单频正弦信号$cos(\omega n)$的响应为同频正弦信号，其幅度放大$|H(e^{j\omega n})|$ 倍，相移增加$\varphi(\omega)$
+
+\begin{shuoming}
+对于一般序列x(n)，可通过傅立叶变换分解为一系列正弦函数的加权和。此时可通过$H(e^{j\omega n})$ 对不同的频率成分进行加权处理。
+\end{shuoming}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection*{系统的因果性和稳定性}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{因果系统的收敛域特点}%[allowframebreaks][shrink]
+%\begin{enumerate}
+%\item 因果系统的收敛域特点
+\begin{enumerate}
+\item 回顾：
+$$\mbox{系统因果}\Longleftrightarrow h(n)=0,n<0\quad\mbox{(第一章讨论过)}$$
+\item 从Z变换的角度看，则有
+\begin{equation*}
+\begin{split}
+\mbox{系统因果} &\longleftrightarrow   \mbox{$H(z)$的收敛域包含$\infty$点,或$|z|>R_{x^{-}}$}\\
+&\quad\quad\quad       \mbox{即极点在某个圆内，收敛域在圆外}
+\end{split}
+\end{equation*}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]\frametitle{证明}%[allowframebreaks][shrink]
+%    \textbf{证明：} \par
+1 充分性 \quad($\Longleftarrow$)，设$H(z)$在$z=\infty$ 处收敛，往证系统因果。
+\begin{equation}
+\begin{split}
+H(z) &=  \sum_{n=-\infty}^{\infty}h(n)z^{-n}\\
+&=  \underbrace{\sum_{n=-\infty}^{-1}h(n)z^{-n}}_{\mbox{正项级数}} \quad
++ \quad\underbrace{\sum_{n=0}^{\infty}h(n)z^{-n}}_{\mbox{负项级数}}
+\end{split}
+\end{equation}
+如$z=\infty$处收敛，则必有$n\leqslant -1$时，$h(n)=0$  \par
+即： $n<0$时，$h(n)=0$,所以系统因果。
+\newpage
+2 必要性 \quad($\Longrightarrow$)，设系统因果，往证$H(z)$在$z=\infty$ 处收敛。
+\par 因系统因果，则有$h(n)=0,n<0$,
+$$H(z)=\sum_{n=0}^{\infty}h(n)z^{-n}= h(0)+h(1)z^{-1}+h(2)z^{-2}+h(3)z^{-3}+\cdots$$
+显然，在$z=\infty$处，$H(z)$ 收敛。
+
+\end{frame}
+
+
+
+
+
+\begin{frame}[allowframebreaks]\frametitle{系统稳定的收敛域的特点}%[allowframebreaks][shrink]
+%\item 系统稳定的收敛域的特点
+
+\begin{enumerate}
+\item   回顾：
+$$\mbox{系统稳定}\longleftrightarrow  \sum_{n=-\infty}^{\infty}|h(n)|<\infty
+\quad\mbox{也是$H(e^{j\omega})$存在的条件}$$
+\item 从Z变换的角度看，则有
+$$\mbox{系统稳定}\Longleftrightarrow  H(z)\mbox{的收敛域包含单位圆}$$
+
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{证明}%[allowframebreaks][shrink]
+
+%            \textbf{证明：} \par
+1 充分性 \quad($\Longleftarrow$)，已知$H(z)$收敛域包含单位圆，往证系统因果。
+\begin{equation*}
+\begin{split}
+H(z) &=  \sum_{n=-\infty}^{\infty}h(n)z^{-n}\\
+&   \mbox{令$z=1$,则有} \\
+H(1) &=  \sum_{n=-\infty}^{\infty}h(n)  < \infty\\
+\therefore
+y(n) &= h(n)*x(n) = \sum_{k=-\infty}^{\infty}h(k)x(n-k)\\
+& \because x(n)\mbox{为有界输入},\quad\therefore |x(n)|<B \\
+\therefore
+y(n) &= h(n)*x(n) = \sum_{k=-\infty}^{\infty}h(k)x(n-k)\leqslant B\sum_{k=-\infty}^{\infty}h(k)<\infty\\
+&  \therefore \mbox{系统稳定}
+\end{split}
+\end{equation*}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{证明}%[allowframebreaks][shrink]
+2 必要性 \quad($\Longrightarrow$)，已知系统稳定，往证$H(z)$收敛域包含单位圆。
+\begin{equation*}
+\begin{split}
+\sum_{n=-\infty}^{\infty}|h(n)|
+&= \sum_{n=-\infty}^{\infty}|h(n)|\cdot|e^{-j\omega n}|\quad\quad(\mbox{显然$|e^{-j\omega n}|=1$})\\
+&\geqslant \left|\sum_{n=-\infty}^{\infty}h(n)e^{-j\omega n}\right| =
+\left|\left[\sum_{n=-\infty}^{\infty}h(n)z^{-n}\right]\right|_{z=e^{j\omega}}\\
+&= \left|H(z)\right|_{z=e^{j\omega}}
+\end{split}
+\end{equation*}
+$$\because \quad\sum_{n=-\infty}^{\infty}|h(n)| <\infty
+\quad\quad\quad\therefore \left|H(z)|_{z=e^{j\omega}}\right|<\infty$$
+$H(z)$在单位圆上收敛，即$|z|=1$ 是收敛域的一部分。
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{因果稳定系统的收敛域、极点分布特点}%[allowframebreaks][shrink]
+%\item 因果稳定系统的收敛域、极点分布特点
+\begin{equation*}
+\begin{split}
+\mbox{系统因果} &\Rightarrow  r<|z| \quad \mbox{收敛域在某个圆外(或收敛域包含无穷远点)}\\
+\mbox{系统稳定} &\Rightarrow    0 <r<1,     \quad \mbox{收敛域包含单位圆}
+\end{split}
+\end{equation*}
+
+系统因果稳定，将等价于下面两个条件
+\begin{enumerate}
+\item [(1)] $|z|>r\quad\mbox{且} 0 <r<1 $ 。
+\item [(2)] $H(z)$的极点全部在单位圆内部。
+\end{enumerate}
+
+%\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%eq:1
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+

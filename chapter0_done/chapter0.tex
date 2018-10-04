@@ -1,0 +1,456 @@
+\documentclass[notheorems,compress,mathserif,table]{beamer}
+
+\useoutertheme{tree}
+\usecolortheme{whale}      % Outer color themes, 其他选择: whale, seahorse, dolphin . 换一个编译看看有什么不同.
+\usecolortheme{orchid}     % Inner color themes, 其他选择: lily, orchid
+\useinnertheme[shadow]{rounded} % 对 box 的设置: 圆角、有阴影.
+\setbeamercolor{sidebar}{bg=blue!50} % sidebar的颜色, 50%的蓝色.
+%\setbeamercolor{background canvas}{bg=blue!9} % 背景色, 9%的蓝色. 去掉下一行, 试一试这个.
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25] %%背景色, 上25%的蓝, 过渡到下白.
+\usefonttheme{serif}  % 字体. 个人偏好有轮廓的字体. 去掉这个设置编译, 就看到不同了.
+\setbeamertemplate{navigation symbols}{}   %% 去掉页面下方默认的导航条.
+%%------------------------常用宏包---------------------------------------------------------------------
+%%注意, beamer 会默认使用下列宏包: amsthm, graphicx, hyperref, color, xcolor, 等等
+%\usepackage{CJK}
+\usepackage{ctex}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,bm}
+\usepackage{mathrsfs}
+\usepackage{subfigure} %%图形或表格并排排列
+\usepackage{xmpmulti}  %%支持文中的 \multiinclude 等命令, 使 mp 文件逐帧出现. 具体讨论见 beamer 手册.
+\usepackage{colortbl,dcolumn}     %% 彩色表格
+%\logo{\includegraphics[height=0.09\textwidth]{ajln.jpg}}   %左上角科大logo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%重定义字体、字号命令 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\songti}{\CJKfamily{song}}        % 宋体
+%\newcommand{\fangsong}{\CJKfamily{fs}}        % 仿宋体
+%\newcommand{\kaishu}{\CJKfamily{kai}}         % 楷体
+%\newcommand{\heiti}{\CJKfamily{hei}}          % 黑体
+%\newcommand{\lishu}{\CJKfamily{li}}           % 隶书
+\newcommand{\youyuang}{\CJKfamily{you}}       % 幼圆
+\newcommand{\sanhao}{\fontsize{16pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%----------------------- Theorems ---------------------------------------------------------------------
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定义}
+\newtheorem{lemma}{引理}
+\newtheorem{example}{例题}
+\newtheorem{answer}{解：}
+\newtheorem{dablock}{}
+\newtheorem{jytg}{提纲}
+\newtheorem{daproof}{证明}
+\newtheorem{explain}{说明}
+\newtheorem{summary}{小结}
+
+\newtheorem{zhuyi}{注意}
+\newtheorem{shuoming}{说明}
+\newtheorem{wenti}{问题}
+\newtheorem{jielun}{结论}
+\newtheorem{yinli}{引理}
+%%----------------------------------------------------------------------------------------------------
+\title{\heiti 第0章\quad 绪论}
+\author[\textcolor{blue}]{{\sihao\kaishu  笪邦友}}
+\institute{\sihao\lishu  \textcolor{violet}{中南民族大学~~ 电子信息工程学院}}
+\date{\fangsong\today} 
+
+\begin{document}
+	%  \begin{CJK*}{GBK}{kai}
+\kaishu
+\frame{ \titlepage }
+	%%---------------------------------------------------------------------------------------------------
+%\section*{目录}
+%\frame{\kaishu\frametitle{\kaishu 目录}\tableofcontents}
+\section*{前言}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{引言}
+
+
+\subsection{信号}
+\begin{frame}\frametitle{信号与消息}%[allowframebreaks][shrink]
+
+    现代社会是一个信息社会，一个重要的问题是对信息的认识的和处理。
+\begin{enumerate}
+  \item 消息
+      \begin{itemize}
+          \item 一般来说，信息一定要用某种物理的形式表达出来。比如说，用语言、文字、图画、编码等东西。这些东西被称为消息(message)。
+      \end{itemize}
+  \item 信号
+      \begin{itemize}
+         \item 而消息依附于某一物理量的变化，就构成了信号(signal)。
+      \end{itemize}
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{dablock}
+   广义上说，信号是一种随时间（或空间）变化的物理量。或者说，信号可表示为时间变量或空间变量的函数。
+\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{信号的形式}%[allowframebreaks][shrink]
+\begin{dablock}
+信号为我们所熟知的是其时域形式，引入傅里叶变换的概念后，信号同时存在频域形式。
+\end{dablock}
+这里傅里叶变换的相关知识，是信号处理的核心概念与核心内容，包括： 傅里叶级数、傅里叶变换、拉普拉斯变换等等。
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{信号与系统}
+\begin{frame}[shrink]\frametitle{系统的概念}%[allowframebreaks][shrink]
+
+
+    有了信号的概念后，我们就考虑对信号进行处理，需引入了系统的概念，
+
+\begin{dablock}
+    可认为这种对信号的处理构成了一个系统。在这里系统的观点着重于输入输出间的关系。
+\end{dablock}
+    为了考察对系统的认识，我们需了解系统的特性。
+
+    系统的不同特性如下
+    \begin{dablock}
+    系统的不同特性如下
+    \begin{enumerate}
+      \item 线性：   %\par    \qquad 所谓线性就是同时具有齐次性和加性。
+      \item 时不变性  %\par    \qquad         系统的性质不随时间变化。
+      \item 因果性  %\par     \qquad         符合因果律的系统，也就是物理上的可实现性。
+      \item 稳定性  %\par    \qquad          有限的输入产生有限的输出。
+    \end{enumerate}
+    \end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{数字信号处理的引入}
+
+\begin{frame}\frametitle{模拟系统}%[allowframebreaks][shrink]
+
+
+    既然信号是一种物理量，那么模拟信号的处理也就是利用物理器件直接对数字信号进行处理。
+
+例如
+\begin{enumerate}
+    \item 一个电容和一个电阻将构成一个模拟高通滤波器。
+    \item 一组光学组件也可构成一种低通滤波器。
+\end{enumerate}
+\begin{dablock}
+    一般来说，一个模拟系统是通过一些模拟器件（比如说，晶体管、运算放大器、电阻、电容、电感等器件）组成的网络来进行处理。
+\end{dablock}
+%    一个典型的、简单的模拟高通滤波器如下图所示：
+%    \newline\newline\newline\newline\newline\newline
+%    \newline\newline\newline\newline\newline\newline
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}\frametitle{模拟滤波器的缺点}%[allowframebreaks][shrink]
+
+\begin{dablock}
+    \begin{itemize}
+      \item [(1)] 不够灵活。
+            \begin{itemize}
+              \item 一但任务改变，其网络结构难以改变，如要将高通滤波器改为低通滤波器，就需要更换电路元器件。
+            \end{itemize}
+      \item [(2)]  不稳定。
+            \begin{itemize}
+              \item 其主要由电信号或光信号组成，存在物理信号的相关问题。这个问题非常复杂，如高精度设备里面的电磁信号耦合问题。
+            \end{itemize}
+      \item [(3)]  精度不高。
+            \begin{itemize}
+              \item 由于物理限制，模拟系统无法达到太高的精度。物理限制一般是无法克服的障碍，而数字系统通常可以达到极高精度。
+            \end{itemize}
+    \end{itemize}
+\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{模拟滤波器的缺点}%[allowframebreaks][shrink]
+\begin{dablock}
+
+模拟滤波器难以处理人工智能问题
+
+
+
+\end{dablock}
+    \textbf{举例说明}：
+    \begin{enumerate}
+      \item 雷达测速，雷达测距
+      \item 图像导航
+      \item 机器人（智能车）导航
+    \end{enumerate}
+
+
+     模拟系统只能用于对信号的“简单”处理，某些应用需要对信号的“智能”处理，我们只能用数字信号处理的方式来完成。为了要利用数字计算机对信号进行处理，我们必须将模拟信号数字化，对其进行数字信号处理。
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{数字信号处理简介}
+\subsection{数字信号处理的概念}
+\begin{frame}[shrink]\frametitle{什么是数字信号处理}%[allowframebreaks][shrink]
+\begin{definition}
+数字信号处理就是利用\textbf{数值计算方法}，按预定的规则进行运算，对数字序列进行各种处理，把信号变换为需要的某种形式，便于分析、识别和使用。
+\end{definition}
+
+\begin{zhuyi}
+信号处理的实质是\textbf{“运算”}，即通过对信号的运算达到各种应用目的，包括对信号的检测，滤波、谱分析、调制等。
+\end{zhuyi}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{  数字信号处理的典型应用 }%[allowframebreaks][shrink]
+\begin{dablock}
+\begin{enumerate}
+    \item 一维数字信号处理：如语音识别、语音合成。
+    \item 二维数字信号处理：如工业上有图像处理。例如人脸识别、机器视觉、卫星侦察、巡航导弹的电视制导等。
+\end{enumerate}
+\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{  数字信号处理的实施方法 }%[allowframebreaks][shrink]
+
+
+\quad\quad \emph{数字信号处理的研究对象是数字信号，处理方式是数值运算。因此数字信号处理必然与计
+算机联系在一起。}\newline
+
+数字信号处理的具体实施方法有三种：
+\begin{dablock}
+\begin{enumerate}
+    \item  利用通用计算机，软件实现（c语言，Matlab语言等），优点是灵活性好，但速度慢。
+    \item  利用专用硬件实现，如利用FPGA等可编程逻辑阵列，开发专用芯片等，其实时性好，易于集成。
+    \item  利用通用可编程DSP芯片，以软硬件结合的方式实现，其灵活性好，实时性好。
+\end{enumerate}
+\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{  学科发展历史 }%[allowframebreaks][shrink]
+
+\quad\quad 很久以来，人们对数字信号处理的重要性早有认识，但限于当时的科学发展水平，未能将之实用化。
+\newline
+
+\quad\quad 70年代以前，对信号的处理绝大多数是用模拟方法实现的，因为数字信号处理运算量太大，当时的计算能力远远不够，无法应用到实际工作中。
+\newline
+
+\quad\quad 近几十年来，现代科技水平的发展克服了数字信号处理的缺点，使得数字信号处理技术，成为当前，乃至未来信号处理的主流方法。
+\newline
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{  学科发展历史 }%[allowframebreaks][shrink]
+数字信号处理的快速发展主要归功于两个因素：
+\begin{enumerate}
+    \item [(1)]快速算法的研究降低了计算复杂度
+        \begin{itemize}
+            \item 1965年图基和库利发表了第一篇快速傅里叶变换论文后，将运算速度提高了2-3个数量级，使得计算复杂度大大降低，将该学科的发展向实际应用大大推动了一步。也就是说，在普通的应用场景下，仅算法的改进，就把速度提高了约1000倍。
+        \end{itemize}
+    \item [(2)]现代芯片技术的发展导致计算能力急剧提高
+    \begin{itemize}
+        \item  例如： 最初的电脑计算能力仅为5000次/秒 ，而现在的高端个人电脑的计算能力几乎可以
+        达到5000万次/秒，而超级电脑甚至达到了数万亿次/秒。也就是说，计算能力提高了几乎
+        一万万倍。\par
+        这意味着，对信号处理算法，如果以前需要算1年的话，现在只需要0.0003秒。
+    \end{itemize}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{  学科发展历史 }%[allowframebreaks][shrink]
+
+正是快速算法的提出，与计算能力的提高，使得数字信号处理学科得到了飞速的发展。成为今后信号处理的主流方法。
+
+
+可以说凡是有信号处理需要的领域都离不开数字信号处理技术，在很多领域里，数字信号处理技术都是一项必不可少的工具。
+
+
+当然，实际科研、生产等应用需要的牵引，是数字信号处理学科发展的最大动力。
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{学科内容}
+
+\begin{frame}[shrink]\frametitle{学科内容}%[allowframebreaks][shrink]
+
+
+本学科包括三方面内容：
+\begin{enumerate}
+  \item
+      一维数字信号处理，为本书的基本内容。
+  \item
+      多维数字信号处理，如图像处理为典型的二维信号处理，下学期我们将学习数字图像处理。
+  \item
+      用超大规模集成电路（VLSI）及硬件设备实现各种处理算法。
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{主要内容}%[allowframebreaks][shrink]
+
+
+本课程仅限于一维数字信号处理的一些最基础知识。其主要内容集中于两个中心问题：
+\begin{enumerate}
+  \item
+      DFT（离散傅里叶变换（1-4章）
+      \begin{enumerate}
+        \item 时域离散信号与系统的概念与频域分析
+        \item DFT — \qquad 一种新的、可适用于计算机处理的傅里叶变换
+        \item FFT — \qquad 一种DFT的快速算法。
+      \end{enumerate}
+  \item
+      数字滤波器（5-7章）
+      \begin{enumerate}
+        \item 时域离散系统的网络结构
+        \item IIR—DF的设计  （无限冲击响应数字滤波器）
+        \item FIR—DF的设计  （有限冲击响应数字滤波器）
+      \end{enumerate}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{教学安排与特点}
+\begin{frame}[shrink]\frametitle{教材与参考书}%[allowframebreaks][shrink]
+以本书为主，按照教材编撰线索讲授。
+\begin{enumerate}
+  \item 教材
+        \begin{itemize}
+          \item 《数字信号处理》，西电，高西全，丁玉美
+        \end{itemize}
+  \item 参考书
+          \begin{itemize}
+            \item 《学习指导》      丁玉美
+            \item 《数字信号处理》，华中科大出版社，  姚天任
+            \item 《信号与系统》，高教出版社，管致中
+          \end{itemize}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{教学安排}%[allowframebreaks][shrink]
+
+
+\begin{itemize}
+  \item
+      本课程属于专业课性质，是一定难度。
+  \item
+      在学习中，要注意和《信号与系统》中所学习过的模拟信号与系统的一些结论对比，两者在
+      许多地方相类似，甚至有些结论可直接引申过来，当然，两者之间也存在许多不同之处。
+      同学们在学习中，要注意其不同之处。
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+%
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\end{document}
+

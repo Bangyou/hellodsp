@@ -1,0 +1,8 @@
+\beamer@sectionintoc {2}{引言}{2}{0}{1}
+\beamer@subsectionintoc {2}{1}{信号}{2}{0}{1}
+\beamer@subsectionintoc {2}{2}{信号与系统}{4}{0}{1}
+\beamer@subsectionintoc {2}{3}{数字信号处理的引入}{5}{0}{1}
+\beamer@sectionintoc {3}{数字信号处理简介}{8}{0}{2}
+\beamer@subsectionintoc {3}{1}{数字信号处理的概念}{8}{0}{2}
+\beamer@sectionintoc {4}{学科内容}{14}{0}{3}
+\beamer@sectionintoc {5}{教学安排与特点}{16}{0}{4}
