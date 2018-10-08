@@ -1,0 +1,627 @@
+\documentclass[notheorems,compress,mathserif,table]{beamer}
+
+\useoutertheme{tree}
+\usecolortheme{whale}      % Outer color themes, 其他选择: whale, seahorse, dolphin . 换一个编译看看有什么不同.
+\usecolortheme{orchid}     % Inner color themes, 其他选择: lily, orchid
+\useinnertheme[shadow]{rounded} % 对 box 的设置: 圆角、有阴影.
+\setbeamercolor{sidebar}{bg=blue!50} % sidebar的颜色, 50%的蓝色.
+%\setbeamercolor{background canvas}{bg=blue!9} % 背景色, 9%的蓝色. 去掉下一行, 试一试这个.
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25] %%背景色, 上25%的蓝, 过渡到下白.
+\usefonttheme{serif}  % 字体. 个人偏好有轮廓的字体. 去掉这个设置编译, 就看到不同了.
+\setbeamertemplate{navigation symbols}{}   %% 去掉页面下方默认的导航条.
+%%------------------------常用宏包---------------------------------------------------------------------
+%%注意, beamer 会默认使用下列宏包: amsthm, graphicx, hyperref, color, xcolor, 等等
+%\usepackage{CJK}
+\usepackage{ctex}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,bm}
+\usepackage{mathrsfs}
+\usepackage{subfigure} %%图形或表格并排排列
+\usepackage{xmpmulti}  %%支持文中的 \multiinclude 等命令, 使 mp 文件逐帧出现. 具体讨论见 beamer 手册.
+\usepackage{colortbl,dcolumn}     %% 彩色表格
+%\logo{\includegraphics[height=0.09\textwidth]{ajln.jpg}}   %左上角科大logo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%重定义字体、字号命令 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\songti}{\CJKfamily{song}}        % 宋体
+%\newcommand{\fangsong}{\CJKfamily{fs}}        % 仿宋体
+%\newcommand{\kaishu}{\CJKfamily{kai}}         % 楷体
+%\newcommand{\heiti}{\CJKfamily{hei}}          % 黑体
+%\newcommand{\lishu}{\CJKfamily{li}}           % 隶书
+\newcommand{\youyuang}{\CJKfamily{you}}       % 幼圆
+\newcommand{\sanhao}{\fontsize{16pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%----------------------- Theorems ---------------------------------------------------------------------
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定义}
+\newtheorem{lemma}{引理}
+\newtheorem{example}{例题}
+\newtheorem{answer}{解：}
+\newtheorem{dablock}{}
+\newtheorem{jytg}{提纲}
+\newtheorem{daproof}{证明}
+\newtheorem{explain}{说明}
+\newtheorem{summary}{小结}
+
+\newtheorem{zhuyi}{注意}
+\newtheorem{shuoming}{说明}
+\newtheorem{wenti}{问题}
+\newtheorem{jielun}{结论}
+\newtheorem{yinli}{引理}
+%%----------------------------------------------------------------------------------------------------
+\title{\heiti 第3章预备知识 \\ 离散傅里叶变换概念的引入}
+\author[\textcolor{blue}]{{\sihao\kaishu  笪邦友}}
+\institute{\sihao\lishu  \textcolor{violet}{中南民族大学~~ 电子信息工程学院}}
+\date{\fangsong\today} 
+
+\begin{document}
+	%  \begin{CJK*}{GBK}{kai}
+	\kaishu
+	\frame{ \titlepage }
+	%%---------------------------------------------------------------------------------------------------
+	\section*{目录}
+	\frame{\kaishu\frametitle{\kaishu 目录}\tableofcontents}
+%	\section*{前言}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+%\section{引言-离散傅里叶变换概念的引入}
+%\begin{frame}\frametitle{离散傅里叶变换概念的引入}%[allowframebreaks][shrink]
+%
+%
+%无论是模拟还是时域离散信号和系统，傅里叶变换都是非常重要的数学工具，只不过
+%前者是求积分，后者是求和，形式不同而已，很多性质类似，用于信号和系统的频域分析。
+%\end{frame}
+
+\section{傅里叶级数和傅里叶变换概述}
+
+%\begin{frame}\frametitle{傅里叶变换的四种形式}%[shrink]
+%
+%\end{frame}
+\subsection{周期连续信号的傅里叶级数}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\begin{frame}\frametitle{周期连续信号分解为三角级数}%[shrink]
+对任何一个周期为$T$的周期信号$\tilde{x}_a(t)$，只要其满足狄利克雷充分条件，就可将其在区间$(t_1,t_1+T)$ 内展开为：
+\begin{equation*}
+\begin{split}
+ \tilde{x}_a(t) &= \frac{a_0}{2}+a_1 \cos(\Omega_s t)+a_2 \cos(2\Omega_s t) + \cdots + a_n \cos(n\Omega_s t) + \cdots\\
+                      &  \quad\quad\quad   +b_1 \sin(\Omega_s t)+b_2 \sin(2\Omega_s t) +\cdots + b_n \sin(n\Omega_s t)+ \cdots\\                    
+                      &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\Big[a_n \cos(n \Omega_s t)+
+                        b_n \sin(n \Omega_s t)\Big]\quad\quad                       \left(\Omega_s = \frac{2\pi}{T}\right)
+\end{split}
+\end{equation*}
+式中：
+$$ a_n = \frac{2}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)\cos \left(n\Omega_s t\right) $$
+$$ b_n = \frac{2}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)\sin \left(n\Omega_s t\right) $$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}[shrink]\frametitle{三角级数可化为指数级数形式}%[shrink]        
+如前所述，$ \tilde{x}_a(t)  $可分解为：
+\begin{equation*}
+\begin{split}
+	\tilde{x}_a(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\Big[a_n \cos(n \Omega_s t)+ b_n \sin(n \Omega_s t)\Big]\quad\quad    %
+                                         \left(\Omega_s = \frac{2\pi}{T}\right)
+\end{split}
+\end{equation*}
+%令
+%\begin{equation*}
+%\begin{split}
+% \dot{A}_n   &= \sqrt{a^2_n +b^2_n}\qquad\qquad\qquad\qquad\qquad\\
+% \varphi_n   &= - \arctan\Big(\frac{b_n}{a_n}\Big)
+%\end{split}
+%\end{equation*}
+%               $$\mbox{令}\quad\quad \dot{A}_n = \sqrt{a^2_n +b^2_n}\qquad\quad    \varphi_n = - \arctan\Big(\frac{b_n}{a_n}\Big) $$
+$$\mbox{而} \quad a_n \cos(n \Omega_s t)+ b_n \sin(n\Omega_s t)\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
+\begin{equation*}
+\begin{split}
+\quad             &= \sqrt{a^2_n +b^2_n}\left (\dfrac{a_n}{\sqrt{a^2_n +b^2_n}}\cos(n \Omega_s t)+ \dfrac{b_n}{\sqrt{a^2_n +b^2_n}} \sin(n\Omega_s t)\right )\\
+\quad             &=  \dot{A}_n \cos(n \Omega_s t +\varphi_n)
+\end{split}
+\end{equation*}
+令式中：
+\begin{equation*}
+\begin{split}
+       a_n= \dot{A}_n \cos(\varphi_n)\qquad        &\quad    b_n = \dot{A}_n \sin(\varphi_n) \\
+       \dot{A}_n = \sqrt{a^2_n +b^2_n}\qquad      &\quad    \varphi_n = - \arctan\Big(\frac{b_n}{a_n}\Big)
+ \end{split}
+\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{指数傅里叶级数}%[shrink]
+那么：
+\begin{equation*}
+       \begin{split}
+       \tilde{x}_a(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\Big[a_n \cos(n \Omega_s t)+ b_n \sin(n \Omega_s t)\Big] \qquad\qquad\qquad\\
+                      &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\dot{A}_n \cos(n \Omega_s t +\varphi_n) \\
+                      &= \frac{a_0}{2}+\frac{1}{2}\sum_{n=1}^{\infty} \left[\dot{A}_n e^{j(n \Omega_s t +\varphi_n)}+
+                           \dot{A}_n e^{-j(n \Omega_s t +\varphi_n)}\right] \\
+                      &= \frac{1}{2}\sum_{n=-\infty}^{\infty}\dot{A}_n e^{j(n \Omega_s t +\varphi_n)}\qquad   \left(\mbox{令}\quad A_n = \frac{1}{2}\dot{A}_n e^{j\varphi_n}\right)\\
+       \therefore\quad \tilde{x}_a(t)
+                      &= \sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t}     \qquad \mbox{式中：\ :}A_n = \frac{1}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)e^{-jn\Omega_s t}dt
+           \end{split}
+        \end{equation*}
+ %        $$\mbox{式中：\qquad}A_n = \frac{1}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)e^{-jn\Omega_s t} \qquad\qquad\qquad\qquad$$
+ \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}[shrink]\frametitle{指数傅里叶级数}%[shrink]
+即：
+\begin{equation*}
+\begin{split}
+\tilde{x}_a(t)   &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\Big[a_n \cos(n \Omega_s t)+ b_n \sin(n \Omega_s t)\Big] \qquad\qquad\qquad\\
+\tilde{x}_a(t)   &= \sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t} \qquad \qquad A_n = \frac{1}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)e^{-jn\Omega_s t}dt
+\end{split}
+\end{equation*}
+ \begin{shuoming}
+\begin{enumerate}
+	\item 两种表达方式等价，实际应用中三角级数更直观，但指数傅里叶级数更方便。
+	\item 指数级数中出现了引用$-n$，并不意味着存在负频率，只是一种数学形式。
+\end{enumerate}
+ \end{shuoming}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{连续信号的傅里叶变换}
+\begin{frame}[shrink]\frametitle{非周期信号的傅里叶变换}%[shrink]
+%   非周期信号的傅里叶变换
+\begin{enumerate}
+     \item [1]  周期信号可以用傅里叶级数表示\\
+\end{enumerate}
+                  \par\qquad 可采用频谱图表示周期信号的频域特性。
+%          \newline\newline%\newline\newline\newline\newline
+\begin{zhuyi}     %  注意，周期信号频谱图具有以下几个特点 
+         \begin{enumerate}
+           \item  频谱图由不连续的线条组成，间隔为$\Omega_s = \frac{2\pi}{T}$每一条线代表一个正弦分量。所以这样的频谱称为离散频谱。
+           \item 频谱图的每条谱线都只能出现在基波频率$\Omega_s$的整数倍的频率上。；
+           \item 各条谱线的高度，也即各次谐波的振幅，总的趋势是随着谐波次数的增高而逐渐减小，当谐波次数无限增高时，谐波分量的振幅也就趋于无穷小。
+         \end{enumerate}    
+\end{zhuyi}    
+ 频谱的这三个特性，分别称为频谱的离散性、谐波性、收敛性。
+ \newline
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{非周期信号的傅里叶变换}%[shrink]
+\begin{enumerate}
+     \item [2]  对于非周期函数，可视为$T \rightarrow \infty$，因为谱线高度为：
+     $$ A_n = \frac{1}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)e^{-jn\Omega_s t}dt $$
+\end{enumerate}     
+          $$
+            \left\{ \begin{aligned}
+                \Omega_s=\frac{2\pi}{T}\rightarrow 0  &, \quad \mbox{谱线间隔将趋近于0，谱线无限密集} \\
+                A_n \rightarrow 0\quad\quad           &, \quad \mbox{谱线高度也趋近于0}\\
+            \end{aligned} \right.
+          $$
+          此时两者看似都接近于0，但根据帕斯维尔定理，这一点是不合理的。\par
+          此时需引入新的概念，傅里叶变换。
+          $$x_a(t)\leftrightarrow X_a(j\Omega)$$
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{非周期信号的傅里叶变换}%[shrink]
+\begin{definition}
+          \begin{equation*}
+            \begin{split}
+                  \mbox{定义\quad}X_a(j\Omega)      
+                        &=\lim_{T\rightarrow\infty}T \cdot A_n  \qquad \qquad \qquad \qquad \qquad \qquad\\
+                        &\quad \qquad \qquad  \mbox{经过一番化简后} \\
+                        &=\int_{-\infty}^{\infty}x_a(t)e^{-j\Omega t}dt\quad(\Omega=n\Omega_s)
+             \end{split}
+          \end{equation*}
+\end{definition}
+$$
+ \left\{ 
+ \begin{aligned}
+       X_a(j\Omega) &=\int_{-\infty}^{\infty}x_a(t)e^{-j\Omega t}dt \qquad\qquad\qquad\qquad\qquad \\
+      x_a(t) \;            &=\frac{1}{2\pi}\int_{-\infty}^{\infty}X_a(j\Omega)e^{j\Omega t}d\Omega
+\end{aligned}
+ \right.
+ $$
+从这里看可以看出，傅里叶变换是傅里叶积分的推广。
+
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{连续周期信号的傅里叶变换}%[shrink]
+     引入傅里叶变换的概念后，我们也希望考虑周期连续信号的傅里叶变换，引入冲激函数$\delta(t)$后，有
+     \begin{equation*}
+     \begin{split}
+        FT[\tilde{x}_a(t)] &= FT\left[\sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t}\right]
+                    = \sum_{n=-\infty}^{\infty} A_n FT\left[ e^{j n \Omega_s t}\right] \\
+                   &= \sum_{n=-\infty}^{\infty} A_n \Big[2\pi \cdot \delta(\Omega - n\Omega_s)\Big]\\
+                   &= 2\pi  \sum_{n=-\infty}^{\infty} A_n\cdot \delta(\Omega - n\Omega_s)\\
+     \end{split}
+     \end{equation*}
+\end{frame}
+
+
+
+\subsection{离散信号的傅里叶变换}
+
+
+\begin{frame}[shrink]\frametitle{离散信号的傅里叶变换}%[shrink]
+%\textbf{（二） 离散信号的傅里叶级数与傅里叶变换}
+  对于离散序列$ x(n) $，只要其满足绝对可和条件，则可得到其傅里叶变换：
+    $$
+    \left\{ \begin{aligned}
+         X(e^{j\omega}) &=\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n} \qquad\qquad\qquad\qquad\qquad\qquad \\
+          x(n)        &=\frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega
+    \end{aligned} \right.
+    $$
+
+
+\end{frame}
+
+\subsection{离散信号的傅里叶变换}
+\begin{frame}[shrink]\frametitle{周期序列的$DFS$和$FT$}%[shrink]
+%\textbf{（二） 离散信号的傅里叶级数与傅里叶变换}
+ 对于周期序列$ \tilde{x}(n)  $，可得到离散傅里叶级数变换如下：
+	\begin{equation*}
+	\left\{ \begin{aligned}
+	\tilde{X}(k) &= DFS[\tilde{x}(n)]\quad  =  \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn} \qquad\qquad\quad\\
+	\tilde{x}(n) &= IDFS[\tilde{X}(k)]\:      	= \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}
+	\end{aligned} \right.
+	\end{equation*}
+	当引入冲击函数后，也可得到其傅里叶变换：
+	$$FT\big[\tilde{x}(n)\big] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta\big(\omega-\frac{2\pi}{N}k\big) \qquad\qquad\qquad$$
+
+\end{frame}
+
+
+
+\section{DFT概念的引入}
+%
+\subsection{傅里叶变换的四种形式}
+\begin{frame}[shrink]\frametitle{傅里叶变换的四种形式}%[shrink]
+
+如前所述，我们针对四种信号$\tilde{x}_a(t)$，  $x_a(t) $ ， $ x(n)$, $\tilde{x}(n) $，分别给出了其傅里叶变换。
+\begin{wenti}
+    如果这四种信号之间彼此紧密联系，如$\tilde{x}_a(t)$是 $x_a(t) $的周期延拓，$ x(n)$是由$x_a(t) $采样得到的，而 $\tilde{x}(n)$是由$ x(n)$周期延拓得到了。那么，这四种信号的傅里叶变换之间存在什么样的关系？
+\end{wenti}
+
+\begin{zhuyi}
+	{\heiti 假设$x_a(t) $是一种有限长带限信号。}
+\end{zhuyi}
+
+
+
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{非周期连续信号$x_a(t)$的傅里叶变换}%[shrink]
+%\begin{enumerate}
+%  \item
+  对于有限长带限信号$x_a(t)$
+%  \par  假设$x_a(t)$为有限长带限信号：
+%     \newline\newline\newline\newline
+\newline
+  设
+  $$x_a(t)\leftrightarrow X_a(j\Omega)\qquad\qquad\qquad\qquad\qquad$$
+  则有：
+  \begin{equation*}
+  \left\{ \begin{aligned}
+      X_a(j\Omega) &=  \int_{-\infty}^{\infty}x_a(t) e^{-j\Omega t}dt \qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
+      x_a(t)\:  &=  \frac{1}{2\pi}\int_{-\infty}^{\infty}X_a(j\Omega) e^{j\Omega t}d\Omega
+  \end{aligned} \right.
+  \end{equation*}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{周期连续信号$\tilde{x}_a(t)$的傅里叶变换}%[shrink]
+
+对于周期连续信号$\tilde{x}_a(t)$，其可视为将$x_a(t)$周期延拓得到，根据前述推导，有：
+\begin{equation*}
+    \begin{split}
+             \quad  \tilde{x}_a(t)\quad   &= \sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
+              \mbox{其中：}  A_n          &=  \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot e^{-jn\Omega_s t}dt
+                                                                   \qquad (\mbox{$ T_p $为信号周期})\\
+              FT\big[\tilde{x}_a(t)\big]  &= 2\pi \sum_{n=-\infty}^{\infty} A_n \delta(n-n\Omega_s)
+    \end{split}
+\end{equation*}
+    显然，我们发现可用$A_n$的值可代表$\tilde{x}_a(t)$的傅里叶变换。\\
+    下面只需考虑$A_n$与$X_a(j\Omega)$的关系。
+\end{frame}
+
+
+
+
+\begin{frame}\frametitle{}%[shrink]
+考虑$A_n$与$X_a(j\Omega)$的关系
+\begin{equation*}
+\begin{split}
+    A_n  &= \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot e^{-jn\Omega_s t}dt\\
+            &= \frac{1}{T_p}\int_{0}^{T_p}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\quad\mbox{(取一个周期)}\\
+            &= \frac{1}{T_p}\int_{-\infty}^{\infty}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\mbox{\big($x_a(t)$ 为有限长信号\big)}\\
+            &= \frac{1}{T_p}\left[\int_{-\infty}^{\infty}x_a(t) \cdot e^{-j\Omega t}dt\right]_{\Omega=n\Omega_s}\\
+            &= \frac{1}{T_p}X_a(j\Omega)|_{\Omega=n\Omega_s}\\
+    \therefore \quad A_n
+            &= \frac{1}{T_p}X_a(j\Omega)|_{\Omega=n\Omega_s}\quad\quad\quad(\Omega_s = \frac{2\pi}{T_p})
+\end{split}
+\end{equation*}
+%即$\tilde{x}_a(t)$的傅里叶变换是$FT[x_a(t)]$的采样，幅度变为原信号的$ \frac{1}{T_p}$倍。
+%\newline
+\end{frame}
+  
+  
+\begin{frame}[shrink]\frametitle{$A_n$与$X_a(j\Omega)$的关系：结论}%[shrink]
+如前所述：
+\begin{equation*}
+\begin{split}
+A_n     &= \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot e^{-jn\Omega_s t}dt\\
+%			&= \frac{1}{T_p}\int_{0}^{T_p}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\quad\mbox{(取一个周期)}\\
+%			&= \frac{1}{T_p}\int_{-\infty}^{\infty}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\mbox{\big($x_a(t)$ 为有限长信号\big)}\\
+%			&= \frac{1}{T_p}\left[\int_{-\infty}^{\infty}x_a(t) \cdot e^{-j\Omega t}dt\right]_{\Omega=n\Omega_s}\\
+%			&= \frac{1}{T_p}X_a(j\Omega)|_{\Omega=n\Omega_s}\\
+			&= \frac{1}{T_p}X_a(j\Omega)\Big|_{\Omega=n\Omega_s}\quad\quad\quad(\Omega_s = \frac{2\pi}{T_p})
+\end{split}
+\end{equation*}
+
+\begin{jielun}	
+ \begin{enumerate}
+     \item [(1)]  即$\tilde{x}_a(t)$的傅里叶变换是$X_a(j\Omega)$的间隔为$ \Omega_s  $的采样，其幅度变为$X_a(j\Omega)$的$ \frac{1}{T_p}$倍。
+     \item [(2)] 信号在时域的周期化，对应其在频域的离散化。
+      %幅度变为原信号的$ \frac{1}{T_p} $
+    \end{enumerate}
+\end{jielun}
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{非周期离散信号$x(n)$}%[allowframebreaks][shrink]
+
+$x(n)$可视为对原信号$x_a(t)$ 进行采样得到，这里设采样周期为T，则有:
+%\qquad $ x(n) \: \longleftrightarrow   X(e^{j\omega}) $
+%且：
+%$$ X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}   $$
+ %       \newline\newline\newline\newline\newline\newline
+  \begin{equation*}
+        \begin{split}
+             x(n) \:  &\longleftrightarrow   X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\quad\quad\quad\quad\quad\quad\quad\quad\\
+             x_a(t)   &\longrightarrow     \quad  \hat{x}_a(t) = x_a(t)|_{t=nT}\\
+     %        x(n)\:   &=\quad  x_a(nT)  = x_a(t)|_{t=nT}\\
+        \end{split}
+        \end{equation*}
+        且有：
+$$                     x(n)\:   =\:  x_a(nT)  =\: x_a(t)|_{t=nT}$$
+
+        所以$x(n)$的频谱与采样信号$\hat{x}_a(t)$的频谱有关。\\
+        x结论先给出：
+        $$ X(e^{j\omega})  = \hat{X}_a(j\Omega)\big|_{\omega = \Omega T}\quad\quad\quad(\mbox{或：}\Omega = \frac{\omega}{T})$$%
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+%        \textbf{证明：}
+%        $$\hat{x}_a(t)= \sum_{n=-\infty}^{\infty}x_a(nT)\delta(t-nT)
+%                \quad\quad\quad\quad\quad\quad\quad\quad\quad$$
+        \begin{equation*}
+        \begin{split}
+         \hat{X}_a(j\Omega)
+             &= \int_{-\infty}^{\infty}\hat{x}_a(t)\cdot e^{-j\Omega t}dt    \qquad\left(\mbox{因为}\hat{x}_a(t)=\sum_{n=-\infty}^{\infty}x_a(nT)\delta(t-nT)\right)    \\
+             &= \int_{-\infty}^{\infty}\left[\sum_{n=-\infty}^{\infty}x_a(nT)\delta(t-nT)\right]\cdot e^{-j\Omega t}dt \\
+             &= \sum_{n=-\infty}^{\infty}x_a(nT)\left[\int_{-\infty}^{\infty}\delta(t-nT)\cdot e^{-j\Omega t}dt\right] \\
+             &= \sum_{n=-\infty}^{\infty}x_a(nT) e^{-j\Omega\cdot T n} \quad\quad\quad\Big(\int_{-\infty}^{\infty}f(t)\delta(t-t_1)dt = f(t_1)\Big)\\
+             &= \sum_{n=-\infty}^{\infty}x(n)\cdot e^{-j\omega n} \quad\quad \Big(x(n) =x_a(nT)\quad \omega =\Omega T \Big)\\
+             &= X(e^{j\omega})\big|_{\omega = \Omega T}
+        \end{split}
+        \end{equation*}
+        $$\therefore \quad\quad X(e^{j\omega})  = \hat{X}_a(j\Omega)\big|_{\omega = \Omega T}
+                 \quad\quad\quad(\mbox{或：}\Omega=\frac{\omega}{T})$$
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{$X(e^{j\omega})$与$X_a(j\Omega)$的关系}%[allowframebreaks][shrink]
+前述可得：
+ $$\quad\quad X(e^{j\omega})  = \hat{X}_a(j\Omega)\big|_{\omega = \Omega T}\quad\quad\quad(\mbox{或：}\Omega=\frac{\omega}{T})$$
+根据采样定理，有：
+\begin{equation*}
+        \begin{split}
+        \hat{X}_a(j\Omega)  &= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -j k \Omega_s) \quad\big(\Omega_s = \frac{2\pi}{T}\mbox{为采样角频率}\big)\\
+%        X(e^{j\omega})      &= \left[\frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -k \Omega_s)\right]_{\Omega = \frac{\omega}{T}}
+        \end{split}
+\end{equation*}
+则有：
+$$ X(e^{j\omega})   = \left[\frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -k \Omega_s)\right]_{\Omega = \dfrac{\omega}{T}}$$
+这里$\Omega_s = \frac{2\pi}{T}$为采样角频率。\newline
+        %\newline\newline\newline\newline\newline\newline\newline\newline\newline
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{周期离散信号$\tilde{x}(n)$的傅里叶变换}%[allowframebreaks][shrink]
+% 周期离散信号$\tilde{x}(n)$的傅里叶变换
+%       \newline\newline\newline\newline\newline\newline
+        设$x(n)$的长度为$N$，且以$N$为周期延拓得到$\tilde{x}(n)$，则有：
+        \begin{equation}
+           \left\{ \begin{aligned}
+               \tilde{X}(k) &= DFS[\tilde{x}(n)]\quad  = \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}
+                              \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \\
+               \tilde{x}(n) &= IDFS[\tilde{X}(k)]
+                               = \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}
+           \end{aligned} \right.
+        \end{equation}
+        $$FT[\tilde{x}(n)] =  \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k) \qquad\qquad\qquad\qquad$$
+        \textbf{即：} 一个周期序列的傅里叶变换是另一个域的冲击函数组成，可用$\tilde{X}(k)$来代表$FT[\tilde{x}(n)]$。\par
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{ $\tilde{X}(k)$与原信号$ x(n) $的傅里叶变换$X(e^{j\omega})$的关系}%[allowframebreaks][shrink]
+        $\tilde{X}(k)$与原信号频谱$X(e^{j\omega})$的关系为：
+
+        \begin{equation}
+        \begin{split}
+        \tilde{X}(k) &= \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}\\
+                     &= \left[\sum_{n=0}^{N-1}x(n)e^{-j\omega n}\right]_{\omega =\frac{2\pi}{N}k}\\
+                     &= \left[\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\right]_{\omega =\frac{2\pi}{N}k}\\
+                     &= X(e^{j\omega})\Big|_{\omega =\frac{2\pi}{N}k}
+        \end{split}
+        \end{equation}
+        \textbf{结论}：周期信号的频谱$ \tilde{X}(k) $是$X(e^{j\omega})$ 采样得到。
+\end{frame}        
+% \textbf{结论}：周期信号的频谱是原信号的频谱$X(e^{j\omega})$ 延拓后再采样得到。
+%\end{frame}
+
+\begin{frame}[shrink]\frametitle{一个域的周期化，总对应另一个域的离散化}%[allowframebreaks][shrink]
+
+\begin{jielun}
+	\begin{enumerate}
+		\item  [(1)]   $ x_a(t) $周期延拓得到$ \tilde{x}_a(t) $，其傅里叶变换$\tilde{X}_a(j\Omega) $为 $X_a(j\Omega) $采样得到。
+		\item  [(2)]  $ x_a(t) $采样得到$x(n) $，其傅里叶变换$ X(e^{j\omega}) $为$X_a(j\Omega) $周期延拓，再变换到数字域得到。
+		\item  [(3)]   $ x_a(t) $采样得到$x(n) $，之后延拓得到$\tilde{x}(n)$，其傅里叶变换为为$X_a(j\Omega) $延拓之后再采样得到。
+	\end{enumerate}
+	
+\end{jielun}
+
+\textbf{总结：}一个域的周期化，总对应另一个域的离散化。
+
+\end{frame}
+
+
+
+\subsection{DFT概念的引入}
+\begin{frame}[shrink]\frametitle{利用计算机对信号处理的需求}%[allowframebreaks][shrink]
+%（二） DFT概念的引入
+  \par 在实际工程中， 我们所处理的原始信号往往都是模拟信号，要用计算机对信号进行处理，必须考虑一下几个方面的问题。
+  \begin{enumerate}
+    \item 计算机只能处理离散信号，不能处理连续信号；
+    \item 计算机能给出的结果也是一个离散的序列；
+    \item 计算机只能处理和表示有限长度的离散序列。
+  \end{enumerate}
+  这意味着，我们想要的是：有限长的带限信号。%：(如下图所示：)
+  \newline\newline\newline\newline\newline
+
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{前述4种傅里叶变换理论存在不足之处}%[allowframebreaks][shrink]
+
+
+  \par 前述的四种傅里叶变换理论：
+%  \newline\newline\newline\newline\newline\newline\newline\newline
+%
+%  以上4种傅里叶变换理论
+  均不能满足要求，与计算机应用脱节，需引入新的傅里叶变换概念。
+\end{frame}
+
+
+
+
+\subsection{DFT的变换表达式}
+\begin{frame}[shrink]\frametitle{引入离散傅里叶变换}%[allowframebreaks][shrink]
+分析：回到周期序列的离散傅里叶级数
+\begin{enumerate}
+  \item 周期离散序列的DFS仍然为周期序列，且周期长度相等。
+  \item 周期序列的全部信息都包含在主值区间内。
+%    \item 那么时域序列主值区间和频域序列主值区间之间能否定义一种新的傅里叶变换理论？
+\end{enumerate}
+\begin{wenti}
+那么时域序列主值区间和频域序列主值区间之间能否定义一种新的傅里叶变换理论？
+\end{wenti}
+
+显然，这样得到的变换必定是有限长离散序列，满足计算机处理对信号的要求。
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{离散傅里叶变换}%[allowframebreaks][shrink]
+
+依上所述，定义：
+    \begin{itemize}
+      \item 时域信号$x(n)$：取$\tilde{x}(n)$的主值区间为$x(n) =\tilde{x}(n)\cdot R_N(n)$
+      \item 频域信号$X(k) $：取$\tilde{X}(k)$的主值区间为$X(k) =\tilde{X}(k)\cdot R_N(k)$
+    \end{itemize}
+
+    在以上两个序列$x(n)$和$X(k)$ 之间定义离散傅里叶变换理论，即
+     $$X(k) = DFT[x(n)]$$ %, \qquad\qquad  即:$x(n)\longleftrightarrow X(k)$
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{推导}%[allowframebreaks][shrink]
+    令 $X(k) = DFT[x(n)]$ , \quad 即:$x(n)\longleftrightarrow X(k)$
+    \begin{equation*}
+    \begin{split}
+    X(k) &= \tilde{X}(k)\cdot R_N(k) =  DFS[\tilde{x}(n)]\cdot R_N(k)\\
+         &= \left[\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\right]\cdot R_N(k)\quad\quad (-\infty \leq k \leq \infty)\\
+         &= \left[\sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}\right]\cdot R_N(k)\quad\quad (\mbox{取$x(n)$一个周期})\\
+         &= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn} \quad\quad (0 \leq k \leq N-1)\\
+    \end{split}
+    \end{equation*}
+\end{frame}    
+    
+\begin{frame}[shrink]\frametitle{离散傅里叶变换的反变换}%[allowframebreaks][shrink]    
+    同理可得：
+    \begin{equation*}
+    \begin{split}
+    x(n) &= \tilde{x}(n)\cdot R_N(n) =  IDFS[\tilde{X}(k)]\cdot R_N(n)\\
+          &= \left[ \frac{1}{N}\sum_{k=0}^{N-1} \tilde{X}(k)e^{j\frac{2\pi}{N}kn}\right]\cdot R_N(n)  \quad\quad (-\infty \leq n \leq \infty)\\
+          &= \left[ \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn}\right]\cdot R_N(n)  \quad\quad  (\mbox{取$X(k)$一个周期})\\
+          &=  \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn}   \quad\quad (0 \leq n \leq N-1)
+    \end{split}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{有限长序列$x(n)$的N点DFT}%[allowframebreaks][shrink]
+    这样，我们得到了一个有限长序列$x(n)$的N点DFT为：
+    \begin{equation*}
+           \left\{ \begin{aligned}
+               X(k) &=  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1) \\
+               x(n) &=   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)\\
+           \end{aligned} \right.
+    \end{equation*}
+\end{frame}    
+    
+    
+\begin{frame}[shrink]\frametitle{有限长序列$x(n)$的N点DFT}%[allowframebreaks][shrink]    
+\begin{shuoming}
+    \begin{enumerate}
+      \item 使得DFT能描述原来的信号的条件有两个，即有限长带限信号；
+      \item 实际中存在的信号，如时域有限，则频域必定无限长，如频域有限，则时域一定是无限长；
+      \item 工程公司的信号总是时域有限信号，理论上其频域信号无限长，但其频域信号将衰减为0，可将其截断，近似为带限信号。
+    \end{enumerate}
+\end{shuoming}
+\end{frame}
+
+
+
+\end{document}
+

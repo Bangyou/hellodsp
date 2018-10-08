@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  8 OCT 2018 16:05
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  8 OCT 2018 23:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**chapter3.tex
-(./chapter3.tex
+**chapter3pre.tex
+(./chapter3pre.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (c:/texlive/2018/texmf-dist/tex/latex/beamer/beamer.cls
@@ -1743,13 +1743,8 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\heiti' on input line 60.
 
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \hskip 10.95pt
-(hyperref)                replaced by space on input line 60.
-
-(./chapter3.aux)
-\openout1 = `chapter3.aux'.
+(./chapter3pre.aux)
+\openout1 = `chapter3pre.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
 LaTeX Font Info:    ... okay on input line 60.
@@ -1822,9 +1817,9 @@ LaTeX Info: Redefining \ref on input line 60.
 LaTeX Info: Redefining \pageref on input line 60.
 LaTeX Info: Redefining \nameref on input line 60.
 
-(./chapter3.out) (./chapter3.out)
+(./chapter3pre.out) (./chapter3pre.out)
 \@outlinefile=\write5
-\openout5 = `chapter3.out'.
+\openout5 = `chapter3pre.out'.
 
 \symnumbers=\mathgroup10
 \sympureletters=\mathgroup11
@@ -1949,7 +1944,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  TU/lmss/bx/n --> TU/lmss/bx/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  TU/lmtt/bx/n --> TU/lmtt/bx/n on input line 60.
- (./chapter3.nav)
+
+(./chapter3pre.nav)
 \g__fontspec_family_SimHei_int=\count355
 .................................................
 . fontspec info: "no-font-shape"
@@ -2065,87 +2061,58 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 .................................................
 [1
 
-] (./chapter3.toc
-LaTeX Font Info:    Try loading font information for U+msa on input line 11.
- (c:/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
+] (./chapter3pre.toc) [2
+
+]
+LaTeX Font Info:    Try loading font information for U+msa on input line 105.
+
+(c:/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 11.
+LaTeX Font Info:    Try loading font information for U+msb on input line 105.
 
 (c:/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 11.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 105.
 
 (c:/texlive/2018/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-))
-Overfull \vbox (68.49544pt too high) detected at line 66
- []
-
-[2
-
-] [3
+) [3
 
 ]
-Overfull \hbox (19.97354pt too wide) detected at line 112
-[]  [][] []\OT1/cmr/m/n/10.95 ([]
+Overfull \hbox (55.60751pt too wide) detected at line 141
+[] [][] []\OT1/cmr/m/n/10.95 ([]
 [][]) + [][] []([]
-[][]) = [] []([]
-[][] + \OML/cmm/m/it/10.95 '[]\OT1/cmr/m/n/10.95 )    
+[][])          
  []
+
+
+Class beamer Warning: Frame text is shrunk by a factor of 6.56586 percent inste
+ad of 0 percent on input line 141.
 
 [4
 
 ]
+Overfull \hbox (15.951pt too wide) detected at line 161
+[]
+ []
 
-Class beamer Warning: Frame text is shrunk by a factor of 21.26465 percent inst
-ead of 0 percent on input line 131.
+
+Class beamer Warning: Frame text is shrunk by a factor of 2.67334 percent inste
+ad of 0 percent on input line 161.
 
 [5
 
 ] [6
 
-]
+] [7
 
-LaTeX Warning: The counter will not be printed.
-             The label is: \textbf {注：} on input line 155.
-
-[7
-
-]
-Overfull \hbox (13.30202pt too wide) detected at line 187
-[]
- []
-
-
-Overfull \hbox (21.9pt too wide) detected at line 187
-[]
- []
-
-
-Overfull \hbox (4.90845pt too wide) detected at line 187
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 30.3894 percent inste
-ad of 0 percent on input line 187.
-
-[8
+] [8
 
 ] [9
 
-]
-
-LaTeX Font Warning: Font shape `TU/KaiTi(0)/bx/n' undefined
-(Font)              using `TU/KaiTi(0)/m/n' instead on input line 225.
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 18.51654 percent inst
-ead of 0 percent on input line 225.
-
-[10
+] [10
 
 ] [11
 
@@ -2153,564 +2120,90 @@ ead of 0 percent on input line 225.
 
 ]
 
-Class beamer Warning: Frame text is shrunk by a factor of 16.90674 percent inst
-ead of 0 percent on input line 292.
+LaTeX Font Warning: Font shape `TU/SimHei(0)/m/it' undefined
+(Font)              using `TU/SimHei(0)/m/n' instead on input line 312.
 
 [13
 
-]
+] [14
 
-Class beamer Warning: Frame text is shrunk by a factor of 17.2348 percent inste
-ad of 0 percent on input line 318.
-
-[14
-
-]
-Overfull \hbox (5.31201pt too wide) detected at line 337
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 29.21753 percent inst
-ead of 0 percent on input line 337.
-
-[15
+] [15
 
 ] [16
 
-]
+] [17
 
-Class beamer Warning: Frame text is shrunk by a factor of 18.8324 percent inste
-ad of 0 percent on input line 380.
-
-[17
+] [18
 
 ]
+Overfull \hbox (32.03633pt too wide) detected at line 446
+[]
+ []
 
-Class beamer Warning: Frame text is shrunk by a factor of 9.38568 percent inste
-ad of 0 percent on input line 401.
 
-[18
+Class beamer Warning: Frame text is shrunk by a factor of 8.35724 percent inste
+ad of 0 percent on input line 446.
 
-] [19
+[19
 
 ] [20
 
-] [21
-
 ]
 
-Class beamer Warning: Frame text is shrunk by a factor of 17.55829 percent inst
-ead of 0 percent on input line 468.
+LaTeX Font Warning: Font shape `TU/KaiTi(0)/bx/n' undefined
+(Font)              using `TU/KaiTi(0)/m/n' instead on input line 482.
 
-[22
+[21
 
-]
+] [22
 
-Class beamer Warning: Frame text is shrunk by a factor of 12.4054 percent inste
-ad of 0 percent on input line 485.
+] [23
 
-[23
+] [24
 
-]
+] [25
 
-Class beamer Warning: Frame text is shrunk by a factor of 14.888 percent instea
-d of 0 percent on input line 511.
-
-[24
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 12.4054 percent inste
-ad of 0 percent on input line 538.
-
-[25
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 6.14929 percent inste
-ad of 0 percent on input line 558.
-
-[26
+] [26
 
 ] [27
 
-]
-Overfull \hbox (12.53618pt too wide) detected at line 590
-[]
- []
+] [28
 
-[28
+] [29
 
-]
-Overfull \hbox (32.24893pt too wide) detected at line 616
-[]
- []
-
-[29
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 1.3031 percent instea
-d of 0 percent on input line 627.
-
-[30
+] [30
 
 ] [31
 
-] [32
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 5.85022 percent inste
-ad of 0 percent on input line 688.
-
-[33
-
-] [34
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 2.81372 percent inste
-ad of 0 percent on input line 737.
-
-[35
-
-] [36
-
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 750.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 750.
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 4.00696 percent inste
-ad of 0 percent on input line 778.
-
-[37
-
-] [38
-
-]
-Overfull \hbox (53.24841pt too wide) detected at line 810
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 11.38916 percent inst
-ead of 0 percent on input line 810.
-
-[39
-
-] [40
-
-]
-Overfull \hbox (93.95186pt too wide) detected at line 843
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 20.71686 percent inst
-ead of 0 percent on input line 843.
-
-[41
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 3.12195 percent inste
-ad of 0 percent on input line 865.
-
-[42
-
-] [43
-
-] [44
-
-]
-Overfull \hbox (15.93901pt too wide) detected at line 902
-[]\OT1/cmr/m/n/10.95 (([] + []))[][]([]) \OMS/cmsy/m/n/10.95 $ [][][]\OT1/cmr/m
-/n/10.95 ([])  [](([] \OMS/cmsy/m/n/10.95 ^^@ []\OT1/cmr/m/n/10.95 ))[][]([]) \
-OMS/cmsy/m/n/10.95 $ [][][]\OT1/cmr/m/n/10.95 ([])
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 21.74683 percent inst
-ead of 0 percent on input line 902.
-
-[45
-
-] [46
-
-]
-Overfull \hbox (57.87404pt too wide) detected at line 943
-[][] \OMS/cmsy/m/n/10.95 ^^A []\OT1/cmr/m/n/10.95 ([]) \OMS/cmsy/m/n/10.95  []!
- []\OT1/cmr/m/n/10.95 (([] + []))[] \OMS/cmsy/m/n/10.95 ^^A [][]\OT1/cmr/m/n/10
-.95 ([])  [][] \OMS/cmsy/m/n/10.95 ^^A []\OT1/cmr/m/n/10.95 ([]) \OMS/cmsy/m/n/
-10.95  []! []\OT1/cmr/m/n/10.95 (([] \OMS/cmsy/m/n/10.95 ^^@ []\OT1/cmr/m/n/10.
-95 ))[] \OMS/cmsy/m/n/10.95 ^^A [][]\OT1/cmr/m/n/10.95 ([])
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 22.00012 percent inst
-ead of 0 percent on input line 943.
-
-[47
-
-]
-Overfull \hbox (17.0145pt too wide) detected at line 963
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 19.14368 percent inst
-ead of 0 percent on input line 963.
-
-[48
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 14.54315 percent inst
-ead of 0 percent on input line 978.
-
-[49
-
-] [50
-
-] [51
-
-] [52
-
-]
-Missing character: There is no ： in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： in font [lmroman10-regular]:mapping=tex-text;!
-Missing character: There is no ： in font [lmroman10-regular]:mapping=tex-text;!
-
-Overfull \hbox (8.42966pt too wide) detected at line 1090
-[]
- []
-
-
-Overfull \hbox (21.9pt too wide) detected at line 1090
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 20.96863 percent inst
-ead of 0 percent on input line 1090.
-
-[53
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 10.92072 percent inst
-ead of 0 percent on input line 1128.
-
-[54
-
-]
-Overfull \hbox (7.77444pt too wide) detected at line 1152
-[]
- []
-
-
-Overfull \hbox (21.9pt too wide) detected at line 1152
-[]
- []
-
-
-Overfull \hbox (10.6478pt too wide) detected at line 1152
-[]
- []
-
-
-Overfull \hbox (21.9pt too wide) detected at line 1152
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 15.5716 percent inste
-ad of 0 percent on input line 1152.
-
-[55
-
-] [56
-
-]
-Overfull \hbox (29.68709pt too wide) detected at line 1198
-[]
- []
-
-
-Overfull \hbox (29.68709pt too wide) detected at line 1198
-[]
- []
-
-[57
-
-] [58
-
-
-] [59
-
-] [60
-
-
-] [61
-
-]
-Overfull \hbox (55.00339pt too wide) detected at line 1265
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 9.38568 percent inste
-ad of 0 percent on input line 1265.
-
-[62
-
-] [63
-
-] [64
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 2.22015 percent inste
-ad of 0 percent on input line 1336.
-
-[65
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 0.36621 percent inste
-ad of 0 percent on input line 1360.
-
-[66
-
-] [67
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 7.38983 percent inste
-ad of 0 percent on input line 1394.
-
-[68
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 6.97937 percent inste
-ad of 0 percent on input line 1409.
-
-[69
-
-] [70
-
-] [71
-
-]
-Overfull \hbox (24.80759pt too wide) detected at line 1458
-[]\OML/cmm/m/it/10.95 '[]! \OMS/cmsy/m/n/10.95 ^^@ [][][] \OT1/cmr/m/n/10.95 = 
-\OML/cmm/m/it/10.95 '[]\OT1/cmr/m/n/10.95 ([][]) = [] \OMS/cmsy/m/n/10.95 ^^A [
-] ^^A [][]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 15.5716 percent inste
-ad of 0 percent on input line 1458.
-
-[72
-
-]
-Overfull \hbox (43.91869pt too wide) detected at line 1479
-[]
- []
-
-
-Class beamer Warning: Frame text is shrunk by a factor of 18.0191 percent inste
-ad of 0 percent on input line 1479.
-
-[73
-
-] [74
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 20.66956 percent inst
-ead of 0 percent on input line 1525.
-
-[75
-
-] [76
-
-]
-Overfull \hbox (9.26949pt too wide) detected at line 1562
-[]
- []
-
-[77
-
-] [78
-
-] [79
-
-]
-File: jisuanxunhuanjuanji.jpg Graphic file (type bmp)
-<jisuanxunhuanjuanji.jpg>
- [80
-
-] [81
-
-] [82
-
-]
-Overfull \hbox (49.2316pt too wide) detected at line 1663
-[]
- []
-
-[83
-
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1669.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1669.
-
-[84
-
-] [85
-
-]
-Overfull \hbox (20.76512pt too wide) detected at line 1724
-[]   [] \OT1/cmr/m/n/10.95 = []\OML/cmm/m/it/10.95 ;  [][] \OT1/cmr/m/n/10.95 =
- []     
- []
-
-
-Overfull \hbox (31.45573pt too wide) detected at line 1724
-[]   [][] \OT1/cmr/m/n/10.95 = [][]\OML/cmm/m/it/10.95 ;  [] \OT1/cmr/m/n/10.95
- = []    
- []
-
-[86
-
-]
-Overfull \hbox (50.59885pt too wide) detected at line 1757
-[]
- []
-
-
-Overfull \hbox (6.9615pt too wide) detected at line 1757
-[]  [] \OT1/cmr/m/n/10.95 = [] = []        
- []
-
-[87
-
-]
-Overfull \hbox (47.00414pt too wide) detected at line 1783
-\U/msa/m/n/10.95 *  []\OT1/cmr/m/n/10.95 ([])  = [] [] [][] [] [] [] = []([]
-)[][]   
- []
-
-[88
-
-]
-Overfull \hbox (96.53015pt too wide) detected at line 1805
-[]
- []
-
-[89
-
-] [90
-
-] [91
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 16.2445 percent inste
-ad of 0 percent on input line 1863.
-
-[92
-
-] [93
-
-] [94
-
-] [95
-
-] [96
-
-] [97
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 8.35724 percent inste
-ad of 0 percent on input line 1972.
-
-[98
-
-] [99
-
-]
-Overfull \hbox (21.28708pt too wide) detected at line 2025
-[]
- []
-
-Missing character: There is no 见 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 板 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 书 in font [lmroman12-regular]:mapping=tex-text;!
-[100
-
-] [101
-
-] [102
-
-] [103
-
-] [104
-
 ]
 \tf@nav=\write6
-\openout6 = `chapter3.nav'.
+\openout6 = `chapter3pre.nav'.
 
 \tf@toc=\write7
-\openout7 = `chapter3.toc'.
+\openout7 = `chapter3pre.toc'.
 
 \tf@snm=\write8
-\openout8 = `chapter3.snm'.
+\openout8 = `chapter3pre.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2077.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2077.
- (./chapter3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 2077.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2077.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 626.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 626.
+ (./chapter3pre.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 626.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 626.
+Package rerunfilecheck Info: File `chapter3pre.out' has not changed.
+(rerunfilecheck)             Checksum: 7352CEA3D085A3DB1FC0E00C58CE0563.
 
-
-
-Package rerunfilecheck Warning: File `chapter3.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `chapter3.out':
-(rerunfilecheck)             Before: 04EDD36170A287B8BBB64401E9A0FE75
-(rerunfilecheck)             After:  7FD138161FB45B9ADB3648BECC2CF0BA.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 34506 strings out of 492970
- 717760 string characters out of 6137298
- 791246 words of memory out of 5000000
- 37884 multiletter control sequences out of 15000+600000
- 546546 words of font info for 124 fonts, out of 8000000 for 9000
+ 34104 strings out of 492970
+ 705510 string characters out of 6137298
+ 777094 words of memory out of 5000000
+ 37498 multiletter control sequences out of 15000+600000
+ 544773 words of font info for 111 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 55i,23n,72p,10461b,934s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,20n,69p,10464b,935s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on chapter3.pdf (104 pages).
+Output written on chapter3pre.pdf (31 pages).
