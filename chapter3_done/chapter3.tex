@@ -47,6 +47,7 @@
 \newtheorem{summary}{小结}
 
 \newtheorem{zhuyi}{注意}
+\newtheorem{zhu}{注:}
 \newtheorem{shuoming}{说明}
 \newtheorem{wenti}{问题}
 \newtheorem{jielun}{结论}
@@ -70,603 +71,183 @@
 %%% mode: latex
 %%% TeX-master: t
 %%% End:
-\section{引言-离散傅里叶变换概念的引入}
-\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
 
 
-无论是模拟还是时域离散信号和系统，傅里叶变换都是非常重要的数学工具，只不过
-前者是求积分，后者是求和，形式不同而已，很多性质类似，用于信号和系统的频域分析。
-\end{frame}
+\section{DFT的定义和物理意义}
 
-\subsection{傅里叶级数和傅里叶变换概述}
-
-%\begin{frame}\frametitle{傅里叶变换的四种形式}%[shrink]
+\subsection{DFT的定义}
 %
-%\end{frame}
-\subsubsection{连续信号的傅里叶级数与傅里叶变换}
-
-\begin{frame}[shrink]\frametitle{连续周期信号的傅里叶级数}%[shrink]
-
-   三角级数 \par
-
-        对任何一个周期为$T$的周期信号$\tilde{x}_a(t)$，可将其在区间$(t_1,t_1+T)$ 内表示为：
-        \begin{equation*}
-          \begin{split}
-            \tilde{x}_a(t) &=
-%            \frac{a_0}{2}+a_1 \cos(\Omega_s t)+a_2 \cos(2\Omega_s t) +
-%                       \cdots + a_n \cos(n\Omega_s t) + \cdots\\
-%                   &  \quad\quad\quad   +b_1 \sin(\Omega_s t)+b_2 \sin(2\Omega_s t) +
-%                       \cdots + b_n \sin(n\Omega_s t)+ \cdots\\
-                     \frac{a_0}{2}+\sum_{n=1}^{\infty}\Big[a_n \cos(n \Omega_s t)+
-                        b_n \sin(n \Omega_s t)\Big]\quad\quad \left(\Omega_s = \frac{2\pi}{T}\right)
-           \end{split}
-        \end{equation*}
-               $$\mbox{令}\quad\quad \dot{A}_n = \sqrt{a^2_n +b^2_n}\qquad\quad    \varphi_n = - \arctan\Big(\frac{b_n}{a_n}\Big) $$
-       $$\mbox{有：}\quad\quad          a_n \cos(n \Omega_s t)+ b_n \sin(n\Omega_s t) = \dot{A}_n \cos(n \Omega_s t +\varphi_n) \qquad\qquad\quad\quad $$
-       \begin{equation*}
-       \begin{split}
- %      a_n= \dot{A}_n \cos(\varphi_n)\qquad       &\quad    b_n = \dot{A}_n \sin(\varphi_n) \\
-       \dot{A}_n = \sqrt{a^2_n +b^2_n}\qquad      &\quad    \varphi_n = - \arctan\Big(\frac{b_n}{a_n}\Big)
-       \end{split}
-       \end{equation*}
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{指数傅里叶级数}%[shrink]
-
-
-
-       \begin{equation*}
-       \begin{split}
-       \tilde{x}_a(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\Big[a_n \cos(n \Omega_s t)+ b_n \sin(n \Omega_s t)\Big] \qquad\qquad\qquad\\
-                      &= \frac{a_0}{2}+\sum_{n=1}^{\infty}\dot{A}_n \cos(n \Omega_s t +\varphi_n) \\
-                      &= \frac{a_0}{2}+\frac{1}{2}\sum_{n=1}^{\infty} \left[\dot{A}_n e^{j(n \Omega_s t +\varphi_n)}+
-                           \dot{A}_n e^{-j(n \Omega_s t +\varphi_n)}\right] \\
-                      &= \frac{1}{2}\sum_{n=-\infty}^{\infty}\dot{A}_n e^{j(n \Omega_s t +\varphi_n)}\qquad   \left(\mbox{令}\quad A_n = \frac{1}{2}\dot{A}_n e^{j\varphi_n}\right)\\
-       \therefore\quad \tilde{x}_a(t)
-                      &= \sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t}\\
-           \end{split}
-        \end{equation*}
-
-         $$\mbox{式中：\qquad}A_n = \frac{1}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)e^{-jn\Omega_s t} \qquad\qquad\qquad\qquad$$
- \end{frame}
-
-
-
-\begin{frame}[shrink]\frametitle{指数傅里叶级数}%[shrink]
-    注
-    \begin{enumerate}
-      \item 两种表达方式等价，实际应用中三角级数更直观，但指数傅里叶级数更方便。
-      \item 指数级数中出现了引用$-n$，并不意味着存在负频率，只是一种数学形式。
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{非周期信号的傅里叶变换}%[shrink]
-
-   非周期信号的傅里叶变换
-   \begin{enumerate}
-     \item 周期信号可以用傅里叶级数表示，如方波信号.
-           \newline\newline\newline\newline\newline\newline
-         \begin{enumerate}[\textbf{注：}]
-           \item 频谱图为不连续的频谱，间隔为$\Omega_s = \frac{2\pi}{T}$
-           \item 频谱图处于$\Omega_s$的整数倍上；
-           \item 振幅随着谐波次数的增加而变小。
-         \end{enumerate}
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{非周期信号的傅里叶变换}%[shrink]
+%
+\begin{frame}[shrink]\frametitle{DFT的定义}%[allowframebreaks][shrink]
+\begin{definition}
+设有限长序列$x(n)$长度为$M$，则其$N$点$DFT$可定义为：
+$$X(k) = DFT\big[x(n)\big] =  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1)$$
+\end{definition}
+\begin{zhu}
 \begin{enumerate}
-     \item 对于非周期函数，可视为$T \rightarrow \infty$，此时：
-          $$
-            \left\{ \begin{aligned}
-                \Omega_s=\frac{2\pi}{T}\rightarrow 0  &, \quad \mbox{谱线间隔将趋近于0，谱线无限密集} \\
-                A_n \rightarrow 0\quad\quad           &, \quad \mbox{谱线高度也趋近于0}\\
-            \end{aligned} \right.
-          $$
-
-
-          此时两者看似都接近于0，但根据帕斯维尔定理，这一点是不合理的。\par
-          此时可引入新的概念，傅里叶变换$x_a(t)\leftrightarrow X_a(j\Omega)$。\par
-
-          \begin{equation*}
-            \begin{split}
-                  \mbox{定义：\quad}X_a(j\Omega)
-                        &=\lim_{T\rightarrow\infty}T \cdot A_n  \qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
-                        &=\int_{-\infty}^{\infty}x_a(t)e^{-j\Omega t}dt\quad(\Omega=n\Omega_s)
-             \end{split}
-          \end{equation*}
-
-          $$
-            \left\{ \begin{aligned}
-                X_a(j\Omega) &=\int_{-\infty}^{\infty}x_a(t)e^{-j\Omega t}dt \qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
-                x_a(t) \:    &=\frac{1}{2\pi}\int_{-\infty}^{\infty}X_a(j\Omega)e^{j\Omega t}d\Omega
-            \end{aligned} \right.
-          $$
-          从这里看可以看出，傅里叶变换是傅里叶积分的推广。
-     \end{enumerate}
-\end{frame}
-
-
-
-\begin{frame}[shrink]\frametitle{连续周期信号的傅里叶变换}%[shrink]
-   连续周期信号的傅里叶变换\par
-     引入冲激函数$\delta(t)$后，有
-     \begin{equation*}
-     \begin{split}
-        FT[\tilde{x}_a(t)] &= FT\left[\sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t}\right]
-                    = \sum_{n=-\infty}^{\infty} A_n FT\left[ e^{j n \Omega_s t}\right] \\
-                   &= \sum_{n=-\infty}^{\infty} A_n 2\pi \delta(\Omega - n\Omega_s)\\
-                   &= 2\pi  \sum_{n=-\infty}^{\infty} A_n\cdot \delta(\Omega - n\Omega_s)\\
-     \end{split}
-     \end{equation*}
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{离散信号的傅里叶级数与傅里叶变换}%[shrink]
-
-\textbf{（二） 离散信号的傅里叶级数与傅里叶变换}
-  \begin{enumerate}
-    \item 非周期序列的$FT$
-    $$
-    \left\{ \begin{aligned}
-         X(e^{j\omega}) &=\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n} \qquad\qquad\qquad\qquad\qquad\qquad \\
-          x(n)        &=\frac{1}{2\pi}\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega n}d\omega
-    \end{aligned} \right.
-    $$
-    \item 周期序列的$DFS$和$FT$
-    \begin{equation*}
-           \left\{ \begin{aligned}
-               \tilde{X}(k) &= DFS[\tilde{x}(n)]\quad  =  \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn} \qquad\qquad\quad\\
-               \tilde{x}(n) &= IDFS[\tilde{X}(k)]
-                               = \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}
-           \end{aligned} \right.
-    \end{equation*}\vspace{-0.3cm}
-    $$FT\big[\tilde{x}(n)\big] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta\big(\omega-\frac{2\pi}{N}k\big) \qquad\qquad\qquad$$
-  \end{enumerate}
-\end{frame}
-
-
-\subsection{DFT概念的引入}
-%
-\begin{frame}[shrink]\frametitle{傅里叶变换的四种形式}%[shrink]
-\textbf{(一) 傅里叶变换的四种形式}
-
-
-%\begin{enumerate}
-%  \item
-  非周期连续信号$x_a(t)$\par
-  \par  假设$x_a(t)$为有限长带限信号：
-     \newline\newline\newline\newline\newline
-  设$x_a(t)\leftrightarrow X_a(j\Omega)$，则有：
-  \begin{equation*}
-  \left\{ \begin{aligned}
-      X_a(j\Omega) &=  \int_{-\infty}^{\infty}x_a(t) e^{-j\Omega t}dt \qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
-      x_a(t)\:  &=  \frac{1}{2\pi}\int_{-\infty}^{\infty}X_a(j\Omega) e^{j\Omega t}d\Omega
-  \end{aligned} \right.
-  \end{equation*}
-
-\end{frame}
-
-
-
-
-
-
-
-\begin{frame}[shrink]\frametitle{周期连续信号$\tilde{x}_a(t)$}%[shrink]
-
-   周期连续信号$\tilde{x}_a(t)$
-
-%  \begin{enumerate}
-%    \item
-    将$x_a(t)$周期延拓为$\tilde{x}_a(t)$，则可得：
-    \newline\newline\newline\newline
-    \begin{equation*}
-    \begin{split}
-             \quad  \tilde{x}_a(t)\quad   &= \sum_{n=-\infty}^{\infty} A_n e^{j n \Omega_s t}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
-              \mbox{其中：}  A_n          &=  \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot e^{-jn\Omega_s t}dt\\
-              FT\big[\tilde{x}_a(t)\big]  &= 2\pi \sum_{n=-\infty}^{\infty} A_n \delta(n-n\Omega_s)
-    \end{split}
-    \end{equation*}
-    可用$A_n$代表$\tilde{x}_a(t)$的傅里叶变换。
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{$A_n$与$X_a(j\Omega)$的关系}%[shrink]
-%    \item $A_n$与$X_a(j\Omega)$的关系
-    \begin{equation*}
-    \begin{split}
-    A_n     &= \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot e^{-jn\Omega_s t}dt\\
-            &= \frac{1}{T_p}\int_{0}^{T_p}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\quad\mbox{(取一个周期)}\\
-             &= \frac{1}{T_p}\int_{-\infty}^{\infty}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\mbox{\big($x_a(t)$ 为有限长信号\big)}\\
-            &= \frac{1}{T_p}\left[\int_{-\infty}^{\infty}x_a(t) \cdot e^{-j\Omega t}dt\right]_{\Omega=n\Omega_s}\\
-            &= \frac{1}{T_p}X_a(j\Omega)|_{\Omega=n\Omega_s}\\
-    \therefore \quad A_n
-            &= \frac{1}{T_p}X_a(j\Omega)|_{\Omega=n\Omega_s}\quad\quad\quad(\Omega_s = \frac{2\pi}{T_p})
-    \end{split}
-    \end{equation*}
-  %\end{enumerate}
-  $\tilde{x}_a(t)$的傅里叶变换是$FT[x_a(t)]$的采样；
-    结论：
-    \begin{itemize}
-      \item 时域的周期化，对应频域的离散化。
-    \end{itemize}
-\end{frame}
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[shrink]\frametitle{非周期离散信号$x(n)$}%[allowframebreaks][shrink]
-
-        \par 如对原信号$x_a(t)$ 进行采样，采样周期为T，则有:
-        \newline\newline\newline\newline\newline\newline
-
-        %\item $A_n$与$X_a(j\Omega)$的关系;
-
-
-        \begin{equation}
-        \begin{split}
-             x(n) \:  &\longleftrightarrow   X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\quad\quad\quad\quad\quad\quad\quad\quad\\
-             x_a(t)   &\longrightarrow     \quad  \hat{x}_a(t) = x_a(t)|_{t=nT}\\
-             x(n)\:   &=\quad  x_a(nT)  = x_a(t)|_{t=nT}\\
-        \end{split}
-        \end{equation}
-
-        所以$x(n)$的频谱与采样信号$\hat{x}_a(t)$的频谱有关。
-        $$ X(e^{j\omega})  = \hat{X}_a(j\Omega)\big|_{\omega = \Omega T}\quad\quad\quad(\mbox{或：}\Omega = \frac{\omega}{T})$$%
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{证明}%[allowframebreaks][shrink]
-        \textbf{证明：}
-        $$\hat{x}_a(t)= \sum_{n=-\infty}^{\infty}x_a(nT)\delta(t-nT)
-                \quad\quad\quad\quad\quad\quad\quad\quad\quad$$
-        \begin{equation*}
-        \begin{split}
-         \hat{X}_a(j\Omega)
-             &= \int_{-\infty}^{\infty}\hat{x}_a(t)\cdot e^{-j\Omega t}dt \\
-             &= \int_{-\infty}^{\infty}\left[\sum_{n=-\infty}^{\infty}x_a(nT)\delta(t-nT)\right]\cdot e^{-j\Omega t}dt \\
-             &= \sum_{n=-\infty}^{\infty}x_a(nT)\left[\int_{-\infty}^{\infty}\delta(t-nT)\cdot e^{-j\Omega t}dt\right] \\
-             &= \sum_{n=-\infty}^{\infty}x_a(nT) e^{-j\Omega\cdot T n} \quad\quad\quad\Big(\int_{-\infty}^{\infty}f(t)\delta(t-t_1)dt = f(t_1)\Big)\\
-             &= \sum_{n=-\infty}^{\infty}x(n)\cdot e^{-j\omega n} \quad\quad \Big(x(n) =x_a(nT)\quad \omega =\Omega T \Big)\\
-             &= X(e^{j\omega})\big|_{\omega = \Omega T}
-        \end{split}
-        \end{equation*}
-        $$\therefore \quad\quad X(e^{j\omega})  = \hat{X}_a(j\Omega)\big|_{\omega = \Omega T}
-                 \quad\quad\quad(\mbox{或：}\Omega=\frac{\omega}{T})$$
-\end{frame}
-
-\begin{frame}[shrink]\frametitle{证明}%[allowframebreaks][shrink]
-        又根据采样定理：
-        \begin{equation}
-        \begin{split}
-        \hat{X}_a(j\Omega)  &= \frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -j k \Omega_s) \quad\big(\Omega_s = \frac{2\pi}{T}\mbox{为采样角频率}\big)\\
-        X(e^{j\omega})      &= \left[\frac{1}{T}\sum_{k=-\infty}^{\infty}X_a(j\Omega -k \Omega_s)\right]_{\Omega = \frac{\omega}{T}}
-        \end{split}
-        \end{equation}
-        %这里$\Omega_s = \frac{2\pi}{T}$为采样角频率。
-        %\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
-%
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\begin{frame}[shrink]\frametitle{周期离散信号$\tilde{x}(n)$}%[allowframebreaks][shrink]
-
-   周期离散信号$\tilde{x}(n)$
-        \newline\newline\newline\newline\newline\newline
-        设$x(n)$的长度为$N$，且以$N$为周期延拓得到$\tilde{x}(n)$，则有：
-        \begin{equation}
-           \left\{ \begin{aligned}
-               \tilde{X}(k) &= DFS[\tilde{x}(n)]\quad  = \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}
-                              \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad \\
-               \tilde{x}(n) &= IDFS[\tilde{X}(k)]
-                               = \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)e^{j\frac{2\pi}{N}kn}
-           \end{aligned} \right.
-        \end{equation}
-        $$FT[\tilde{x}(n)] =  \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k) \qquad\qquad\qquad\qquad$$
-        \textbf{即：} 一个周期序列的傅里叶变换是另一个域的冲击函数组成，可用$\tilde{X}(k)$来代表$FT[\tilde{x}(n)]$。\par
-\end{frame}
-
-
-
-
-
-\begin{frame}[shrink]\frametitle{周期离散信号$\tilde{x}(n)$}%[allowframebreaks][shrink]
-        $\tilde{X}(k)$与原信号频谱的关系为：
-
-        \begin{equation}
-        \begin{split}
-        \tilde{X}(k) &= \sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}\\
-                     &= \left[\sum_{n=0}^{N-1}x(n)e^{-j\omega n}\right]_{\omega =\frac{2\pi}{N}k}\\
-                     &= \left[\sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\right]_{\omega =\frac{2\pi}{N}k}\\
-                     &= X(e^{j\omega})\Big|_{\omega =\frac{2\pi}{N}k}
-        \end{split}
-        \end{equation}
-        \textbf{结论}：周期信号的频谱是原信号的频谱$X(e^{j\omega})$ 延拓后再采样得到。
-
-
-\textbf{总结：}一个域的周期化，总对应另一个域的离散化。
-\end{frame}
-%
-
-
-
-
-\begin{frame}[shrink]\frametitle{title}%[allowframebreaks][shrink]
-（二） DFT概念的引入
-  \par 在实际工程中， 我们所处理的原始信号往往都是模拟信号，要用计算机对信号进行处理，必须考虑一下几个方面的问题。
-  \begin{enumerate}
-    \item 计算机只能处理离散信号，不能处理连续信号；
-    \item 计算机能给出的结果也是一个离散的序列；
-    \item 计算机只能处理和表示有限长度的离散序列。
-  \end{enumerate}
-  这意味着，我们想要的是：有限长的带限信号：(如下图所示：)
-  \newline\newline\newline\newline\newline
-
-\end{frame}
-
-
-\begin{frame}[shrink]\frametitle{title}%[allowframebreaks][shrink]
-
-
-  \par 回到前述的四种傅里叶变换理论：
-  \newline\newline\newline\newline\newline\newline\newline\newline
-
-  以上4种傅里叶变换理论均不能满足要求，与计算机应用脱节，需引入新的傅里叶变换概念。
-\end{frame}
-
-
-
-
-\subsection{DFT的变换表达式}
-\begin{frame}\frametitle{分析}%[allowframebreaks][shrink]
-\begin{enumerate}
-  \item 周期离散序列的DFS仍然为周期序列，且周期长度相等。
-  \item 周期序列的全部信息都包含在主值区间内。
-  \item 那么时域序列主值区间和频域序列主值区间之间能否定义一傅里叶变换？
+	\item [(1)]   式中$ M $为信号$ x(n) $的长度，$ N $为DFT变换区间长度，此处需要$ N\geq M $。
+	\item [(2)]
 \end{enumerate}
-这样得到的变换必定是有限长离散序列。
-\newline
-    \begin{itemize}
-      \item 时域信号：取$\tilde{x}(n)$的主值区间为$x(n) =\tilde{x}(n)\cdot R_N(n)$
-      \item 频域信号：取$\tilde{X}(k)$的主值区间为$X(k) =\tilde{X}(k)\cdot R_N(k)$
-    \end{itemize}
+\end{zhu}
 
-    在以上两个序列之间定义离散傅里叶变换理论，即
-     $$X(k) = DFT[x(n)]$$ %, \qquad\qquad  即:$x(n)\longleftrightarrow X(k)$
 \end{frame}
 
-\begin{frame}[shrink]\frametitle{推导}%[allowframebreaks][shrink]
-    令 $X(k) = DFT[x(n)]$ , \quad 即:$x(n)\longleftrightarrow X(k)$
-    \begin{equation*}
-    \begin{split}
-    X(k) &= \tilde{X}(k)\cdot R_N(k) =  DFS[\tilde{x}(n)]\cdot R_N(k)\\
-         &= \left[\sum_{n=0}^{N-1}\tilde{x}(n)e^{-j\frac{2\pi}{N}kn}\right]\cdot R_N(k)\quad\quad (-\infty \leq k \leq \infty)\\
-         &= \left[\sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}\right]\cdot R_N(k)\quad\quad (\mbox{取$x(n)$一个周期})\\
-         &= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn} \quad\quad (0 \leq k \leq N-1)\\
-    \end{split}
-    \end{equation*}
-    同理可得：
-    \begin{equation*}
-    \begin{split}
-    x(n) &= \tilde{x}(n)\cdot R_N(n) =  IDFS[\tilde{X}(k)]\cdot R_N(k)\\
-         &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)
-    \end{split}
-    \end{equation*}
-\end{frame}
 
-\begin{frame}[shrink]\frametitle{有限长序列$x(n)$的N点DFT}%[allowframebreaks][shrink]
-    这样，我们得到了一个有限长序列$x(n)$的N点DFT为：
+
+
+\begin{frame}[shrink]\frametitle{DFT的定义}%[allowframebreaks][shrink]
+    其反变换定义为：
+    $$x(n) = IDFT[X(k)] =   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)$$
     \begin{equation*}
            \left\{ \begin{aligned}
                X(k) &=  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1) \\
                x(n) &=   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)
            \end{aligned} \right.
     \end{equation*}
-\begin{shuoming}
-    \begin{enumerate}
-      \item 使得DFT能描述原来的信号的条件有两个，即有限长带限信号；
-      \item 实际中存在的信号，如时域有限，则频域必定无限长，如频域有限，则时域一定是无限长；
-      \item 工程公司的信号总是时域有限信号，理论上其频域信号无限长，但其频域信号将衰减为0，可将其截断，近似为带限信号。
-    \end{enumerate}
-\end{shuoming}
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{求反变换}%[allowframebreaks][shrink]
+问题在于求反变换：
+    $$x(n) =   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)$$
+\textbf{    证明：}  从右到左，将$X(k)$的表达式代入可得：
+\begin{equation*}
+\begin{split}
+    %X(k) &=  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1) \\
+\frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn}
+    &= \frac{1}{N}\sum_{k=0}^{N-1}\left[\sum_{m=0}^{N-1}x(m)e^{-j\frac{2\pi}{N}km}\right]e^{j\frac{2\pi}{N}kn}   \\
+    &=  \frac{1}{N}\sum_{m=0}^{N-1}x(m)\left[\sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k}\right]
+\end{split}
+\end{equation*}
+
+\begin{equation*}
+\mbox{而：\quad}    \sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k} =
+        \left\{\begin{array}{r@{,\quad}l}
+        N  & m-n =l\cdot N \quad\quad  l\in Z\\
+        0     &\mbox{其他}
+    \end{array} \right.
+\end{equation*}
+
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{求反变换}%[allowframebreaks][shrink]
+因为$0\leqslant m \leqslant N-1$，$0\leqslant n \leqslant N-1$，
+$$\therefore \quad\quad  -(N-1)\leqslant m-n \leqslant N-1$$
+
+只有当$m-n=0$，即$m=n$时，有：
+$$\sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k} = N$$
+
+
+$$\therefore \quad\quad  \frac{1}{N}\sum_{m=0}^{N-1}x(m)\left[\sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k}\right]
+ = \frac{1}{N}\cdot N \cdot x(n) = x(n)$$
+
+$$\mbox{即：}\quad x(n) =   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1) $$
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{求反变换}%[allowframebreaks][shrink]
+记$W_N = e^{-j\frac{2\pi}{N}}$，则有：
+    \begin{equation*}
+           \left\{ \begin{aligned}
+               X(k) &=  DFT[x(n)]\quad = \sum_{n=0}^{N-1}x(n) W_N^{kn} \quad\quad\quad (0 \leq k \leq N-1) \\
+               x(n) &= IDFT[X(k)] = \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn} \quad\quad (0 \leq n \leq N-1)
+           \end{aligned} \right.
+    \end{equation*}
 \end{frame}
 %
-%
-%
-%
-%\section{DFT的定义和物理意义}
-%
-%\subsection{DFT的定义}
-%%
-%%
-%\begin{frame}[shrink]\frametitle{DFT的定义}%[allowframebreaks][shrink]
-%\begin{definition}
-%设有限长序列$x(n)$长度为$N$，则其$N$点$DFT$可定义为：
-%    $$X(k) = DFT[x(n)] =  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1)$$
-%\end{definition}
-%
-%
-%
-%    其反变换定义为：
-%    $$x(n) = IDFT[X(k)] =   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)$$
-%    \begin{equation*}
-%           \left\{ \begin{aligned}
-%               X(k) &=  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1) \\
-%               x(n) &=   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)
-%           \end{aligned} \right.
-%    \end{equation*}
-%\end{frame}
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{求反变换}%[allowframebreaks][shrink]
-%问题在于求反变换：
-%    $$x(n) =   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1)$$
-%\textbf{    证明：}  从右到左，将$X(k)$的表达式代入可得：
-%\begin{equation*}
-%\begin{split}
-%    %X(k) &=  \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}  \quad\quad\quad (0 \leq k \leq N-1) \\
-%\frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn}
-%    &= \frac{1}{N}\sum_{k=0}^{N-1}\left[\sum_{m=0}^{N-1}x(m)e^{-j\frac{2\pi}{N}km}\right]e^{j\frac{2\pi}{N}kn}   \\
-%    &=  \frac{1}{N}\sum_{m=0}^{N-1}x(m)\left[\sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k}\right]
-%\end{split}
-%\end{equation*}
-%
-%\begin{equation*}
-%\mbox{而：\quad}    \sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k} =
-%        \left\{\begin{array}{r@{,\quad}l}
-%        N  & m-n =l\cdot N \quad\quad  l\in Z\\
-%        0     &\mbox{其他}
-%    \end{array} \right.
-%\end{equation*}
-%
-%
-%\end{frame}
-%
-%
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{求反变换}%[allowframebreaks][shrink]
-%因为$0\leqslant m \leqslant N-1$，$0\leqslant n \leqslant N-1$，
-%$$\therefore \quad\quad  -(N-1)\leqslant m-n \leqslant N-1$$
-%
-%只有当$m-n=0$，即$m=n$时，有：
-%$$\sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k} = N$$
-%
-%
-%$$\therefore \quad\quad  \frac{1}{N}\sum_{m=0}^{N-1}x(m)\left[\sum_{k=0}^{N-1}e^{-j\frac{2\pi}{N}(m-n)k}\right]
-% = \frac{1}{N}\cdot N \cdot x(n) = x(n)$$
-%
-%$$\mbox{即：}\quad x(n) =   \frac{1}{N}\sum_{k=0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn} \quad\quad (0 \leq n \leq N-1) $$
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{求反变换}%[allowframebreaks][shrink]
-%记$W_N = e^{-j\frac{2\pi}{N}}$，则有：
-%    \begin{equation*}
-%           \left\{ \begin{aligned}
-%               X(k) &=  DFT[x(n)]\quad = \sum_{n=0}^{N-1}x(n) W_N^{kn} \quad\quad\quad (0 \leq k \leq N-1) \\
-%               x(n) &= IDFT[X(k)] = \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn} \quad\quad (0 \leq n \leq N-1)
-%           \end{aligned} \right.
-%    \end{equation*}
-%\end{frame}
-%%
-%
-%
-%
-%
-%\subsection{DFT和Z变换的关系}
-%
-%\begin{frame}\frametitle{DFT和Z变换的关系}%[allowframebreaks][shrink]
-%%$$ X(z) = \sum_{n=-\infty}^{\infty}x(n)z^{-n}\quad\quad\quad\quad\quad\quad\quad\quad\quad $$
-%我们知道：
-%\begin{equation*}
-%\begin{split}
-%                X(z) &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
-%\mbox{而}\quad  X(k) &= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}
-%                      = \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn}\\
-%                     &= \left[\sum_{n=-\infty}^{\infty}x(n) z^{-n}\right]_{z = e^{-j\frac{2\pi}{N}k}} =X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}   \\
-%\therefore  X(k)     &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} \quad\quad\quad 0 \leq k \leq N-1
-%\end{split}
-%\end{equation*}
-%即，$x(n)$的$N$点$DFT$是其$Z$变换$X(z)$在单位圆上的$N$点等间隔采样。
-%\end{frame}
-%
+
+
+
+
+\subsection{DFT和Z变换的关系}
+
+\begin{frame}\frametitle{DFT和Z变换的关系}%[allowframebreaks][shrink]
+%$$ X(z) = \sum_{n=-\infty}^{\infty}x(n)z^{-n}\quad\quad\quad\quad\quad\quad\quad\quad\quad $$
+我们知道：
+\begin{equation*}
+\begin{split}
+                X(z) &= \sum_{n=-\infty}^{\infty}x(n)z^{-n}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
+\mbox{而}\quad  X(k) &= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}
+                      = \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn}\\
+                     &= \left[\sum_{n=-\infty}^{\infty}x(n) z^{-n}\right]_{z = e^{-j\frac{2\pi}{N}k}} =X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}   \\
+\therefore  X(k)     &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} \quad\quad\quad 0 \leq k \leq N-1
+\end{split}
+\end{equation*}
+即，$x(n)$的$N$点$DFT$是其$Z$变换$X(z)$在单位圆上的$N$点等间隔采样。
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%
-%
+%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks][shrink]
+
+
+\subsection{DFT和傅里叶变换的关系}
+
+\begin{frame}[shrink]\frametitle{DFT和傅里叶变换的关系}%[allowframebreaks][shrink]
+%$$ X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\qquad\qquad\quad\quad\quad\quad\quad\quad\quad $$
+我们知道序列$x(n)$傅里叶变换为：
+\begin{equation*}
+\begin{split}
+ X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
+\mbox{而}\qquad    X(k) &= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}
+          = \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn}\\
+         &= \left[\sum_{n=-\infty}^{\infty}x(n) e^{-j\omega n}\right]_{\omega = \frac{2\pi}{N}k}   \\
+\therefore \qquad    X(k) &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\qquad\qquad   (0 \leq k \leq N-1)
+\end{split}
+\end{equation*}
+
+即，$x(n)$的$N$点$DFT$是其傅里叶变换$X(e^{j\omega})$在$\omega$ 轴上区间$[0,2\pi]$上的N点等间隔采样。这也是$DFT$的物理意义。
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{例题}%[allowframebreaks][shrink]
+
+由此可见，$DFT$变换区间长度不同，$X(k)$在傅里叶变换$X(e^{j\omega})$ 的区间$[0,2\pi]$上的采样点数不同，其$DFT$ 的结果也不同
+\begin{example}
+设$x(n)=R_4(n)$，求$x(n)$的4点，8 点，16点DFT。
+\end{example}
+\quad\newline\newline\newline\newline\newline\newline\newline\newline\newline\quad
+
+
+\end{frame}
+
+\begin{frame}\frametitle{DFT的重要性}%[allowframebreaks][shrink]
+
+{\heiti $DFT$的重要性表现于:\par\quad}
+\newline
+其实质是有限长序列$x(n)$的傅里叶变换$X(e^{j\omega})$的有限点离散采样，实现了频域离散化，从而可在频域采用数值计算方法进行数字信号处理。
+$$X(k) = \sum_{n=0}^{N-1}x(n) W_N^{kn} \quad\quad\quad (0 \leq k \leq N-1) $$
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks][shrink]
-%
-%
-%\subsection{DFT和傅里叶变换的关系}
-%
-%\begin{frame}[shrink]\frametitle{DFT和傅里叶变换的关系}%[allowframebreaks][shrink]
-%%$$ X(e^{j\omega}) = \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\qquad\qquad\quad\quad\quad\quad\quad\quad\quad $$
-%我们知道序列$x(n)$傅里叶变换为：
-%\begin{equation*}
-%\begin{split}
-% X(e^{j\omega}) &= \sum_{n=-\infty}^{\infty}x(n)e^{-j\omega n}\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
-%\mbox{而}\qquad    X(k) &= \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}
-%          = \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn}\\
-%         &= \left[\sum_{n=-\infty}^{\infty}x(n) e^{-j\omega n}\right]_{\omega = \frac{2\pi}{N}k}   \\
-%\therefore \qquad    X(k) &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\qquad\qquad   (0 \leq k \leq N-1)
-%\end{split}
-%\end{equation*}
-%
-%即，$x(n)$的$N$点$DFT$是其傅里叶变换$X(e^{j\omega})$在$\omega$ 轴上区间$[0,2\pi]$上的N点等间隔采样。这也是$DFT$的物理意义。
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{例题}%[allowframebreaks][shrink]
-%
-%由此可见，$DFT$变换区间长度不同，$X(k)$在傅里叶变换$X(e^{j\omega})$ 的区间$[0,2\pi]$上的采样点数不同，其$DFT$ 的结果也不同
-%\begin{example}
-%设$x(n)=R_4(n)$，求$x(n)$的4点，8 点，16点DFT。
-%\end{example}
-%\quad\newline\newline\newline\newline\newline\newline\newline\newline\newline\quad
-%
-%
-%\end{frame}
-%
-%\begin{frame}\frametitle{DFT的重要性}%[allowframebreaks][shrink]
-%
-%{\heiti $DFT$的重要性表现于:\par\quad}
-%\newline
-%其实质是有限长序列$x(n)$的傅里叶变换$X(e^{j\omega})$的有限点离散采样，实现了频域离散化，从而可在频域采用数值计算方法进行数字信号处理。
-%$$X(k) = \sum_{n=0}^{N-1}x(n) W_N^{kn} \quad\quad\quad (0 \leq k \leq N-1) $$
-%\end{frame}
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%%%
-%
-%\subsection{DFT的隐含周期性}
-%
-%\begin{frame}[shrink]\frametitle{DFT的隐含周期性}%[allowframebreaks][shrink]
-%$$X(k) = \sum_{n=0}^{N-1}x(n) W_N^{kn} \quad\quad\quad (0 \leq k \leq N-1) $$
-%\textbf{一、分析}：
-%\begin{enumerate}
-%  \item 从公式上看，$0 \leq k \leq N-1$，$X(k)$是有限长序列，不可能是周期序列。
-%  \item 从公式形式上看，$X(k)$的表达式是周期为N的周期函数。
-%\end{enumerate}
-%
-%%\textbf{二、几个约定的符号}
+
 %%
-%%设$\tilde{x}(n)$是周期为N的周期序列，是$x(n)$的周期延拓，即
-%%\begin{equation*}
-%%    \left\{ \begin{aligned}
-%%    \tilde{x}(n)\mbox{是$x(n)$的周期延拓} \\
-%%    x(n)\mbox{是$\tilde{x}(n)$的主值序列}
-%%    \end{aligned} \right.
-%%\end{equation*}
-%\end{frame}
-%%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+
+\subsection{DFT的隐含周期性}
+
+\begin{frame}[shrink]\frametitle{DFT的隐含周期性}%[allowframebreaks][shrink]
+$$X(k) = \sum_{n=0}^{N-1}x(n) W_N^{kn} \quad\quad\quad (0 \leq k \leq N-1) $$
+\textbf{一、分析}：
+\begin{enumerate}
+  \item 从公式上看，$0 \leq k \leq N-1$，$X(k)$是有限长序列，不可能是周期序列。
+  \item 从公式形式上看，$X(k)$的表达式是周期为N的周期函数。
+\end{enumerate}
+
 %\textbf{二、几个约定的符号}
 %
 %设$\tilde{x}(n)$是周期为N的周期序列，是$x(n)$的周期延拓，即
@@ -676,1304 +257,1306 @@
 %    x(n)\mbox{是$\tilde{x}(n)$的主值序列}
 %    \end{aligned} \right.
 %\end{equation*}
-%记做：
-%$$  x(n) = \tilde{x}(n)\cdot R_N(n) \quad\quad\quad\quad\quad\quad\quad\quad\quad$$
-%$$  \tilde{x}(n)   = x((n))_N  \quad\quad\quad\quad\quad (\mbox{$n$对$N$求余})$$
+\end{frame}
 %
-%例如： $$x((10))_8 = x(2) \quad\quad ((1))_8 = 1  \quad\quad ((16))_8 =0 $$
-%
-%且有公式
-%$$\mbox{\quad\quad }   \underbrace{\tilde{x}(n)}_{-\infty\leq n\leq \infty} =
-% \underbrace{\sum_{m=-\infty}^{\infty}x(n+mN)}_{0 \leq n\leq N-1}$$
-%\end{frame}
-%
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{$DFT$和$DFS$的关系}%[allowframebreaks][shrink]
-%%\textbf{三、$DFT$和$DFS$的关系}
-%
-%%$$\mbox{设：\quad} x(n)\longleftrightarrow X(k)\quad\quad\quad  \tilde{x}(n)\longleftrightarrow \tilde{X}(k)$$
-%$$\mbox{设：\quad} x(n)\longleftrightarrow X(k)  \qquad\qquad\qquad$$
-%
-%$$\mbox{\qquad\quad}   \tilde{x}(n)\longleftrightarrow \tilde{X}(k)\qquad\qquad\qquad$$
-%
-%
-%则：
-%\begin{equation*}
-%    \left\{ \begin{aligned}
-%    X(k)         &=DFT[x(n)]        &= \sum_{n=0}^{N-1}x(n) e^{-j\frac{2\pi}{N}kn} \qquad (0 \leq k \leq N-1) \\
-%    \tilde{X}(k) &=DFS[\tilde{x}(n)]&= \sum_{n=0}^{N-1}\tilde{x}(n) e^{-j\frac{2\pi}{N}kn} \qquad (-\infty \leq k \leq \infty) \\
-%    \end{aligned} \right.
-%\end{equation*}
-%
-%%显然：
-%%\begin{enumerate}
-%%  \item 公式完全一样
-%%  \item $X(k)$是$\tilde{X}(k)$的主值序列，即$X(k)=\tilde{X}(k)R_N(k)$。\par
-%%        周期序列$\tilde{x}(n)$的频谱完全由其DFS的系数$\tilde{X}(k)$确定，因此$X(k)$实际上是$x(n)$的周期延拓序列$\tilde{x}(n)$ 的频谱特性，这也是DFT 的第二种物理意义。
-%%\end{enumerate}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\begin{equation*}
-%    \left\{ \begin{aligned}
-%    X(k)         &=DFT[x(n)]        &= \sum_{n=0}^{N-1}x(n) e^{-j\frac{2\pi}{N}kn} \quad (0 \leq k \leq N-1) \\
-%    \tilde{X}(k) &=DFS[\tilde{x}(n)]&= \sum_{n=0}^{N-1}\tilde{x}(n) e^{-j\frac{2\pi}{N}kn} \quad (-\infty \leq k \leq \infty) \\
-%    \end{aligned} \right.
-%\end{equation*}
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\textbf{二、几个约定的符号}
+
+设$\tilde{x}(n)$是周期为N的周期序列，是$x(n)$的周期延拓，即
+\begin{equation*}
+    \left\{ \begin{aligned}
+    \tilde{x}(n)\mbox{是$x(n)$的周期延拓} \\
+    x(n)\mbox{是$\tilde{x}(n)$的主值序列}
+    \end{aligned} \right.
+\end{equation*}
+记做：
+$$  x(n) = \tilde{x}(n)\cdot R_N(n) \quad\quad\quad\quad\quad\quad\quad\quad\quad$$
+$$  \tilde{x}(n)   = x((n))_N  \quad\quad\quad\quad\quad (\mbox{$n$对$N$求余})$$
+
+例如： $$x((10))_8 = x(2) \quad\quad ((1))_8 = 1  \quad\quad ((16))_8 =0 $$
+
+且有公式
+$$\mbox{\quad\quad }   \underbrace{\tilde{x}(n)}_{-\infty\leq n\leq \infty} =
+ \underbrace{\sum_{m=-\infty}^{\infty}x(n+mN)}_{0 \leq n\leq N-1}$$
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{$DFT$和$DFS$的关系}%[allowframebreaks][shrink]
+%\textbf{三、$DFT$和$DFS$的关系}
+
+%$$\mbox{设：\quad} x(n)\longleftrightarrow X(k)\quad\quad\quad  \tilde{x}(n)\longleftrightarrow \tilde{X}(k)$$
+$$\mbox{设：\quad} x(n)\longleftrightarrow X(k)  \qquad\qquad\qquad$$
+
+$$\mbox{\qquad\quad}   \tilde{x}(n)\longleftrightarrow \tilde{X}(k)\qquad\qquad\qquad$$
+
+
+则：
+\begin{equation*}
+    \left\{ \begin{aligned}
+    X(k)         &=DFT[x(n)]        &= \sum_{n=0}^{N-1}x(n) e^{-j\frac{2\pi}{N}kn} \qquad (0 \leq k \leq N-1) \\
+    \tilde{X}(k) &=DFS[\tilde{x}(n)]&= \sum_{n=0}^{N-1}\tilde{x}(n) e^{-j\frac{2\pi}{N}kn} \qquad (-\infty \leq k \leq \infty) \\
+    \end{aligned} \right.
+\end{equation*}
+
 %显然：
 %\begin{enumerate}
 %  \item 公式完全一样
 %  \item $X(k)$是$\tilde{X}(k)$的主值序列，即$X(k)=\tilde{X}(k)R_N(k)$。\par
 %        周期序列$\tilde{x}(n)$的频谱完全由其DFS的系数$\tilde{X}(k)$确定，因此$X(k)$实际上是$x(n)$的周期延拓序列$\tilde{x}(n)$ 的频谱特性，这也是DFT 的第二种物理意义。
-%  \item 由$x(n)$得到$X(k)$的过程为：
-%            $$x(n)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{x}(n)
-%            \quad \stackrel{DFS}{\longrightarrow}\quad \tilde{X}(k)
-%            \quad \stackrel{\mbox{取主值}}{\longrightarrow}\quad X(k)$$
 %\end{enumerate}
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{$DFT$理论的近似性}%[allowframebreaks][shrink]
-%\textbf{$DFT$理论的近似性}
-%\begin{enumerate}
-%  \item DFT理论的前提是$x_a(t)$ 为有限长带限信号，即信号在时域为有限长，频域也为有限长。
-%  \item 实际中不存在这种信号，时域有限和频域有限是一对矛盾，不可能同时实现。时域上有限的信号，其频域信号必定无限长。
-%  \item 在工程实践中，时域有限信号容易得到，但其能量往往集中于低频段，频谱具有收敛性，在频率大于一定值后，其频谱分量近似为0了。通常可将其截断，从而得到有限长带限信号。
-%\end{enumerate}
-%\end{frame}
-%%%
-%
-%\section{$DFT$的基本性质}
-%
-%\subsection{线性性质}
-%
-%%\begin{frame}[shrink]\frametitle{线性性质}%[allowframebreaks][shrink]
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{equation*}
+    \left\{ \begin{aligned}
+    X(k)         &=DFT[x(n)]        &= \sum_{n=0}^{N-1}x(n) e^{-j\frac{2\pi}{N}kn} \quad (0 \leq k \leq N-1) \\
+    \tilde{X}(k) &=DFS[\tilde{x}(n)]&= \sum_{n=0}^{N-1}\tilde{x}(n) e^{-j\frac{2\pi}{N}kn} \quad (-\infty \leq k \leq \infty) \\
+    \end{aligned} \right.
+\end{equation*}
+显然：
+\begin{enumerate}
+  \item 公式完全一样
+  \item $X(k)$是$\tilde{X}(k)$的主值序列，即$X(k)=\tilde{X}(k)R_N(k)$。\par
+        周期序列$\tilde{x}(n)$的频谱完全由其DFS的系数$\tilde{X}(k)$确定，因此$X(k)$实际上是$x(n)$的周期延拓序列$\tilde{x}(n)$ 的频谱特性，这也是DFT 的第二种物理意义。
+  \item 由$x(n)$得到$X(k)$的过程为：
+            $$x(n)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{x}(n)
+            \quad \stackrel{DFS}{\longrightarrow}\quad \tilde{X}(k)
+            \quad \stackrel{\mbox{取主值}}{\longrightarrow}\quad X(k)$$
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{$DFT$理论的近似性}%[allowframebreaks][shrink]
+\textbf{$DFT$理论的近似性}
+\begin{enumerate}
+  \item DFT理论的前提是$x_a(t)$ 为有限长带限信号，即信号在时域为有限长，频域也为有限长。
+  \item 实际中不存在这种信号，时域有限和频域有限是一对矛盾，不可能同时实现。时域上有限的信号，其频域信号必定无限长。
+  \item 在工程实践中，时域有限信号容易得到，但其能量往往集中于低频段，频谱具有收敛性，在频率大于一定值后，其频谱分量近似为0了。通常可将其截断，从而得到有限长带限信号。
+\end{enumerate}
+\end{frame}
 %%
-%%\end{frame}
-%
-%
-%\subsection{循环移位性质}
-%\begin{frame}[shrink]\frametitle{序列的循环移位}%[allowframebreaks][shrink]
-%一、序列的循环移位
-%
-%设$x(n)$长度为N，则：$y(n) = x((n+m))_N\cdot R_N(n)$称为$x(n)$ 的循环移位序列。
-%
-%
-%步骤
-%\begin{enumerate}
-%  \item 延拓 \quad \quad\quad \quad     $x(n)\longrightarrow \tilde{x}(n) = x((n))_N$
-%  \item 移位 \quad \quad \quad \quad    $\tilde{x}(n)\longrightarrow \tilde{x}(n+m) = x((n+m))_N$
-%  \item 取主值  \quad \quad \quad       $x((n+m))_N\cdot R_N(n)$
-%\end{enumerate}
-%
-%\begin{example}
-%已知$x(n)$如图所示，
-%画出$x((n+2))_5 \cdot R_5(n)$。
-%\end{example}
-%\quad\newline\newline\newline\newline\quad
-%\end{frame}
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{时域循环移位定理}%[allowframebreaks][shrink]
-%\textbf{二、时域循环移位定理}
-%
-%设有限长序列$x(n)$长度为N，$X(k)$为其N点DFT，则有：
-%$$x((n+m))_N\cdot R_N(n) \longleftrightarrow W_N^{-km}\cdot X(k)$$
+
+\section{$DFT$的基本性质}
+
+\subsection{线性性质}
+
+%\begin{frame}[shrink]\frametitle{线性性质}%[allowframebreaks][shrink]
 %
 %\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\textbf{证明：}  从左到右
-%
-%$DFT\bigg[ x((n+m))_N R_N(n)\bigg]$
-%\begin{equation*}
-%\begin{split}
-%    \quad
-%         &= \sum_{n=0}^{N-1}\bigg[x((n+m))_N R_N(n)\bigg]W_N^{kn}
-%          = \sum_{n=0}^{N-1}\bigg[x((n+m))_N\bigg]W_N^{kn} \quad\mbox{(主值区间)}\quad\\
-%         &\quad  \mbox{令} n' =n+m,\mbox{则有：}  \\
-%         &= \sum_{n'=m}^{m+N-1}\bigg[x((n'))_N\bigg]W_N^{k(n'-m)}
-%          = W_N^{-km}\sum_{n'=m}^{m+N-1}\bigg[x((n'))_N\bigg]W_N^{kn'}\\
-%         &= W_N^{-km}\sum_{n'=0}^{N-1}\bigg[x((n'))_N\bigg]W_N^{kn'}\quad\mbox{(一个周期内求和相等)}\\
-%         &= W_N^{-km}\sum_{n'=0}^{N-1}x(n')W_N^{kn'}  \quad\quad\quad\quad\mbox{(主值区间)}\\
-%         &= W_N^{-km}X(k)
-%\end{split}
-%\end{equation*}
-%$$x((n+m))_N R_N(n) \longleftrightarrow W_N^{-km}X(k)$$
-%
-%\end{frame}
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{频域循环移位定理}%[allowframebreaks][shrink]
-%三、频域循环移位定理
-%
-%设有限长序列$x(n)$长度为N，$X(k)$为其N点DFT，则有：
-%$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
-%
-%
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\textbf{证明：}  从右到左
-%
-%$IDFT\big[ X((k+m))_N R_N(k)\big]$
-%\begin{equation*}
-%\begin{split}
-%    \quad
-%         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N R_N(k)\bigg]W_N^{-kn}
-%          = \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N \bigg]W_N^{-kn} \quad\mbox{(主值区间)}\quad\\
-%         &\quad  \quad\quad\quad\quad\mbox{令} k' =k+m,\mbox{则有：}  \\
-%         &= \frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n}W_N^{km}\\
-%         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n} \qquad \\
-%         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n}\quad\mbox{(一个周期内求和相等)}\\
-%         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}X(k') W_N^{-kn'}  \quad\quad\quad\quad\mbox{(主值区间)}\\
-%         &= W_N^{km}\cdot x(n)
-%\end{split}
-%\end{equation*}
-%
-%$$\mbox{即： \quad\quad }W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
-%
-%\end{frame}
-%
-%
-%\subsection{循环卷积定理}
-%
-%\begin{frame}[shrink]\frametitle{循环卷积的定义}%[allowframebreaks][shrink]
-%\textbf{一、循环卷积的定义}
-%\begin{definition}
-%设有限长序列$x(n)$和$h(n)$的长度分别为$M$和$N$。则$x(n)$和$h(n)$的$L$ 点循环卷积定义为：
-%\begin{equation*}
-%\begin{split}
-%  y_c(n) &= x(n) \otimes h(n) \\
-%         &= \bigg[ \sum_{m=0}^{L-1} h(m) x((n-m))_L \bigg] R_L(n)
-%\end{split}
-%\end{equation*}
-%式中L称为循环卷积区间长度，且有$L\geq \{N,M\}$。
-%\end{definition}
-%\begin{enumerate}
-%  \item 延拓 \quad\quad\quad\quad $x(n)\longrightarrow \tilde{x}(n)=x((n))_L$
-%  \item 线性卷积  \quad\quad $h(n)* \tilde{x}(n)$
-%  \item 取主值
-%\end{enumerate}
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{循环卷积计算示例}%[allowframebreaks][shrink]
-%\begin{example}
-%设$h(n)=R_4(n)$，$x(n) = R_4(n-2)$,求其循环卷积，设$L=8$。
-%\end{example}
-%\end{frame}
-%%
-%%
-%%
-%\begin{frame}[shrink]\frametitle{时域循环卷积定理}%[allowframebreaks][shrink]
-%\textbf{二、时域循环卷积定理}
-%\quad\newline\quad
-%\begin{theorem}
-%设长度均为N的有限长序列$x_1(n)\leftrightarrow X_1(k)$，$x_2(n)\leftrightarrow X_2(k)$，则有：
-%$$x_1(n)\otimes x_2(n) \longleftrightarrow X_1(k)\cdot X_2(k) \quad\quad (\mbox{$N$点循环卷积})$$
-%\end{theorem}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\textbf{证明：}
-%
-%$DFT\big[ x_1(n)\otimes x_2(n)\big]$
-%\begin{equation*}
-%\begin{split}
-%    \quad
-%         &= \sum_{n=0}^{N-1}\bigg[x_1(n)\otimes x_2(n)\bigg]W_N^{kn} \\
-%         &= \sum_{n=0}^{N-1}\left[\sum_{m=0}^{N-1}x_1(m) x_2((n-m))_N R_N(n) \right] W_N^{kn}   \\
-%         &= \sum_{m=0}^{N-1}x_1(m)\left[ \sum_{n=0}^{N-1} x_2((n-m))_N R_N(n) W_N^{kn} \right]   \\
-%         &= \sum_{m=0}^{N-1}x_1(m) DFT\bigg[  x_2((n-m))_N R_N(n) \bigg]  \quad   \\
-%         &= \sum_{m=0}^{N-1}x_1(m)W_N^{km} X_2(k)  \;\qquad\qquad      \\
-%         &= X_1(k)\cdot X_2(k)
-%\end{split}
-%\end{equation*}
-%注意时域循环移位性质：
-%$$x((n+m))R_N(n)\leftrightarrow W_N^{-km}X(k)  \qquad\qquad   x((n-m))R_N(n)\leftrightarrow W_N^{km}X(k) $$
-%\end{frame}
-%%
-%%
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{频域循环卷积定理}%[allowframebreaks][shrink]
-%\textbf{三、频域循环卷积定理}
-%\quad\newline\quad
-%\begin{theorem}
-%设长度均为N的有限长序列$x_1(n)\leftrightarrow X_1(k)$，$x_2(n)\leftrightarrow X_2(k)$，则有：
-%$$x_1(n)\cdot x_2(n)\longleftrightarrow\frac{1}{N}X_1(k)\otimes X_2(k)\quad\quad(\mbox{$N$点循环卷积})$$
-%\end{theorem}
-%\end{frame}
+
+
+\subsection{循环移位性质}
+\begin{frame}[shrink]\frametitle{序列的循环移位}%[allowframebreaks][shrink]
+一、序列的循环移位
+
+设$x(n)$长度为N，则：$y(n) = x((n+m))_N\cdot R_N(n)$称为$x(n)$ 的循环移位序列。
+
+
+步骤
+\begin{enumerate}
+  \item 延拓 \quad \quad\quad \quad     $x(n)\longrightarrow \tilde{x}(n) = x((n))_N$
+  \item 移位 \quad \quad \quad \quad    $\tilde{x}(n)\longrightarrow \tilde{x}(n+m) = x((n+m))_N$
+  \item 取主值  \quad \quad \quad       $x((n+m))_N\cdot R_N(n)$
+\end{enumerate}
+
+\begin{example}
+已知$x(n)$如图所示，
+画出$x((n+2))_5 \cdot R_5(n)$。
+\end{example}
+\quad\newline\newline\newline\newline\quad
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{时域循环移位定理}%[allowframebreaks][shrink]
+\textbf{二、时域循环移位定理}
+
+设有限长序列$x(n)$长度为N，$X(k)$为其N点DFT，则有：
+$$x((n+m))_N\cdot R_N(n) \longleftrightarrow W_N^{-km}\cdot X(k)$$
+
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\textbf{证明：}  从左到右
+
+$DFT\bigg[ x((n+m))_N R_N(n)\bigg]$
+\begin{equation*}
+\begin{split}
+    \quad
+         &= \sum_{n=0}^{N-1}\bigg[x((n+m))_N R_N(n)\bigg]W_N^{kn}
+          = \sum_{n=0}^{N-1}\bigg[x((n+m))_N\bigg]W_N^{kn} \quad\mbox{(主值区间)}\quad\\
+         &\quad  \mbox{令} n' =n+m,\mbox{则有：}  \\
+         &= \sum_{n'=m}^{m+N-1}\bigg[x((n'))_N\bigg]W_N^{k(n'-m)}
+          = W_N^{-km}\sum_{n'=m}^{m+N-1}\bigg[x((n'))_N\bigg]W_N^{kn'}\\
+         &= W_N^{-km}\sum_{n'=0}^{N-1}\bigg[x((n'))_N\bigg]W_N^{kn'}\quad\mbox{(一个周期内求和相等)}\\
+         &= W_N^{-km}\sum_{n'=0}^{N-1}x(n')W_N^{kn'}  \quad\quad\quad\quad\mbox{(主值区间)}\\
+         &= W_N^{-km}X(k)
+\end{split}
+\end{equation*}
+$$x((n+m))_N R_N(n) \longleftrightarrow W_N^{-km}X(k)$$
+
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{频域循环移位定理}%[allowframebreaks][shrink]
+三、频域循环移位定理
+
+设有限长序列$x(n)$长度为N，$X(k)$为其N点DFT，则有：
+$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
+
+
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\textbf{证明：}  从右到左
+
+$IDFT\big[ X((k+m))_N R_N(k)\big]$
+\begin{equation*}
+\begin{split}
+    \quad
+         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N R_N(k)\bigg]W_N^{-kn}
+          = \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N \bigg]W_N^{-kn} \quad\mbox{(主值区间)}\quad\\
+         &\quad  \quad\quad\quad\quad\mbox{令} k' =k+m,\mbox{则有：}  \\
+         &= \frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n}W_N^{km}\\
+         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n} \qquad \\
+         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n}\quad\mbox{(一个周期内求和相等)}\\
+         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}X(k') W_N^{-kn'}  \quad\quad\quad\quad\mbox{(主值区间)}\\
+         &= W_N^{km}\cdot x(n)
+\end{split}
+\end{equation*}
+
+$$\mbox{即： \quad\quad }W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
+
+\end{frame}
+
+
+\subsection{循环卷积定理}
+
+\begin{frame}[shrink]\frametitle{循环卷积的定义}%[allowframebreaks][shrink]
+\textbf{一、循环卷积的定义}
+\begin{definition}
+设有限长序列$x(n)$和$h(n)$的长度分别为$M$和$N$。则$x(n)$和$h(n)$的$L$ 点循环卷积定义为：
+\begin{equation*}
+\begin{split}
+  y_c(n) &= x(n) \otimes h(n) \\
+         &= \bigg[ \sum_{m=0}^{L-1} h(m) x((n-m))_L \bigg] R_L(n)
+\end{split}
+\end{equation*}
+式中L称为循环卷积区间长度，且有$L\geq \{N,M\}$。
+\end{definition}
+\begin{enumerate}
+  \item 延拓 \quad\quad\quad\quad $x(n)\longrightarrow \tilde{x}(n)=x((n))_L$
+  \item 线性卷积  \quad\quad $h(n)* \tilde{x}(n)$
+  \item 取主值
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{循环卷积计算示例}%[allowframebreaks][shrink]
+\begin{example}
+设$h(n)=R_4(n)$，$x(n) = R_4(n-2)$,求其循环卷积，设$L=8$。
+\end{example}
+\end{frame}
 %
 %
 %
+\begin{frame}[shrink]\frametitle{时域循环卷积定理}%[allowframebreaks][shrink]
+\textbf{二、时域循环卷积定理}
+\quad\newline\quad
+\begin{theorem}
+设长度均为N的有限长序列$x_1(n)\leftrightarrow X_1(k)$，$x_2(n)\leftrightarrow X_2(k)$，则有：
+$$x_1(n)\otimes x_2(n) \longleftrightarrow X_1(k)\cdot X_2(k) \quad\quad (\mbox{$N$点循环卷积})$$
+\end{theorem}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\textbf{证明：}
+
+$DFT\big[ x_1(n)\otimes x_2(n)\big]$
+\begin{equation*}
+\begin{split}
+    \quad
+         &= \sum_{n=0}^{N-1}\bigg[x_1(n)\otimes x_2(n)\bigg]W_N^{kn} \\
+         &= \sum_{n=0}^{N-1}\left[\sum_{m=0}^{N-1}x_1(m) x_2((n-m))_N R_N(n) \right] W_N^{kn}   \\
+         &= \sum_{m=0}^{N-1}x_1(m)\left[ \sum_{n=0}^{N-1} x_2((n-m))_N R_N(n) W_N^{kn} \right]   \\
+         &= \sum_{m=0}^{N-1}x_1(m) DFT\bigg[  x_2((n-m))_N R_N(n) \bigg]  \quad   \\
+         &= \sum_{m=0}^{N-1}x_1(m)W_N^{km} X_2(k)  \;\qquad\qquad      \\
+         &= X_1(k)\cdot X_2(k)
+\end{split}
+\end{equation*}
+注意时域循环移位性质：
+$$x((n+m))R_N(n)\leftrightarrow W_N^{-km}X(k)  \qquad\qquad   x((n-m))R_N(n)\leftrightarrow W_N^{km}X(k) $$
+\end{frame}
 %
 %
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\textbf{证明：}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{频域循环卷积定理}%[allowframebreaks][shrink]
+\textbf{三、频域循环卷积定理}
+\quad\newline\quad
+\begin{theorem}
+设长度均为N的有限长序列$x_1(n)\leftrightarrow X_1(k)$，$x_2(n)\leftrightarrow X_2(k)$，则有：
+$$x_1(n)\cdot x_2(n)\longleftrightarrow\frac{1}{N}X_1(k)\otimes X_2(k)\quad\quad(\mbox{$N$点循环卷积})$$
+\end{theorem}
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\textbf{证明：}
+
+$IDFT\big[ \frac{1}{N}X_1(k) \otimes X_2(k)\big]$
+\begin{equation*}
+\begin{split}
+    \quad
+         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[ \frac{1}{N}X_1(k) \otimes X_2(k) \bigg]W_N^{-kn} \\
+         &= \frac{1}{N}\sum_{k=0}^{N-1}\left[\frac{1}{N}\sum_{m=0}^{N-1}X_1(m) X_2((k-m))_N \right] R_N(k) W_N^{-kn}   \\
+         &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\left[ \frac{1}{N}\sum_{k=0}^{N-1} X_2((k-m))_N R_N(k) W_N^{-kn} \right]   \\
+         &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\cdot IDFT\Big[  X_2((k-m))_N R_N(k) \Big]  \quad \\
+                %\Big(W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)\Big)\\
+         &= \Big[\frac{1}{N}\sum_{m=0}^{N-1} X_1(m)W_N^{-km}\Big] x_2(n) \\
+                %\quad\quad\quad\quad\quad\quad\quad\quad \Big(W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k)\Big)    \\
+         &= x_1(n)\cdot x_2(n)
+\end{split}
+\end{equation*}
+注意频域移位性质：
+$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)  \qquad\qquad
+  W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
+\end{frame}
 %
-%$IDFT\big[ \frac{1}{N}X_1(k) \otimes X_2(k)\big]$
-%\begin{equation*}
-%\begin{split}
-%    \quad
-%         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[ \frac{1}{N}X_1(k) \otimes X_2(k) \bigg]W_N^{-kn} \\
-%         &= \frac{1}{N}\sum_{k=0}^{N-1}\left[\frac{1}{N}\sum_{m=0}^{N-1}X_1(m) X_2((k-m))_N \right] R_N(k) W_N^{-kn}   \\
-%         &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\left[ \frac{1}{N}\sum_{k=0}^{N-1} X_2((k-m))_N R_N(k) W_N^{-kn} \right]   \\
-%         &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\cdot IDFT\Big[  X_2((k-m))_N R_N(k) \Big]  \quad \\
-%                %\Big(W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)\Big)\\
-%         &= \Big[\frac{1}{N}\sum_{m=0}^{N-1} X_1(m)W_N^{-km}\Big] x_2(n) \\
-%                %\quad\quad\quad\quad\quad\quad\quad\quad \Big(W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k)\Big)    \\
-%         &= x_1(n)\cdot x_2(n)
-%\end{split}
-%\end{equation*}
-%注意频域移位性质：
-%$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)  \qquad\qquad
-%  W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
-%\end{frame}
-%%
-%\subsection{复共轭序列的DFT}
-%
-%
-%\begin{frame}[shrink]\frametitle{复共轭序列的DFT}%[allowframebreaks][shrink]
-%\begin{theorem}
-%设长度为$N$的有限长序列$x(n)\leftrightarrow X(k)$，且令$X(N)=X(0)$,则有：
-%$$\qquad x^*(n) \quad \longleftrightarrow  X^*(N-k) \qquad\quad \big(0\leq k\leq N-1\big) \quad$$
-%$$ x^*(N-n) \longleftrightarrow  \quad X^*(k) \qquad\qquad \big(0\leq k\leq N-1\big) $$
-%\end{theorem}
-%\begin{equation*}
-%\begin{split}
-%    X(k)     &= \sum_{n=0}^{N-1}x(n)W_N^{kn}    \\
-%    X(N-k)   &= \sum_{n=0}^{N-1}x(n)W_N^{(N-k)n}
-%              = \sum_{n=0}^{N-1}x(n)W_N^{-kn}W_N^{Nn}
-%              = \sum_{n=0}^{N-1}x(n)W_N^{-kn}       \\%    \qquad\qquad\big(W_N^{Nn} =1\big)   \\
-%    X^*(N-k) &= \left[\sum_{n=0}^{N-1}x(n)W_N^{-kn}\right]^*  = \sum_{n=0}^{N-1}x^*(n)W_N^{kn} = DFT\big[x^*(n)\big]
-%\end{split}
-%\end{equation*}
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{复共轭序列的DFT}%[allowframebreaks][shrink]
-%$$\mbox{同理可证： \quad\quad }  x^*(N-n) \longleftrightarrow  X^*(k) \quad\quad \big(0\leq k\leq N-1\big) $$
-%$DFT\Big[x^*(N-n)\Big]$
-%\begin{equation*}
-%\begin{split}
-%\quad   &= \sum_{n=0}^{N-1}x^*(N-n)W_N^{kn}  \quad\quad\quad\quad\mbox{令}m=N-n  \\
-%        &= \sum_{m=0}^{N-1}x^*(m)W_N^{k(N-m)}
-%        =  \sum_{m=0}^{N-1}x^*(m)W_N^{-km}W_N^{kN}   \\
-%        &= \sum_{m=0}^{N-1}x^*(m)W_N^{-km}     \quad\quad \mbox{因为}\big(W_N^{kN} =1\big)   \\
-%        &= \left[\sum_{m=0}^{N-1}x(m)W_N^{km}\right]^*  = X^*(k)
-%\end{split}
-%\end{equation*}
-%\end{frame}
-%%
-%%
-%
-%\subsection{DFT的共轭对称性}
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{DFT的共轭对称性}%[allowframebreaks][shrink]
-%\textbf{一、复习一下离散序列的分解}
-%\begin{dablock}
-%任何离散序列可分解为共轭对称序列和共轭反对称序列之和，也能分解为实数部分序列和虚数部分序列之和。
-%\end{dablock}
-%
-%
-%
-%%\parbox{0.1cm}{\Bigg\{ }\hfill
-%%\parbox{5cm}{\begin{eqnarray*}
-%%x_{e}(n) &=& \frac{1}{2}\big[x(n) + x^{*}(-n)\big]\\
-%%x_{o}(n) &=& \frac{1}{2}\big[x(n) - x^{*}(-n)\big]
-%%\end{eqnarray*} }\hfill
-%%\parbox{5cm}{\begin{eqnarray*}
-%%x_{r}(n)  &=& \frac{1}{2}\big[x(n) + x^{*}(n)\big]\\
-%%jx_{i}(n) &=& \frac{1}{2}\big[x(n) - x^{*}(n)\big]
-%%\end{eqnarray*} }
-%%%---------------------------------------------------------------------------------
-%
-%\begin{equation*} %\label{fol2218}
-%\left\{ \begin{aligned}
-%    x_{e}(n) &= \frac{1}{2}\big[x(n) + x^{*}(-n)\big]  \quad\quad\quad\quad\quad\quad\quad\\
-%    x_{o}(n) &= \frac{1}{2}\big[x(n) - x^{*}(-n)\big]
-%\end{aligned} \right.
-%\end{equation*}
-%
-%\begin{equation*} %\label{fol2218}
-%\left\{ \begin{aligned}
-%    x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]   \quad\quad\quad\quad\quad\quad\quad\\
-%    jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]
-%\end{aligned} \right.
-%\end{equation*}
-%\end{frame}
+\subsection{复共轭序列的DFT}
+
+
+\begin{frame}[shrink]\frametitle{复共轭序列的DFT}%[allowframebreaks][shrink]
+\begin{theorem}
+设长度为$N$的有限长序列$x(n)\leftrightarrow X(k)$，且令$X(N)=X(0)$,则有：
+$$\qquad x^*(n) \quad \longleftrightarrow  X^*(N-k) \qquad\quad \big(0\leq k\leq N-1\big) \quad$$
+$$ x^*(N-n) \longleftrightarrow  \quad X^*(k) \qquad\qquad \big(0\leq k\leq N-1\big) $$
+\end{theorem}
+\begin{equation*}
+\begin{split}
+    X(k)     &= \sum_{n=0}^{N-1}x(n)W_N^{kn}    \\
+    X(N-k)   &= \sum_{n=0}^{N-1}x(n)W_N^{(N-k)n}
+              = \sum_{n=0}^{N-1}x(n)W_N^{-kn}W_N^{Nn}
+              = \sum_{n=0}^{N-1}x(n)W_N^{-kn}       \\%    \qquad\qquad\big(W_N^{Nn} =1\big)   \\
+    X^*(N-k) &= \left[\sum_{n=0}^{N-1}x(n)W_N^{-kn}\right]^*  = \sum_{n=0}^{N-1}x^*(n)W_N^{kn} = DFT\big[x^*(n)\big]
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{复共轭序列的DFT}%[allowframebreaks][shrink]
+$$\mbox{同理可证： \quad\quad }  x^*(N-n) \longleftrightarrow  X^*(k) \quad\quad \big(0\leq k\leq N-1\big) $$
+$DFT\Big[x^*(N-n)\Big]$
+\begin{equation*}
+\begin{split}
+\quad   &= \sum_{n=0}^{N-1}x^*(N-n)W_N^{kn}  \quad\quad\quad\quad\mbox{令}m=N-n  \\
+        &= \sum_{m=0}^{N-1}x^*(m)W_N^{k(N-m)}
+        =  \sum_{m=0}^{N-1}x^*(m)W_N^{-km}W_N^{kN}   \\
+        &= \sum_{m=0}^{N-1}x^*(m)W_N^{-km}     \quad\quad \mbox{因为}\big(W_N^{kN} =1\big)   \\
+        &= \left[\sum_{m=0}^{N-1}x(m)W_N^{km}\right]^*  = X^*(k)
+\end{split}
+\end{equation*}
+\end{frame}
 %
 %
-%\begin{frame}[shrink]\frametitle{有限长序列的对称性}%[allowframebreaks][shrink]
-%\textbf{二、$DFT$中也存在类似的对称性，}
-%\newline
-%设$x(n)$为长度为$N$的有限长序列。
-%\newline
-%$1^o$ 记号：
-%\begin{equation*} %\label{fol2218}
-%\left\{ \begin{aligned}
-%    x_{ep}(n) &: \mbox{有限长共轭对称序列}  \quad\quad\quad\quad\quad\quad\quad\quad\quad\\
-%    x_{op}(n) &: \mbox{有限长共轭反对称序列}
-%\end{aligned} \right.
-%\end{equation*}
+
+\subsection{DFT的共轭对称性}
+
+
+
+\begin{frame}[shrink]\frametitle{DFT的共轭对称性}%[allowframebreaks][shrink]
+\textbf{一、复习一下离散序列的分解}
+\begin{dablock}
+任何离散序列可分解为共轭对称序列和共轭反对称序列之和，也能分解为实数部分序列和虚数部分序列之和。
+\end{dablock}
+
+
+
+%\parbox{0.1cm}{\Bigg\{ }\hfill
+%\parbox{5cm}{\begin{eqnarray*}
+%x_{e}(n) &=& \frac{1}{2}\big[x(n) + x^{*}(-n)\big]\\
+%x_{o}(n) &=& \frac{1}{2}\big[x(n) - x^{*}(-n)\big]
+%\end{eqnarray*} }\hfill
+%\parbox{5cm}{\begin{eqnarray*}
+%x_{r}(n)  &=& \frac{1}{2}\big[x(n) + x^{*}(n)\big]\\
+%jx_{i}(n) &=& \frac{1}{2}\big[x(n) - x^{*}(n)\big]
+%\end{eqnarray*} }
+%%---------------------------------------------------------------------------------
+
+\begin{equation*} %\label{fol2218}
+\left\{ \begin{aligned}
+    x_{e}(n) &= \frac{1}{2}\big[x(n) + x^{*}(-n)\big]  \quad\quad\quad\quad\quad\quad\quad\\
+    x_{o}(n) &= \frac{1}{2}\big[x(n) - x^{*}(-n)\big]
+\end{aligned} \right.
+\end{equation*}
+
+\begin{equation*} %\label{fol2218}
+\left\{ \begin{aligned}
+    x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]   \quad\quad\quad\quad\quad\quad\quad\\
+    jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]
+\end{aligned} \right.
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{有限长序列的对称性}%[allowframebreaks][shrink]
+\textbf{二、$DFT$中也存在类似的对称性，}
+\newline
+设$x(n)$为长度为$N$的有限长序列。
+\newline
+$1^o$ 记号：
+\begin{equation*} %\label{fol2218}
+\left\{ \begin{aligned}
+    x_{ep}(n) &: \mbox{有限长共轭对称序列}  \quad\quad\quad\quad\quad\quad\quad\quad\quad\\
+    x_{op}(n) &: \mbox{有限长共轭反对称序列}
+\end{aligned} \right.
+\end{equation*}
+
+$2^o$ 定义：
+\begin{equation*} %\label{fol2218}
+\left\{ \begin{aligned}
+    x_{ep}(n) &= \quad x_{ep}^*(N-n)  \quad\quad\mbox{对比：}  x_{e}(n) = x_{e}^*(-n) \quad\quad\\
+    x_{op}(n) &= -x_{op}^*(N-n)       \:\quad\quad\mbox{对比：}       x_{o}(n) = -x_{o}^*(-n)
+\end{aligned} \right.
+\end{equation*}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{其实质为有限长序列$x(n)$关于$\frac{N}{2}$对称}%[allowframebreaks][shrink]
+\begin{dablock}
+其实质为有限长序列$x(n)$关于$\frac{N}{2}$对称。
+\end{dablock}
+如$N$为偶数，令$n=\frac{N}{2}-n_0$,可得：
+\begin{equation*} %\label{fol2218}
+\left\{ \begin{aligned}
+    x_{ep}\big(\frac{N}{2}-n_0\big) &= \quad x_{ep}^*\big(\frac{N}{2}+n_0\big)  \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\\
+    x_{op}\big(\frac{N}{2}-n_0\big) &= -x_{op}^*\big(\frac{N}{2}+n_0\big)
+\end{aligned} \right.
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{ 有限长序列的分解}%[allowframebreaks][shrink]
+$3^o$ 讨论：
+\begin{enumerate}
+  \item 有限长序列可分解为共轭对称序列和共轭反对称序列。
+\begin{equation*}
+        \begin{split}
+        \mbox{令} ： \quad\quad\quad\quad x(n)  &=  x_{ep}(n) + x_{op}(n)   \\
+        \mbox{则} ： \quad   x^*(N-n)           &= x_{ep}^*(N-n) + x_{op}^*(N-n)  \quad\quad\quad\quad\quad\quad\quad\quad  \\
+                                                &= x_{ep}(n) - x_{op}(n)
+        \end{split}
+        \end{equation*}
+
+        联立求解可得：
+        \begin{equation*} %\label{fol2218}
+        \left\{ \begin{aligned}
+            x_{ep}(n) &= \frac{1}{2}\big[x(n) + x^{*}(N-n)\big]  \quad\quad\quad\quad\quad\quad\quad\\
+            x_{op}(n) &= \frac{1}{2}\big[x(n) - x^{*}(N-n)\big]
+        \end{aligned} \right.
+        \end{equation*}
+        
+\item 同样，有限长序列可分解为实数部分序列和虚数部分序列。
+        \begin{equation*} %\label{fol2218}
+        \left\{ \begin{aligned}
+            x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]   \quad\quad\quad\quad\quad\quad\quad\\
+            jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]
+        \end{aligned} \right.
+        \end{equation*}
+\end{enumerate}        
+\end{frame}
+
+
+
+%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks][shrink]
 %
-%$2^o$ 定义：
-%\begin{equation*} %\label{fol2218}
-%\left\{ \begin{aligned}
-%    x_{ep}(n) &= \quad x_{ep}^*(N-n)  \quad\quad\mbox{对比：}  x_{e}(n) = x_{e}^*(-n) \quad\quad\\
-%    x_{op}(n) &= -x_{op}^*(N-n)       \:\quad\quad\mbox{对比：}       x_{o}(n) = -x_{o}^*(-n)
-%\end{aligned} \right.
-%\end{equation*}
-%\end{frame}
 %
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{其实质为有限长序列$x(n)$关于$\frac{N}{2}$对称}%[allowframebreaks][shrink]
-%\begin{dablock}
-%其实质为有限长序列$x(n)$关于$\frac{N}{2}$对称。
-%\end{dablock}
-%如$N$为偶数，令$n=\frac{N}{2}-n_0$,可得：
-%\begin{equation*} %\label{fol2218}
-%\left\{ \begin{aligned}
-%    x_{ep}\big(\frac{N}{2}-n_0\big) &= \quad x_{ep}^*\big(\frac{N}{2}+n_0\big)  \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\\
-%    x_{op}\big(\frac{N}{2}-n_0\big) &= -x_{op}^*\big(\frac{N}{2}+n_0\big)
-%\end{aligned} \right.
-%\end{equation*}
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{ 有限长序列的分解}%[allowframebreaks][shrink]
-%$3^o$ 讨论：
-%\begin{enumerate}
-%  \item 有限长序列可分解为共轭对称序列和共轭反对称序列。
-%\begin{equation*}
-%        \begin{split}
-%        \mbox{令} ： \quad\quad\quad\quad x(n)  &=  x_{ep}(n) + x_{op}(n)   \\
-%        \mbox{则} ： \quad   x^*(N-n)           &= x_{ep}^*(N-n) + x_{op}^*(N-n)  \quad\quad\quad\quad\quad\quad\quad\quad  \\
-%                                                &= x_{ep}(n) - x_{op}(n)
-%        \end{split}
-%        \end{equation*}
-%
-%        联立求解可得：
-%        \begin{equation*} %\label{fol2218}
-%        \left\{ \begin{aligned}
-%            x_{ep}(n) &= \frac{1}{2}\big[x(n) + x^{*}(N-n)\big]  \quad\quad\quad\quad\quad\quad\quad\\
-%            x_{op}(n) &= \frac{1}{2}\big[x(n) - x^{*}(N-n)\big]
-%        \end{aligned} \right.
-%        \end{equation*}
-%        
-%\item 同样，有限长序列可分解为实数部分序列和虚数部分序列。
+%        同样，有限长序列可分解为实数部分序列和虚数部分序列。
 %        \begin{equation*} %\label{fol2218}
 %        \left\{ \begin{aligned}
 %            x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]   \quad\quad\quad\quad\quad\quad\quad\\
 %            jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]
 %        \end{aligned} \right.
 %        \end{equation*}
-%\end{enumerate}        
-%\end{frame}
-%
-%
-%
-%%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks][shrink]
-%%
-%%
-%%        同样，有限长序列可分解为实数部分序列和虚数部分序列。
-%%        \begin{equation*} %\label{fol2218}
-%%        \left\{ \begin{aligned}
-%%            x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]   \quad\quad\quad\quad\quad\quad\quad\\
-%%            jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]
-%%        \end{aligned} \right.
-%%        \end{equation*}
-%%
-%%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{对称性讨论—实部序列和虚部部分序列的DFT}%[allowframebreaks][shrink]
-%        (1)  $\mbox{设: \quad}  x(n) = x_r(n) +j x_i(n) \quad\quad X(k) = X_{ep}(k) + X_{op}(k)\quad$
-%        $$\quad\mbox{则: \quad}\quad x_r(n)\leftrightarrow X_{ep}(k) \quad\quad\quad\quad\quad jx_i(n)\leftrightarrow X_{op}(k)\quad\quad\quad$$
-%
-%        证：%\vspace{-0.5cm}
-%        \begin{enumerate}
-%          \item [(a)] \qquad $x_r(n)\leftrightarrow X_{ep}(k)$
-%                \begin{equation*}
-%                \begin{split}
-%                \because \quad  x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]  \quad\quad\big(x^*(n)\leftrightarrow X^*(N-k)\big)\\
-%                    DFT\big[x_{r}(n)\big] &= \frac{1}{2}\big[X(k) + X^{*}(N-k)\big]  = X_{ep}(k)
-%                \end{split}
-%                \end{equation*}
-%\item  [(b)] \qquad $jx_i(n)\leftrightarrow X_{op}(k)$
-%        \begin{equation*}
-%        \begin{split}
-%        \because \quad  jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]  \quad\quad\big(x^*(n)\leftrightarrow X^*(N-k)\big)\\
-%            DFT\big[jx_{i}(n)\big] &= \frac{1}{2}\big[X(k) - X^{*}(N-k)\big]  = X_{op}(k)
-%        \end{split}
-%        \end{equation*}
-%\end{enumerate}        
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{对称性讨论—共轭对称与共轭反对称序列的DFT}%[allowframebreaks][shrink]
-%        (2)  $\mbox{设: \quad}  x(n) = x_{ep}(n) +  x_{op}(n) \quad\quad X(k) = X_{R}(k) + jX_{I}(k)\quad$
-%        $$\quad\mbox{则: \quad}\quad x_{ep}(n)\leftrightarrow X_{R}(k) \quad\quad\quad\quad\quad x_{op}(n)\leftrightarrow jX_{I}(k)\quad\quad\quad$$
-%
-%        证： %\vspace{-0.5cm}
-%        \begin{enumerate}
-%          \item [(a)] $\quad x_{ep}(n)\leftrightarrow X_{R}(k)$
-%            \begin{equation*}
-%            \begin{split}
-%            \because \quad  x_{ep}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(N-n)\big]  \quad\quad\big(x^*(N-n)\leftrightarrow X^*(k)\big)\\
-%                DFT\big[x_{ep}(n)\big] &= \frac{1}{2}\bigg[X(k) + X^{*}(k)\bigg]  = X_{R}(k)
-%            \end{split}
-%            \end{equation*}
-%        \item [(b)]   $\quad x_{op}(n)\leftrightarrow jX_{I}(k)$
-%            \begin{equation*}
-%            \begin{split}
-%           \because \quad  x_{op}(n)  &= \frac{1}{2}\bigg[x(n) - x^{*}(N-n)\bigg]     \quad\quad\big(x^*(N-n)\leftrightarrow X^*(k)\big)\\
-%                DFT\big[x_{op}(n)\big] &= \frac{1}{2}\bigg[X(k) - X^{*}(k)\bigg]  = jX_{I}(k)
-%            \end{split}
-%            \end{equation*}
-%\end{enumerate}
-%\end{frame}
-%
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{有限长序列对称性结论}%[allowframebreaks][shrink]
-%\begin{jielun}
-%\begin{enumerate}
-%	\item [(1)]  一个域的共轭对称序列对应另一个域的实数部分序列，反之亦然。
-%   	\item [(2)]  一个域的共轭反对称序列对应另一个域的虚数部分序列，反之亦然。
-%\end{enumerate}
-%\end{jielun}
-%\end{frame}
-%
-%
-%\begin{frame}[allowframebreaks]\frametitle{实序列$x(n)$的对称性讨论}%[allowframebreaks][shrink]
-%\begin{dablock}
-%  % 实序列$x(n)$的对称性讨论
-%      设$x(n)\leftrightarrow X)k)$，因为$x(n)\in R$，\quad\newline\newline\quad
-%      则有$X(k)=X^*(N-k)$, 即$X(k)$ 为共轭对称序列。
-%\end{dablock}
-%
-%      \begin{enumerate}
-%        \item  若$x(n) = x(N-n)$， 即$x(n)$ 为实偶序列。则有：
-%        \begin{equation*} %\label{fol2218}
-%            \left\{ \begin{aligned}
-%                x(n)\mbox{为实序列} \qquad   &\rightarrow  \quad X(k)\mbox{为共轭对称序列}\newline  \\
-%                                    \qquad   &\qquad \qquad\mbox{即:} X(k)=X^*(N-k) \quad\quad\quad\quad\quad\quad\quad\\
-%                x(n)\mbox{为实偶序列} \quad   &\rightarrow \quad X(k)\mbox{为实数序列}\\
-%            \end{aligned} \right.
-%        \end{equation*}
-%        则有$X(k)=X^*(N-k) = X(N-k)$，也就是说$X(k)$也是实偶序列。
-%        \newpage
-%        \item  若$x(n) = -x(N-n)$，即$x(n)$ 为实奇序列。则有：
-%        \begin{equation*} %\label{fol2218}
-%            \left\{ \begin{aligned}
-%                x(n)\mbox{为实序列}   \qquad   &\rightarrow \quad X(k)\mbox{为共轭对称序列}  \quad\quad\quad\quad\quad\quad\quad\\
-%                                      \qquad   &\qquad \qquad\mbox{即:}X(k)=X^*(N-k)  \quad\quad\quad\quad\quad\quad\quad\\
-%                x(n)\mbox{为实奇序列}  \quad  &\rightarrow \quad X(k)\mbox{为纯虚数序列}\\
-%            \end{aligned} \right.
-%        \end{equation*}
-%        则有$X(k)=X^*(N-k) = -X(N-k)$，也就是说$X(k)$是纯虚奇对称序列。
-%      \end{enumerate}
 %
 %\end{frame}
+
+\begin{frame}[shrink]\frametitle{对称性讨论—实部序列和虚部部分序列的DFT}%[allowframebreaks][shrink]
+        (1)  $\mbox{设: \quad}  x(n) = x_r(n) +j x_i(n) \quad\quad X(k) = X_{ep}(k) + X_{op}(k)\quad$
+        $$\quad\mbox{则: \quad}\quad x_r(n)\leftrightarrow X_{ep}(k) \quad\quad\quad\quad\quad jx_i(n)\leftrightarrow X_{op}(k)\quad\quad\quad$$
+
+        证：%\vspace{-0.5cm}
+        \begin{enumerate}
+          \item [(a)] \qquad $x_r(n)\leftrightarrow X_{ep}(k)$
+                \begin{equation*}
+                \begin{split}
+                \because \quad  x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]  \quad\quad\big(x^*(n)\leftrightarrow X^*(N-k)\big)\\
+                    DFT\big[x_{r}(n)\big] &= \frac{1}{2}\big[X(k) + X^{*}(N-k)\big]  = X_{ep}(k)
+                \end{split}
+                \end{equation*}
+\item  [(b)] \qquad $jx_i(n)\leftrightarrow X_{op}(k)$
+        \begin{equation*}
+        \begin{split}
+        \because \quad  jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]  \quad\quad\big(x^*(n)\leftrightarrow X^*(N-k)\big)\\
+            DFT\big[jx_{i}(n)\big] &= \frac{1}{2}\big[X(k) - X^{*}(N-k)\big]  = X_{op}(k)
+        \end{split}
+        \end{equation*}
+\end{enumerate}        
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{对称性讨论—共轭对称与共轭反对称序列的DFT}%[allowframebreaks][shrink]
+        (2)  $\mbox{设: \quad}  x(n) = x_{ep}(n) +  x_{op}(n) \quad\quad X(k) = X_{R}(k) + jX_{I}(k)\quad$
+        $$\quad\mbox{则: \quad}\quad x_{ep}(n)\leftrightarrow X_{R}(k) \quad\quad\quad\quad\quad x_{op}(n)\leftrightarrow jX_{I}(k)\quad\quad\quad$$
+
+        证： %\vspace{-0.5cm}
+        \begin{enumerate}
+          \item [(a)] $\quad x_{ep}(n)\leftrightarrow X_{R}(k)$
+            \begin{equation*}
+            \begin{split}
+            \because \quad  x_{ep}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(N-n)\big]  \quad\quad\big(x^*(N-n)\leftrightarrow X^*(k)\big)\\
+                DFT\big[x_{ep}(n)\big] &= \frac{1}{2}\bigg[X(k) + X^{*}(k)\bigg]  = X_{R}(k)
+            \end{split}
+            \end{equation*}
+        \item [(b)]   $\quad x_{op}(n)\leftrightarrow jX_{I}(k)$
+            \begin{equation*}
+            \begin{split}
+           \because \quad  x_{op}(n)  &= \frac{1}{2}\bigg[x(n) - x^{*}(N-n)\bigg]     \quad\quad\big(x^*(N-n)\leftrightarrow X^*(k)\big)\\
+                DFT\big[x_{op}(n)\big] &= \frac{1}{2}\bigg[X(k) - X^{*}(k)\bigg]  = jX_{I}(k)
+            \end{split}
+            \end{equation*}
+\end{enumerate}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{有限长序列对称性结论}%[allowframebreaks][shrink]
+\begin{jielun}
+\begin{enumerate}
+	\item [(1)]  一个域的共轭对称序列对应另一个域的实数部分序列，反之亦然。
+   	\item [(2)]  一个域的共轭反对称序列对应另一个域的虚数部分序列，反之亦然。
+\end{enumerate}
+\end{jielun}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]\frametitle{实序列$x(n)$的对称性讨论}%[allowframebreaks][shrink]
+\begin{dablock}
+  % 实序列$x(n)$的对称性讨论
+      设$x(n)\leftrightarrow X)k)$，因为$x(n)\in R$，\quad\newline\newline\quad
+      则有$X(k)=X^*(N-k)$, 即$X(k)$ 为共轭对称序列。
+\end{dablock}
+
+      \begin{enumerate}
+        \item  若$x(n) = x(N-n)$， 即$x(n)$ 为实偶序列。则有：
+        \begin{equation*} %\label{fol2218}
+            \left\{ \begin{aligned}
+                x(n)\mbox{为实序列} \qquad   &\rightarrow  \quad X(k)\mbox{为共轭对称序列}\newline  \\
+                                    \qquad   &\qquad \qquad\mbox{即:} X(k)=X^*(N-k) \quad\quad\quad\quad\quad\quad\quad\\
+                x(n)\mbox{为实偶序列} \quad   &\rightarrow \quad X(k)\mbox{为实数序列}\\
+            \end{aligned} \right.
+        \end{equation*}
+        则有$X(k)=X^*(N-k) = X(N-k)$，也就是说$X(k)$也是实偶序列。
+        \newpage
+        \item  若$x(n) = -x(N-n)$，即$x(n)$ 为实奇序列。则有：
+        \begin{equation*} %\label{fol2218}
+            \left\{ \begin{aligned}
+                x(n)\mbox{为实序列}   \qquad   &\rightarrow \quad X(k)\mbox{为共轭对称序列}  \quad\quad\quad\quad\quad\quad\quad\\
+                                      \qquad   &\qquad \qquad\mbox{即:}X(k)=X^*(N-k)  \quad\quad\quad\quad\quad\quad\quad\\
+                x(n)\mbox{为实奇序列}  \quad  &\rightarrow \quad X(k)\mbox{为纯虚数序列}\\
+            \end{aligned} \right.
+        \end{equation*}
+        则有$X(k)=X^*(N-k) = -X(N-k)$，也就是说$X(k)$是纯虚奇对称序列。
+      \end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]\frametitle{ 应用举例：(实序列$DFT$计算量减半)}%[allowframebreaks][shrink]
+
+      \begin{enumerate}
+        \item [例1] 如$N=8$，求$X(k)$。 \quad\newline\newline\quad
+              利用对称性，有$X(k)=X^*(N-k)$，\quad\newline\newline\quad
+              只需求$X(0)$,$X(1)$,$X(2)$,$X(3)$,$X(4)$，则有：
+              $$X(5)=X^*(3),\quad\quad X(6)=X^*(2),\quad\quad X(7)= X^*(1)$$
+        \newpage
+        \item [例2] 计算一个$N$ 点$DFT$，同时得到两个实序列的$N$点$DFT$。
+        
+        \quad\newline\quad
+              设$x_1(n)$,$x_2(n)$ 是两个长度为$N$的实序列。
+              $$\mbox{令 :}\qquad\qquad x(n) = x_1(n)+jx_2(n)\quad\:
+              \qquad\qquad\qquad\qquad$$
+              $$\mbox{则 :}\qquad\qquad X(k) = X_{ep}(k) +X{op}(k)
+              \qquad\qquad\qquad\qquad$$
+              根据$DFT$对称性，有：
+              \begin{equation*}
+                \begin{split}
+                X_1(k)  &= DFT\big[x_1(n)\big]   = X_{ep}(k) = \quad \frac{1}{2} \bigg[X(k) + X^{*}(N-k)\bigg]  \\
+                X_2(k)  &= DFT\big[x_2(n)\big]   = \frac{1}{j}X_{op}(k) = \frac{1}{2j}\bigg[X(k) - X^{*}(N-k)\bigg]
+                \end{split}
+              \end{equation*}
+      \end{enumerate}
+
+
+\end{frame}
+
+
+\section{频率域采样}
+\begin{frame}[shrink]\frametitle{频率域采样}%[allowframebreaks][shrink]
+
+
+时域采样定理指出，在一定条件下，可由时域离散采样信号恢复原来的连续信号，
+
+\begin{wenti}
+\begin{enumerate}
+	\item 那么能否也由频域采样信号$ X(k) $恢复原来的信号$ x(n) $，或原频域连续函数$ X(e^{j\omega}) $？
+	\item 如果可以，其条件是什么？
+	\item 内插公式什么形式？
+\end{enumerate}
+\end{wenti}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{回顾DFT的物理意义}%[allowframebreaks][shrink]
+
+首先回顾一下DFT的物理意义
+%$$X(k) = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} \quad\quad\quad 0 \leq k \leq N-1$$
+\begin{equation*}
+\begin{split}
+X(k)  &= X(z)\;\:\Big|_{z = e^{j\frac{2\pi}{N}k}}  \qquad \mbox{在$Z$平面单位圆上的$N$点等间隔采样}\\
+ \quad&\quad\\
+      &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\: \mbox{在$\omega$ 轴上区间$[0,2\pi]$ 上的$N$点等间隔采样。}\\
+\therefore\quad  &\quad\mbox{有：}   \\
+X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(n)z^{-n}\right]_{z = e^{j\frac{2\pi}{N}k}}\\
+     &= \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn} \\
+\therefore\quad X(k) &= \sum_{n=-\infty}^{\infty}x(n)W_N^{kn} \qquad\quad (0 \leq k \leq N-1)
+\end{split}
+\end{equation*}
+%$$X(k) = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}
+%= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k}
+%= \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn}
+%= \sum_{n=-\infty}^{\infty}x(n)W_N^{kn}$$
+\end{frame}
+
+
+
+
+%-----------------------------------------------------------------------------------------------------------------------------------------
+\begin{frame}[shrink]\frametitle{举例说明Z}%[allowframebreaks][shrink]
+回顾一下例子，求$R_4(n)$的8点，16 点的DFT。
+\newline\newline
+从例子中可以看出，$R_4(n)$的长度为4，而DFT的的点数，也就是采样的点数为8，和16.
+\newline\newline
+则有：
+\begin{dablock}
+	设$ x(n) $长度为M, DFT的变换区间长度为N，则有DFT为：
+	
+	$$ X(k) = \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn} = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}$$
+	
+
+即：$X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
+\end{dablock}
+\end{frame}
+
+
+
+
+
+%-----------------------------------------------------------------------------------------------------------------------------
+\begin{frame}[shrink]\frametitle{问题的提出}%[allowframebreaks][shrink]
+%设$ x(n) $长度为M, DFT的变换区间长度为N，则有DFT为：
 %
+%$$ X(k) = \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn} = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}$$
 %
-%\begin{frame}[allowframebreaks]\frametitle{ 应用举例：(实序列$DFT$计算量减半)}%[allowframebreaks][shrink]
-%
-%      \begin{enumerate}
-%        \item [例1] 如$N=8$，求$X(k)$。 \quad\newline\newline\quad
-%              利用对称性，有$X(k)=X^*(N-k)$，\quad\newline\newline\quad
-%              只需求$X(0)$,$X(1)$,$X(2)$,$X(3)$,$X(4)$，则有：
-%              $$X(5)=X^*(3),\quad\quad X(6)=X^*(2),\quad\quad X(7)= X^*(1)$$
-%        \newpage
-%        \item [例2] 计算一个$N$ 点$DFT$，同时得到两个实序列的$N$点$DFT$。
-%        
-%        \quad\newline\quad
-%              设$x_1(n)$,$x_2(n)$ 是两个长度为$N$的实序列。
-%              $$\mbox{令 :}\qquad\qquad x(n) = x_1(n)+jx_2(n)\quad\:
-%              \qquad\qquad\qquad\qquad$$
-%              $$\mbox{则 :}\qquad\qquad X(k) = X_{ep}(k) +X{op}(k)
-%              \qquad\qquad\qquad\qquad$$
-%              根据$DFT$对称性，有：
-%              \begin{equation*}
-%                \begin{split}
-%                X_1(k)  &= DFT\big[x_1(n)\big]   = X_{ep}(k) = \quad \frac{1}{2} \bigg[X(k) + X^{*}(N-k)\bigg]  \\
-%                X_2(k)  &= DFT\big[x_2(n)\big]   = \frac{1}{j}X_{op}(k) = \frac{1}{2j}\bigg[X(k) - X^{*}(N-k)\bigg]
-%                \end{split}
-%              \end{equation*}
-%      \end{enumerate}
-%
-%
-%\end{frame}
-%
-%
-%\section{频率域采样}
-%\begin{frame}[shrink]\frametitle{频率域采样}%[allowframebreaks][shrink]
-%
-%
-%时域采样定理指出，在一定条件下，可由时域离散采样信号恢复原来的连续信号，
-%
-%\begin{wenti}
-%\begin{enumerate}
-%	\item 那么能否也由频域采样信号$ X(k) $恢复原来的信号$ x(n) $，或原频域连续函数$ X(e^{j\omega}) $？
-%	\item 如果可以，其条件是什么？
-%	\item 内插公式什么形式？
-%\end{enumerate}
-%\end{wenti}
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{回顾DFT的物理意义}%[allowframebreaks][shrink]
-%
-%首先回顾一下DFT的物理意义
-%%$$X(k) = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} \quad\quad\quad 0 \leq k \leq N-1$$
-%\begin{equation*}
-%\begin{split}
-%X(k)  &= X(z)\;\:\Big|_{z = e^{j\frac{2\pi}{N}k}}  \qquad \mbox{在$Z$平面单位圆上的$N$点等间隔采样}\\
-% \quad&\quad\\
-%      &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\: \mbox{在$\omega$ 轴上区间$[0,2\pi]$ 上的$N$点等间隔采样。}\\
-%\therefore\quad  &\quad\mbox{有：}   \\
-%X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(n)z^{-n}\right]_{z = e^{j\frac{2\pi}{N}k}}\\
-%     &= \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn} \\
-%\therefore\quad X(k) &= \sum_{n=-\infty}^{\infty}x(n)W_N^{kn} \qquad\quad (0 \leq k \leq N-1)
-%\end{split}
-%\end{equation*}
-%%$$X(k) = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}
-%%= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k}
-%%= \sum_{n=-\infty}^{\infty}x(n)e^{-j\frac{2\pi}{N}kn}
-%%= \sum_{n=-\infty}^{\infty}x(n)W_N^{kn}$$
-%\end{frame}
-%
-%
-%
-%
-%%-----------------------------------------------------------------------------------------------------------------------------------------
-%\begin{frame}[shrink]\frametitle{举例说明Z}%[allowframebreaks][shrink]
-%回顾一下例子，求$R_4(n)$的8点，16 点的DFT。
-%\newline\newline
-%从例子中可以看出，$R_4(n)$的长度为4，而DFT的的点数，也就是采样的点数为8，和16.
-%\newline\newline
-%则有：
-%\begin{dablock}
-%	设$ x(n) $长度为M, DFT的变换区间长度为N，则有DFT为：
-%	
-%	$$ X(k) = \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn} = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}$$
-%	
-%
-%即：$X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
-%\end{dablock}
-%\end{frame}
-%
-%
-%
-%
-%
-%%-----------------------------------------------------------------------------------------------------------------------------
-%\begin{frame}[shrink]\frametitle{问题的提出}%[allowframebreaks][shrink]
-%%设$ x(n) $长度为M, DFT的变换区间长度为N，则有DFT为：
-%%
-%%$$ X(k) = \sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn} = X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}}$$
-%%
-%%即：
-%$X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
-%
-%\begin{wenti}
-%	对于$X(k)$来说，其反变换长度为N，而时域序列$x(n)$的长度为M，显然不能直接说相等，不妨设$IDFT[X(k)]=x_N(n)$，那么，$x_N(n)$和$x(n)$之间存在什么关系？
-%\end{wenti}
-%根据DFS和DFT的关系可知：
-% $$x_N(n)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{x}(n)
-%\quad \stackrel{DFS}{\longrightarrow}\quad \tilde{X}(k)
-%\quad \stackrel{\mbox{取主值}}{\longrightarrow}\quad X(k)$$
-%同时也有：
-% $$X(k)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{X}(k)
-%\quad \stackrel{IDFS}{\longrightarrow}\quad \tilde{x}(n)
-%\quad \stackrel{\mbox{取主值}}{\longrightarrow}\quad x_N(n)$$
-%\end{frame}
-%
-%
-%%\begin{theorem}[频率采样定律]
-%%	\textbf{频率采样定律：只有当频域采样点数大于等于序列$x(n)$ 长度时，即$N\geq M$时，才可由频域采样$X(k)$ 恢复原序列$x(n)$，否则将产生时域混叠现象。}
-%%\end{theorem}
-%
-%
-%%-----------------------------------------------------------------------------------------------------------------------------------------
-%\begin{frame}[shrink]\frametitle{推导过程}%[allowframebreaks][shrink]
-%\begin{equation*}
-%\begin{split}
-%x_N(n)  &= \tilde{x}(n)\cdot R_N(n) = IDFT\Big[\tilde{X}(k)\Big]\cdot R_N(n) \\
-%        &= \left[\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)W_N^{-kn}\right]\cdot R_N(n)\\
-%        &= \left[\frac{1}{N}\sum_{k=0}^{N-1}\Big[\sum_{m=-\infty}^{\infty}x(m)W_N^{km}\Big]W_N^{-kn}\right]\cdot R_N(n)\\ 
-%        &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\cdot R_N(n)\\
-%\end{split}
-%\end{equation*}
-%\begin{equation*}
-%\mbox{而：\quad}    \frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)} =
-%\left\{\begin{array}{r@{,\quad}l}
-%1  & m= n+l\cdot N \quad\quad  l\in Z\\
-%0     &\mbox{其他m}
-%\end{array} \right.
-%\end{equation*}
-%\end{frame}
-%
-%
-%%-----------------------------------------------------------------------------------------------------------------------------------------
-%\begin{frame}[shrink]\frametitle{推导过程}%[allowframebreaks][shrink]
-%\begin{equation*}
-%\begin{split}
-%\therefore\quad x_N(n)  &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\cdot R_N(n)\\
-%\therefore\quad   x_N(n)      &= \left[\sum_{l=-\infty}^{\infty}x(n+l N)\right]\cdot R_N(n)\\
-%\end{split}
-%\end{equation*}
-%
-%\begin{shuoming}
-%\begin{enumerate}
-%	\item 这说明$ X(z) $在单位圆上的N点等间隔采样$X(k)$的N点DFT反变换$ x_N(n) $
-%	      是原序列x(n)以N为周期进行延拓，再取主值得到的序列。
-%	\item 显然当$ N\geq M $时，有$ x(n) = x_N(n) $。
-%	\item 当$ N < M $时，将出现时域混叠现象。
-%\end{enumerate}
-%	
-%\end{shuoming}
-%
-%
-%
-%\end{frame}
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{频域采样定律}
-%\begin{theorem}%[频域采样定律]
-%	如果序列$ x(n) $的长度为M，则只有当频域采样点数N大于等于序列$x(n)$ 长度M时，即$N\geq M$时，才有：
-%	$$x_N(n) = IDFT[X(k)] = x(n)$$
-%	即可由频域采样$X(k)$ 恢复原序列$x(n)$，否则将产生时域混叠现象。
+%即：
+$X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
+
+\begin{wenti}
+	对于$X(k)$来说，其反变换长度为N，而时域序列$x(n)$的长度为M，显然不能直接说相等，不妨设$IDFT[X(k)]=x_N(n)$，那么，$x_N(n)$和$x(n)$之间存在什么关系？
+\end{wenti}
+根据DFS和DFT的关系可知：
+ $$x_N(n)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{x}(n)
+\quad \stackrel{DFS}{\longrightarrow}\quad \tilde{X}(k)
+\quad \stackrel{\mbox{取主值}}{\longrightarrow}\quad X(k)$$
+同时也有：
+ $$X(k)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{X}(k)
+\quad \stackrel{IDFS}{\longrightarrow}\quad \tilde{x}(n)
+\quad \stackrel{\mbox{取主值}}{\longrightarrow}\quad x_N(n)$$
+\end{frame}
+
+
+%\begin{theorem}[频率采样定律]
+%	\textbf{频率采样定律：只有当频域采样点数大于等于序列$x(n)$ 长度时，即$N\geq M$时，才可由频域采样$X(k)$ 恢复原序列$x(n)$，否则将产生时域混叠现象。}
 %\end{theorem}
-%\begin{shuoming}
-%满足频域采样定理时，频域采样序列$ X(k) $的N点IDFT是原序列$x(n)$，所以必然可以用$ X(k) $恢复$ X(z) $和$ X(e^{j\omega}) $.
-%\end{shuoming}
+
+
+%-----------------------------------------------------------------------------------------------------------------------------------------
+\begin{frame}[shrink]\frametitle{推导过程}%[allowframebreaks][shrink]
+\begin{equation*}
+\begin{split}
+x_N(n)  &= \tilde{x}(n)\cdot R_N(n) = IDFT\Big[\tilde{X}(k)\Big]\cdot R_N(n) \\
+        &= \left[\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)W_N^{-kn}\right]\cdot R_N(n)\\
+        &= \left[\frac{1}{N}\sum_{k=0}^{N-1}\Big[\sum_{m=-\infty}^{\infty}x(m)W_N^{km}\Big]W_N^{-kn}\right]\cdot R_N(n)\\ 
+        &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\cdot R_N(n)\\
+\end{split}
+\end{equation*}
+\begin{equation*}
+\mbox{而：\quad}    \frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)} =
+\left\{\begin{array}{r@{,\quad}l}
+1  & m= n+l\cdot N \quad\quad  l\in Z\\
+0     &\mbox{其他m}
+\end{array} \right.
+\end{equation*}
+\end{frame}
+
+
+%-----------------------------------------------------------------------------------------------------------------------------------------
+\begin{frame}[shrink]\frametitle{推导过程}%[allowframebreaks][shrink]
+\begin{equation*}
+\begin{split}
+\therefore\quad x_N(n)  &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\cdot R_N(n)\\
+\therefore\quad   x_N(n)      &= \left[\sum_{l=-\infty}^{\infty}x(n+l N)\right]\cdot R_N(n)\\
+\end{split}
+\end{equation*}
+
+\begin{shuoming}
+\begin{enumerate}
+	\item 这说明$ X(z) $在单位圆上的N点等间隔采样$X(k)$的N点DFT反变换$ x_N(n) $
+	      是原序列x(n)以N为周期进行延拓，再取主值得到的序列。
+	\item 显然当$ N\geq M $时，有$ x(n) = x_N(n) $。
+	\item 当$ N < M $时，将出现时域混叠现象。
+\end{enumerate}
+	
+\end{shuoming}
+
+
+
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{频域采样定律}
+\begin{theorem}%[频域采样定律]
+	如果序列$ x(n) $的长度为M，则只有当频域采样点数N大于等于序列$x(n)$ 长度M时，即$N\geq M$时，才有：
+	$$x_N(n) = IDFT[X(k)] = x(n)$$
+	即可由频域采样$X(k)$ 恢复原序列$x(n)$，否则将产生时域混叠现象。
+\end{theorem}
+\begin{shuoming}
+满足频域采样定理时，频域采样序列$ X(k) $的N点IDFT是原序列$x(n)$，所以必然可以用$ X(k) $恢复$ X(z) $和$ X(e^{j\omega}) $.
+\end{shuoming}
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{插值问题的提出}
+\begin{dablock}
+既然可以用$ X(k) $恢复$ X(z) $和$ X(e^{j\omega})$，那怎么得到呢？\par
+下面将推导用频域采样$ X(k) $表示$ X(z) $和$ X(e^{j\omega}) $的内插公式和内插函数。
+\end{dablock}
+设序列$ x(n) $长度为M，在频域$ [0,2\pi] $上等间隔采样N点，
+$ N\geq M $，则有。
+\begin{equation*}
+\begin{split}
+X(k)  &= X(z)\;\:\Big|_{z = e^{j\frac{2\pi}{N}k}}  \qquad \\
+%\quad &\quad\\
+      &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\qquad\quad k = 0,1,2,\cdots , N-1\\
+\end{split}
+\end{equation*}
+当$N\geq M$时，满足频域采样定理，有：
+$$x(n) = IDFT[X(k)] = \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}$$
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{$ X(z) $插值公式推导过程}
+
+\begin{equation*}
+\begin{split}
+X(z) &= \sum_{n=-\infty}^{\infty}x(n) z^{-n} = \sum_{n=0}^{N-1}x(n) z^{-n} \\
+     &= \sum_{n=0}^{N-1}\left[\frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}\right] z^{-n} \\
+     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\sum_{n=0}^{N-1}W_N^{-kn}z^{-n} \right] \\
+     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-W_{N}^{-kN}z^{-N}}{1-W_N^{-k}z^{-1}} \right] \\
+     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] 
+\end{split}
+\end{equation*}
+
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{$ X(z) $插值公式推导过程}
+前述推导可得：
+\begin{equation*}
+\begin{split}
+X(z) &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] \\
+\mbox{令：\quad} & \quad  \\
+\varphi_k(z) &= \frac{1}{N} \dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}}  \\
+\mbox{则有：} & \quad  \\
+X(z) &= \sum_{k=0}^{N-1}X(k)\varphi_k(z)
+\end{split}
+\end{equation*}
+上式称为用$ X(k) $表示$ X(z) $的插值公式，其中$ \varphi_k(z) $称为内插函数。
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{$ X(e^{j\omega}) $插值公式推导过程}
+前述推导可得：
+$$X(z) =  \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] $$
+将$ z = e^{j\omega} $代入上式，并进行化简整理，可得：
+\begin{equation*}
+\begin{split}
+X(e^{j\omega})  &= \sum_{k=0}^{N-1}X(k) \varphi\left(\omega - \frac{2\pi}{N}k \right) \\
+\mbox{其中:}    & \quad  \\
+\varphi(\omega) &= \frac{1}{N} \dfrac{\sin(\omega N/2)}{sin(\omega /2)}e^{-j\omega \frac{N-1}{2}}  
+\end{split}
+\end{equation*}
+上式称为频域内插公式，$ \varphi(\omega) $称为{\Large 频域内插函数}。
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{$ X(e^{j\omega}) $插值公式化简过程}%[allowframebreaks][shrink]
+\begin{equation*}
+\begin{split}
+\varphi_k(z)   &= \frac{1}{N}\cdot\frac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \\
+\varphi_k(e^{j\omega})
+      &= \frac{1}{N}\cdot\frac{1-e^{-j\omega N}}{1-e^{-j\omega}e^{j\frac{2\pi}{N}k}} \quad =\quad  \frac{1}{N}\cdot\frac{1-e^{-j\omega N}}{1-e^{-j(\omega-\frac{2\pi}{N}k)}}\\
+      &= \frac{1}{N}\cdot\frac{e^{-j\frac{N}{2}\omega}\big(e^{j\frac{N}{2}\omega}-e^{-j\frac{N}{2}\omega}\big)}
+                {e^{-j\frac{1}{2}(\omega- \frac{2\pi}{N}k)}\big( e^{j\frac{1}{2}(\omega- \frac{2\pi}{N}k)} -e^{-j\frac{1}{2}(\omega- \frac{2\pi}{N}k)}  \big)}\\
+      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) }\\
+ \mbox{令：} \quad  \varphi(\omega)
+      &= \frac{1}{N}\cdot\frac{\sin(\omega N/2)}{\sin(\omega/2)}\cdot e^{-j\omega(\frac{N-1}{2}) }\\
+\end{split}
+\end{equation*}
+$$\mbox{下面将验证}\varphi\Big(\omega-\frac{2\pi}{N}k\Big) =\varphi_k(e^{j\omega}) =\frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } $$
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{equation*}
+\begin{split}
+\mbox{设：}  \varphi(\omega)
+      &= \frac{1}{N}\cdot\frac{\sin(\omega N/2)}{\sin(\omega/2)}\cdot e^{-j\omega(\frac{N-1}{2}) }\\
+\varphi\Big(\omega-\frac{2\pi}{N}k\Big)
+      &= \frac{1}{N}\cdot\frac{\sin\Big((\omega-\frac{2\pi}{N}k) \frac{N}{2}\Big)}{\sin\Big((\omega-\frac{2\pi}{N}k)/2\Big)}\cdot e^{-j(\omega-\frac{2\pi}{N}k)(\frac{N-1}{2}) }\\
+      &= \frac{1}{N}\cdot\frac{\sin\Big(\frac{N}{2}\omega-\pi k \Big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega -2\pi k + \frac{2\pi}{N}k\big) }\\
+      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big) \cos(\pi k)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } e^{j\pi k}\\
+      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } e^{j2\pi k} \quad(e^{j\pi k} =\cos(\pi k))\\
+      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } \qquad\:\quad(e^{j2\pi k} =1)\\
+      &= \varphi_k(e^{j\omega})
+\end{split}
+\end{equation*}
+\end{frame}
+%
+%
+%
+%
+%\newpage
+\section{DFT的应用举例}
+%
+%
+\subsection{用DFT计算线性卷积}
+\begin{frame}[shrink]\frametitle{问题:为什么要用$DFT$计算线性卷积?}%[allowframebreaks][shrink]
+\textbf{一、} 线性卷积与循环卷积的关系？
+
+\begin{enumerate}
+  \item  问题的背景：为什么要用$DFT$计算线性卷积?
+     \begin{enumerate}
+       \item 在实际应用中，%为分析时域离散线性时不变系统，或对序列进行滤波处理，
+             需要计算两个序列的线性卷积。
+       \item %循环卷积可在时域计算，也可以在频域计算。当L很大时，
+             利用$DFT$快速算法在频域计算循环卷积将快的多。因此常利用$DFT$($FFT$)在频域计算循环卷积。。
+     \end{enumerate}
+  \item 问题在线性卷积和循环卷积的关系？以及循环卷积与线性卷积相等的条件？
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{线性卷积和循环卷积的对比}%[allowframebreaks][shrink]
+
+
+\textbf{二、推导}
+
+设有限长序列$x(n)$长度为$M$，$h(n)$长度为$N$，则有：
+\begin{enumerate}
+  \item [(1)] 线性卷积为：
+  $$y_l(n) = x(n)*h(n) = \sum_{m=0}^{N-1}h(m)x(n-m) $$
+  \par 且$y_l(n)$长度为$N+M-1$。
+  \item [(2)] L点循环卷积为：
+  $$y_c(n) = x(n)\otimes h(n) =  \bigg[ \sum_{m=0}^{L-1} h(m) x((n-m))_L \bigg] R_L(n) $$
+
+  这里$L\geq \{N,M\}$，
+
+  且又 $\because\quad h(n)$长度为$N$，上式可写为：
+
+  $$y_c(n) %= x(n)\otimes h(n)
+        =  \bigg[ \sum_{m=0}^{N-1} h(m) x((n-m))_L \bigg] R_L(n) $$
+
+  \end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{2个备用公式}%[allowframebreaks][shrink]
+
+\begin{enumerate}
+  \item [公式一]：
+  \begin{equation*} %\label{fol2218}
+  \left\{ \begin{aligned}
+  y_l(n)      &=  \sum_{m=0}^{N-1}h(m)x(n-m)     \quad\quad\quad\quad\quad\quad\quad\\
+              &\downarrow    \quad n\rightarrow n+qL             \\
+  y_l(n+qL)   &=  \sum_{m=0}^{N-1}h(m)x(n+qL-m)
+  \end{aligned} \right.
+  \end{equation*}
+  \item  [公式二]:
+  $$x((n))_L = \tilde{x}(n) = \sum_{q=-\infty}^{\infty}x(n+qL) $$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
+\begin{enumerate}
+  \item [(3)] \textbf{关系}  \par
+\end{enumerate}  
+  \begin{equation*}
+    \begin{split}
+    y_c(n)  &= \left[ \sum_{m=0}^{N-1} h(m) x((n-m))_L \right] \cdot R_L(n)\\
+            &= \left\{ \sum_{m=0}^{N-1} h(m) \bigg[ \sum_{q=-\infty}^{\infty}x(n-m +qL)
+                \bigg] \right\} \cdot R_L(n)  \quad(\mbox{备用公式2})\\
+            &= \left\{ \sum_{q=-\infty}^{\infty} \bigg[ \sum_{m=0}^{N-1} h(m)x(n-m +qL)
+                \bigg] \right\} \cdot R_L(n)  \\
+            &= \left[ \sum_{q=-\infty}^{\infty}  y_l\big(n+qL\big)\right]  \cdot R_L(n)
+               \quad\quad\quad\quad\quad\quad\quad\quad(\mbox{备用公式1}) \\
+            &= y_l((n))_L \cdot R_L(n)
+    \end{split}
+  \end{equation*}
+
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{循环卷积与线性卷积的关系}%[allowframebreaks][shrink]
+%
+%
+\begin{jielun}
+
+   \quad\quad 两个有限长序列的长度为$L$的循环卷积结果，等于这两个序列的线性卷积以$L$为周期延拓，然后再取主值序列得到。
+    $$y_l(n)  \longrightarrow  y_l((n))_L \longrightarrow   y_c(n) =  y_l((n))_L\cdot R_L(n) $$
+\end{jielun}
 %\end{frame}
 %
 %
+%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
+
+   \textbf{讨论：}
+    \begin{enumerate}
+      \item 当$L\geq N+M-1$ 时，则有: \vspace{-0.3cm}
+      $$y_c(n) = y_l(n)$$%\vspace{-0.3cm}
+      说明：\quad
+      公式本身是有$y_l(n)$得到$y_c(n)$的过程，且在$L\leq N+M-1$时两者相等，而实际应用中是利用循环卷积计算线性卷积。
+      \item 当$L < N+M-1$时，周期延拓会导致混叠现象。
+    \end{enumerate}
+
+\end{frame}
 %
-%\begin{frame}[shrink]\frametitle{插值问题的提出}
-%\begin{dablock}
-%既然可以用$ X(k) $恢复$ X(z) $和$ X(e^{j\omega})$，那怎么得到呢？\par
-%下面将推导用频域采样$ X(k) $表示$ X(z) $和$ X(e^{j\omega}) $的内插公式和内插函数。
-%\end{dablock}
-%设序列$ x(n) $长度为M，在频域$ [0,2\pi] $上等间隔采样N点，
-%$ N\geq M $，则有。
-%\begin{equation*}
-%\begin{split}
-%X(k)  &= X(z)\;\:\Big|_{z = e^{j\frac{2\pi}{N}k}}  \qquad \\
-%%\quad &\quad\\
-%      &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\qquad\quad k = 0,1,2,\cdots , N-1\\
-%\end{split}
-%\end{equation*}
-%当$N\geq M$时，满足频域采样定理，有：
-%$$x(n) = IDFT[X(k)] = \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}$$
-%\end{frame}
+%\newpage
+
+\begin{frame}[shrink]\frametitle{循环卷积的两种计算方法}%[allowframebreaks][shrink]
+
+二、用$DFT$计算循环卷积
+
+（1）   循环卷积的两种计算方法：
+\begin{enumerate}
+  \item [(a)] 直接计算
+        $$y_c(n) = x(n) \otimes h(n) = \bigg[ \sum_{m=0}^{L-1} h(m) x((n-m))_L \bigg] R_L(n)$$
+        $$\mbox{周期延拓}\quad \longrightarrow  \quad \mbox{线性卷积}\quad \longrightarrow \quad\mbox{取主值} \quad\quad\quad\quad$$
+\end{enumerate}        
+\end{frame}        
+   
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]   
+\begin{enumerate}
+	\item [(b)]   根据卷积定理，用$DFT$计算。\par
+\end{enumerate}
+  设长序列$x(n)$长度为$M$，$h(n)$长度为$N$，令$L=N+M-1$：
+   $$x (n)\otimes h(n) \longleftrightarrow X(k)\cdot Hk)\quad\quad\quad\quad $$
+   \vspace{-0.3cm}
+  \begin{figure}
+  	\centering
+  	\label{fig:jisuanxunhuanjuanji}
+  	\includegraphics[width=0.99\linewidth]{jisuanxunhuanjuanji.jpg}
+  \end{figure}  
+  注意：这里需要做3次$DFT$计算，为何？因为$DFT$有快速算法$FFT$，可大大加快计算速度。
+\end{frame}
 %
-%
-%\begin{frame}[shrink]\frametitle{$ X(z) $插值公式推导过程}
-%
-%\begin{equation*}
-%\begin{split}
-%X(z) &= \sum_{n=-\infty}^{\infty}x(n) z^{-n} = \sum_{n=0}^{N-1}x(n) z^{-n} \\
-%     &= \sum_{n=0}^{N-1}\left[\frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}\right] z^{-n} \\
-%     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\sum_{n=0}^{N-1}W_N^{-kn}z^{-n} \right] \\
-%     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-W_{N}^{-kN}z^{-N}}{1-W_N^{-k}z^{-1}} \right] \\
-%     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] 
-%\end{split}
-%\end{equation*}
-%
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{$ X(z) $插值公式推导过程}
-%前述推导可得：
-%\begin{equation*}
-%\begin{split}
-%X(z) &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] \\
-%\mbox{令：\quad} & \quad  \\
-%\varphi_k(z) &= \frac{1}{N} \dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}}  \\
-%\mbox{则有：} & \quad  \\
-%X(z) &= \sum_{k=0}^{N-1}X(k)\varphi_k(z)
-%\end{split}
-%\end{equation*}
-%上式称为用$ X(k) $表示$ X(z) $的插值公式，其中$ \varphi_k(z) $称为内插函数。
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{$ X(e^{j\omega}) $插值公式推导过程}
-%前述推导可得：
-%$$X(z) =  \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] $$
-%将$ z = e^{j\omega} $代入上式，并进行化简整理，可得：
-%\begin{equation*}
-%\begin{split}
-%X(e^{j\omega})  &= \sum_{k=0}^{N-1}X(k) \varphi\left(\omega - \frac{2\pi}{N}k \right) \\
-%\mbox{其中:}    & \quad  \\
-%\varphi(\omega) &= \frac{1}{N} \dfrac{\sin(\omega N/2)}{sin(\omega /2)}e^{-j\omega \frac{N-1}{2}}  
-%\end{split}
-%\end{equation*}
-%上式称为频域内插公式，$ \varphi(\omega) $称为{\Large 频域内插函数}。
-%\end{frame}
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{$ X(e^{j\omega}) $插值公式化简过程}%[allowframebreaks][shrink]
-%\begin{equation*}
-%\begin{split}
-%\varphi_k(z)   &= \frac{1}{N}\cdot\frac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \\
-%\varphi_k(e^{j\omega})
-%      &= \frac{1}{N}\cdot\frac{1-e^{-j\omega N}}{1-e^{-j\omega}e^{j\frac{2\pi}{N}k}} \quad =\quad  \frac{1}{N}\cdot\frac{1-e^{-j\omega N}}{1-e^{-j(\omega-\frac{2\pi}{N}k)}}\\
-%      &= \frac{1}{N}\cdot\frac{e^{-j\frac{N}{2}\omega}\big(e^{j\frac{N}{2}\omega}-e^{-j\frac{N}{2}\omega}\big)}
-%                {e^{-j\frac{1}{2}(\omega- \frac{2\pi}{N}k)}\big( e^{j\frac{1}{2}(\omega- \frac{2\pi}{N}k)} -e^{-j\frac{1}{2}(\omega- \frac{2\pi}{N}k)}  \big)}\\
-%      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) }\\
-% \mbox{令：} \quad  \varphi(\omega)
-%      &= \frac{1}{N}\cdot\frac{\sin(\omega N/2)}{\sin(\omega/2)}\cdot e^{-j\omega(\frac{N-1}{2}) }\\
-%\end{split}
-%\end{equation*}
-%$$\mbox{下面将验证}\varphi\Big(\omega-\frac{2\pi}{N}k\Big) =\varphi_k(e^{j\omega}) =\frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } $$
-%\end{frame}
-%
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\begin{equation*}
-%\begin{split}
-%\mbox{设：}  \varphi(\omega)
-%      &= \frac{1}{N}\cdot\frac{\sin(\omega N/2)}{\sin(\omega/2)}\cdot e^{-j\omega(\frac{N-1}{2}) }\\
-%\varphi\Big(\omega-\frac{2\pi}{N}k\Big)
-%      &= \frac{1}{N}\cdot\frac{\sin\Big((\omega-\frac{2\pi}{N}k) \frac{N}{2}\Big)}{\sin\Big((\omega-\frac{2\pi}{N}k)/2\Big)}\cdot e^{-j(\omega-\frac{2\pi}{N}k)(\frac{N-1}{2}) }\\
-%      &= \frac{1}{N}\cdot\frac{\sin\Big(\frac{N}{2}\omega-\pi k \Big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega -2\pi k + \frac{2\pi}{N}k\big) }\\
-%      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big) \cos(\pi k)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } e^{j\pi k}\\
-%      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } e^{j2\pi k} \quad(e^{j\pi k} =\cos(\pi k))\\
-%      &= \frac{1}{N}\cdot\frac{\sin\big(\frac{N}{2}\omega\big)}{\sin\Big(\frac{\omega}{2} -\frac{\pi}{N}k\Big)}\cdot e^{-j\frac{1}{2}\big(N\omega-\omega + \frac{2\pi}{N}k\big) } \qquad\:\quad(e^{j2\pi k} =1)\\
-%      &= \varphi_k(e^{j\omega})
-%\end{split}
-%\end{equation*}
-%\end{frame}
-%%
-%%
-%%
-%%
-%%\newpage
-%\section{DFT的应用举例}
-%%
-%%
-%\subsection{用DFT计算线性卷积}
-%\begin{frame}[shrink]\frametitle{问题:为什么要用$DFT$计算线性卷积?}%[allowframebreaks][shrink]
-%\textbf{一、} 线性卷积与循环卷积的关系？
-%
-%\begin{enumerate}
-%  \item  问题的背景：为什么要用$DFT$计算线性卷积?
-%     \begin{enumerate}
-%       \item 在实际应用中，%为分析时域离散线性时不变系统，或对序列进行滤波处理，
-%             需要计算两个序列的线性卷积。
-%       \item %循环卷积可在时域计算，也可以在频域计算。当L很大时，
-%             利用$DFT$快速算法在频域计算循环卷积将快的多。因此常利用$DFT$($FFT$)在频域计算循环卷积。。
-%     \end{enumerate}
-%  \item 问题在线性卷积和循环卷积的关系？以及循环卷积与线性卷积相等的条件？
-%\end{enumerate}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{线性卷积和循环卷积的对比}%[allowframebreaks][shrink]
-%
-%
-%\textbf{二、推导}
-%
-%设有限长序列$x(n)$长度为$M$，$h(n)$长度为$N$，则有：
-%\begin{enumerate}
-%  \item [(1)] 线性卷积为：
-%  $$y_l(n) = x(n)*h(n) = \sum_{m=0}^{N-1}h(m)x(n-m) $$
-%  \par 且$y_l(n)$长度为$N+M-1$。
-%  \item [(2)] L点循环卷积为：
-%  $$y_c(n) = x(n)\otimes h(n) =  \bigg[ \sum_{m=0}^{L-1} h(m) x((n-m))_L \bigg] R_L(n) $$
-%
-%  这里$L\geq \{N,M\}$，
-%
-%  且又 $\because\quad h(n)$长度为$N$，上式可写为：
-%
-%  $$y_c(n) %= x(n)\otimes h(n)
-%        =  \bigg[ \sum_{m=0}^{N-1} h(m) x((n-m))_L \bigg] R_L(n) $$
-%
-%  \end{enumerate}
-%\end{frame}
+\begin{frame}[shrink]\frametitle{长序列卷积计算}%[allowframebreaks]
+（2）长序列卷积计算
+
+\begin{enumerate}
+  \item \textbf{问题：}\par
+         在实践中经常两个序列的长度相差很大，如$M\gg N$，利用卷积定理计算时需补0，这样造成存储空间和计算能力的浪费。\par
+         而且在某些应用中，序列长度不定或者被认为是无限长。
+  \item \textbf{解决方法:} 将长序列分段计算。  \par
+%        设$h(n)$长度为$N$，$x(n)$无限长，可通过分段处理，设每段长度为$M$，可令：
+%        $$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\mbox{则：}\quad  x_k(n) = x(n)\cdot R_M(n-kM)$$
+%        可举一例。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{长序列卷积计算的公式}%[allowframebreaks]
+ 设$h(n)$长度为$N$，$x(n)$无限长，可通过分段处理，设每段长度为$M$，可令：
+$$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\mbox{则：}\quad  x_k(n) = x(n)\cdot R_M(n-kM)$$
+%可举一例。：
+%        $$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\quad\quad  x_k(n) = x(n)\cdot R_M(n-kM)$$
+          \begin{equation*}
+            \begin{split}
+            y(n)    &= h(n)* x(n) = h(n) * \left[  \sum_{k=0}^{\infty}x_k(n)  \right]\\
+                    &=  \sum_{k=0}^{\infty}  h(n) * x_k(n)  \\
+                    &=  \sum_{k=0}^{\infty}  y_k(n)  \quad\quad\mbox{这里：} y_k(n)= h(n)* x_k(n)
+            \end{split}
+          \end{equation*}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{举例说明}%[allowframebreaks]
+   例如，设 $N=3,M=5,L = N+M-1=7$
+ %       \quad\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\quad
+
+
+        \begin{equation*}
+            \begin{split}
+        \mbox{则：}\quad    y(n) &= y_0(n)+y_1(n)+y_2(n)+ \cdots y_k(n)+ \cdots
+                   \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\\
+                 &= \sum_{k=0}^{\infty}  y_k(n)
+            \end{split}
+          \end{equation*}
+          计算过程
+          \begin{enumerate}
+            \item [1] 先后计算$y_0(n),y_1(n),y_2(n), \cdots y_k(n), \cdots$
+            \item [2] 分别相加。
+          \end{enumerate}
+
+\end{frame}
 %
 %
 %
-%\begin{frame}[shrink]\frametitle{2个备用公式}%[allowframebreaks][shrink]
 %
-%\begin{enumerate}
-%  \item [公式一]：
-%  \begin{equation*} %\label{fol2218}
-%  \left\{ \begin{aligned}
-%  y_l(n)      &=  \sum_{m=0}^{N-1}h(m)x(n-m)     \quad\quad\quad\quad\quad\quad\quad\\
-%              &\downarrow    \quad n\rightarrow n+qL             \\
-%  y_l(n+qL)   &=  \sum_{m=0}^{N-1}h(m)x(n+qL-m)
-%  \end{aligned} \right.
-%  \end{equation*}
-%  \item  [公式二]:
-%  $$x((n))_L = \tilde{x}(n) = \sum_{q=-\infty}^{\infty}x(n+qL) $$
-%  \end{enumerate}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
-%\begin{enumerate}
-%  \item [(3)] \textbf{关系}  \par
-%\end{enumerate}  
-%  \begin{equation*}
-%    \begin{split}
-%    y_c(n)  &= \left[ \sum_{m=0}^{N-1} h(m) x((n-m))_L \right] \cdot R_L(n)\\
-%            &= \left\{ \sum_{m=0}^{N-1} h(m) \bigg[ \sum_{q=-\infty}^{\infty}x(n-m +qL)
-%                \bigg] \right\} \cdot R_L(n)  \quad(\mbox{备用公式2})\\
-%            &= \left\{ \sum_{q=-\infty}^{\infty} \bigg[ \sum_{m=0}^{N-1} h(m)x(n-m +qL)
-%                \bigg] \right\} \cdot R_L(n)  \\
-%            &= \left[ \sum_{q=-\infty}^{\infty}  y_l\big(n+qL\big)\right]  \cdot R_L(n)
-%               \quad\quad\quad\quad\quad\quad\quad\quad(\mbox{备用公式1}) \\
-%            &= y_l((n))_L \cdot R_L(n)
-%    \end{split}
-%  \end{equation*}
+%\newpage
+\subsection{用$DFT$对信号进行谱分析}
+\begin{frame}[shrink]\frametitle{信号的谱分析}%[allowframebreaks]
+\begin{dablock}
+所谓信号的谱分析，就是计算信号的傅里叶变换。对于连续信号和系统，可以通过时域采样，应用DFT进行近似谱分析。
+\end{dablock}
+
+
+\textbf{一、用$DFT$对连续信号进行谱分析}
+
+   用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。
+
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{用$DFT$对连续信号进行谱分析}%[allowframebreaks]
+
+\begin{enumerate}
+  \item [(1)]  问题 \par
+        给定有限长带限信号$x_a(t)$，如何得到$X_a(jf)$\newline
+
+
+  \item [(2)]   谱分析的过程：
+        $$x_a(t) \longrightarrow  x(n) \longrightarrow X(k) \longrightarrow X_a(jf)$$
+\end{enumerate}
+\end{frame}
+
+
+%\begin{frame}[shrink]\frametitle{谱分析的过程}%[allowframebreaks]
+%hahaha
 %
 %\end{frame}
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+\begin{enumerate}
+	\item [(3)]采样参数的说明\par
+
+        \qquad 用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。因此采样参数与上述三者相关。
+        \begin{equation*} %\label{fol2218}
+            \left. \begin{aligned}
+                T   \quad   &: \mbox{采样间隔}\\
+                f_s \quad   &: \mbox{采样频率}\\
+            \end{aligned}  \right\}
+            \qquad\qquad   T = \frac{1}{f_s},\quad f_s = \frac{1}{T}    % \right.
+            \qquad \qquad\qquad\qquad\quad
+        \end{equation*}
+        \begin{equation*} %\label{fol2218}
+            \left. \begin{aligned}
+                N   \quad   &: \mbox{采样点数}\\
+                T_p \quad   &: \mbox{信号长度}\\
+            \end{aligned}  \right\}
+            \qquad\qquad  T_p  =  NT,\quad  N = \frac{T_p}{T}    % \right.
+            \qquad \qquad\qquad\qquad
+        \end{equation*}
+\end{enumerate}        
+\end{frame}
+
+
+
+
+%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks]
 %
-%\begin{frame}[shrink]\frametitle{循环卷积与线性卷积的关系}%[allowframebreaks][shrink]
-%%
-%%
-%\begin{jielun}
-%
-%   \quad\quad 两个有限长序列的长度为$L$的循环卷积结果，等于这两个序列的线性卷积以$L$为周期延拓，然后再取主值序列得到。
-%    $$y_l(n)  \longrightarrow  y_l((n))_L \longrightarrow   y_c(n) =  y_l((n))_L\cdot R_L(n) $$
-%\end{jielun}
-%%\end{frame}
-%%
-%%
-%%\begin{frame}\frametitle{title}%[allowframebreaks][shrink]
-%
-%   \textbf{讨论：}
-%    \begin{enumerate}
-%      \item 当$L\geq N+M-1$ 时，则有: \vspace{-0.3cm}
-%      $$y_c(n) = y_l(n)$$%\vspace{-0.3cm}
-%      说明：\quad
-%      公式本身是有$y_l(n)$得到$y_c(n)$的过程，且在$L\leq N+M-1$时两者相等，而实际应用中是利用循环卷积计算线性卷积。
-%      \item 当$L < N+M-1$时，周期延拓会导致混叠现象。
-%    \end{enumerate}
-%
+%图示
 %\end{frame}
-%%
-%%\newpage
-%
-%\begin{frame}[shrink]\frametitle{循环卷积的两种计算方法}%[allowframebreaks][shrink]
-%
-%二、用$DFT$计算循环卷积
-%
-%（1）   循环卷积的两种计算方法：
-%\begin{enumerate}
-%  \item [(a)] 直接计算
-%        $$y_c(n) = x(n) \otimes h(n) = \bigg[ \sum_{m=0}^{L-1} h(m) x((n-m))_L \bigg] R_L(n)$$
-%        $$\mbox{周期延拓}\quad \longrightarrow  \quad \mbox{线性卷积}\quad \longrightarrow \quad\mbox{取主值} \quad\quad\quad\quad$$
-%\end{enumerate}        
-%\end{frame}        
-%   
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]   
-%\begin{enumerate}
-%	\item [(b)]   根据卷积定理，用$DFT$计算。\par
-%\end{enumerate}
-%  设长序列$x(n)$长度为$M$，$h(n)$长度为$N$，令$L=N+M-1$：
-%   $$x (n)\otimes h(n) \longleftrightarrow X(k)\cdot Hk)\quad\quad\quad\quad $$
-%   \vspace{-0.3cm}
-%  \begin{figure}
-%  	\centering
-%  	\label{fig:jisuanxunhuanjuanji}
-%  	\includegraphics[width=0.99\linewidth]{jisuanxunhuanjuanji.jpg}
-%  \end{figure}  
-%  注意：这里需要做3次$DFT$计算，为何？因为$DFT$有快速算法$FFT$，可大大加快计算速度。
-%\end{frame}
-%%
-%\begin{frame}[shrink]\frametitle{长序列卷积计算}%[allowframebreaks]
-%（2）长序列卷积计算
-%
-%\begin{enumerate}
-%  \item \textbf{问题：}\par
-%         在实践中经常两个序列的长度相差很大，如$M\gg N$，利用卷积定理计算时需补0，这样造成存储空间和计算能力的浪费。\par
-%         而且在某些应用中，序列长度不定或者被认为是无限长。
-%  \item \textbf{解决方法:} 将长序列分段计算。  \par
-%%        设$h(n)$长度为$N$，$x(n)$无限长，可通过分段处理，设每段长度为$M$，可令：
-%%        $$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\mbox{则：}\quad  x_k(n) = x(n)\cdot R_M(n-kM)$$
-%%        可举一例。
-%\end{enumerate}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{长序列卷积计算的公式}%[allowframebreaks]
-% 设$h(n)$长度为$N$，$x(n)$无限长，可通过分段处理，设每段长度为$M$，可令：
-%$$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\mbox{则：}\quad  x_k(n) = x(n)\cdot R_M(n-kM)$$
-%%可举一例。：
-%%        $$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\quad\quad  x_k(n) = x(n)\cdot R_M(n-kM)$$
-%          \begin{equation*}
-%            \begin{split}
-%            y(n)    &= h(n)* x(n) = h(n) * \left[  \sum_{k=0}^{\infty}x_k(n)  \right]\\
-%                    &=  \sum_{k=0}^{\infty}  h(n) * x_k(n)  \\
-%                    &=  \sum_{k=0}^{\infty}  y_k(n)  \quad\quad\mbox{这里：} y_k(n)= h(n)* x_k(n)
-%            \end{split}
-%          \end{equation*}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{举例说明}%[allowframebreaks]
-%   例如，设 $N=3,M=5,L = N+M-1=7$
-% %       \quad\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\quad
-%
-%
-%        \begin{equation*}
-%            \begin{split}
-%        \mbox{则：}\quad    y(n) &= y_0(n)+y_1(n)+y_2(n)+ \cdots y_k(n)+ \cdots
-%                   \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\\
-%                 &= \sum_{k=0}^{\infty}  y_k(n)
-%            \end{split}
-%          \end{equation*}
-%          计算过程
-%          \begin{enumerate}
-%            \item [1] 先后计算$y_0(n),y_1(n),y_2(n), \cdots y_k(n), \cdots$
-%            \item [2] 分别相加。
-%          \end{enumerate}
-%
-%\end{frame}
-%%
-%%
-%%
-%%
-%%\newpage
-%\subsection{用$DFT$对信号进行谱分析}
-%\begin{frame}[shrink]\frametitle{信号的谱分析}%[allowframebreaks]
-%\begin{dablock}
-%所谓信号的谱分析，就是计算信号的傅里叶变换。对于连续信号和系统，可以通过时域采样，应用DFT进行近似谱分析。
-%\end{dablock}
-%
-%
-%\textbf{一、用$DFT$对连续信号进行谱分析}
-%
-%   用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。
-%
-%\end{frame}
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{用$DFT$对连续信号进行谱分析}%[allowframebreaks]
-%
-%\begin{enumerate}
-%  \item [(1)]  问题 \par
-%        给定有限长带限信号$x_a(t)$，如何得到$X_a(jf)$\newline
-%
-%
-%  \item [(2)]   谱分析的过程：
-%        $$x_a(t) \longrightarrow  x(n) \longrightarrow X(k) \longrightarrow X_a(jf)$$
-%\end{enumerate}
-%\end{frame}
-%
-%
-%%\begin{frame}[shrink]\frametitle{谱分析的过程}%[allowframebreaks]
-%%hahaha
-%%
-%%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
-%\begin{enumerate}
-%	\item [(3)]采样参数的说明\par
-%
-%        \qquad 用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。因此采样参数与上述三者相关。
-%        \begin{equation*} %\label{fol2218}
-%            \left. \begin{aligned}
-%                T   \quad   &: \mbox{采样间隔}\\
-%                f_s \quad   &: \mbox{采样频率}\\
-%            \end{aligned}  \right\}
-%            \qquad\qquad   T = \frac{1}{f_s},\quad f_s = \frac{1}{T}    % \right.
-%            \qquad \qquad\qquad\qquad\quad
-%        \end{equation*}
-%        \begin{equation*} %\label{fol2218}
-%            \left. \begin{aligned}
-%                N   \quad   &: \mbox{采样点数}\\
-%                T_p \quad   &: \mbox{信号长度}\\
-%            \end{aligned}  \right\}
-%            \qquad\qquad  T_p  =  NT,\quad  N = \frac{T_p}{T}    % \right.
-%            \qquad \qquad\qquad\qquad
-%        \end{equation*}
-%\end{enumerate}        
-%\end{frame}
-%
-%
-%
-%
-%%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks]
-%%
-%%图示
-%%\end{frame}
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
-%\begin{enumerate}
-%	\item [(4)]参数之间的关系 
-%\end{enumerate}      
-%  
-%  
-%  
-%        \qquad 在2.4节中，我们有 $X(e^{j\omega})=\hat{X}_a(j\Omega)\big|_{\omega = \Omega T}$，则有：
-%        $$X(e^{j\omega})=X_a(j\Omega)\big|_{\omega = \Omega T} =X_a(jf)\big|_{\omega = 2\pi fT}$$
-%        \begin{equation*}
-%        \begin{split}
-%        \because\qquad\quad \omega      &= \Omega T = 2\pi f T =2\pi T f  %= \frac{2\pi}{f_s} f
-%           \qquad\qquad    \big(\Omega = 2\pi f \big)  \qquad\qquad\qquad\qquad\qquad\\
-%        \therefore\qquad   \Delta\omega &=  2\pi T\Delta f  \qquad\qquad\qquad\qquad\quad\;    \big(\Delta\omega = \frac{2\pi}{N}\big)\\
-%        \therefore\qquad   \Delta f     &=  \frac{1}{2\pi T} \Delta\omega 
-%                                         =  \frac{1}{2\pi T}\cdot \frac{2\pi}{N} = \frac{1}{NT}
-%        \end{split}
-%        \end{equation*}
-%        令$F=\Delta f$，这里$F$称为频率分辨率，表示对模拟信号频谱的采样间隔。
-%        $$\mbox{\textbf{结论:}} \qquad\qquad F= \frac{1}{NT} = \frac{1}{T_p}
-%           \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
-%\end{frame}
-%  %\item
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
-%
-%问题在于怎么用$X(k)$表示$X_a(jf)$
-%$$\because\qquad X(k) \quad =  X\left(e^{j\omega}\right)\big|_{\omega = \frac{2\pi}{N} k}   \quad\mbox{且}\quad
-%X\left(e^{j\omega}\right) =  \hat{X}_a(j\Omega)\big|_{ \omega = \Omega T }  \qquad\qquad\qquad $$
-%\begin{equation*}
-%\begin{split}
-%X(k) \quad&=  \hat{X}_a(j\Omega)\big|_{ \Omega T =\frac{2\pi}{N} k  }   \quad \\
-%          &=  \hat{X}_a(j\Omega)\big|_{ 2\pi f T =\frac{2\pi}{N} k  } \\
-%          &=  \hat{X}_a(j\Omega)\big|_{ f  =\frac{1}{NT} k  } \quad\\
-%          &=  \hat{X}_a(j\Omega)\big|_{ f  =k F  }   \qquad\quad  (F= \frac{1}{NT})\\
-%          &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s\right)\Big|_{ f  = k F  }   \\
-%%          &=  \frac{1}{T} X_a\left(j\Omega\right)\Big|_{ f  = k F  }     \qquad\qquad  k = 0,1,\cdots ,N-1  \\
-%%          &=  \frac{1}{T} X_a\left(j 2\pi f\right)\Big|_{ f  = k F  }     \qquad\quad  k = 0,1,\cdots ,N-1\\
-%%          &\quad  \qquad\mbox{令：}X_a(kf) = X_a\left(j 2\pi f\right)\big|_{ f  = k F  }  \qquad\quad k = 0,1,\cdots ,N-1 \\
-%%\therefore\qquad X(k)     
-%%         &=  \frac{1}{T} X_a(kf)    \qquad\qquad k = 0,1,\cdots ,N-1\\
-%%\therefore\quad X_a(kf)   
-%%         &= T\cdot X(k)             \;\qquad\qquad k = 0,1,\cdots ,N-1
-%\end{split}
-%\end{equation*}
-%\end{frame}
-%
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
-%接着前面的公式，继续推导，前述有：
-%\begin{equation*}
-%\begin{split}
-%X(k) \quad  &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s\right)\Big|_{ f  = k F  }  \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
-%			&=  \frac{1}{T} X_a\left(j\Omega\right)\Big|_{ f  = k F  }     \qquad\quad  k = 0,1,\cdots ,N-1  \\
-%			&=  \frac{1}{T} X_a\left(j 2\pi f\right)\Big|_{ f  = k F  }     \qquad  k = 0,1,\cdots ,N-1\\
-%	\quad   &\quad   \quad  \\
-%\qquad\mbox{令}X_a(kf) =
-%			&\quad   X_a\left(j 2\pi f\right)\big|_{ f  = k F  }  \qquad\quad k = 0,1,\cdots ,N-1 \\
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+\begin{enumerate}
+	\item [(4)]参数之间的关系 
+\end{enumerate}      
+  
+  
+  
+        \qquad 在2.4节中，我们有 $X(e^{j\omega})=\hat{X}_a(j\Omega)\big|_{\omega = \Omega T}$，则有：
+        $$X(e^{j\omega})=X_a(j\Omega)\big|_{\omega = \Omega T} =X_a(jf)\big|_{\omega = 2\pi fT}$$
+        \begin{equation*}
+        \begin{split}
+        \because\qquad\quad \omega      &= \Omega T = 2\pi f T =2\pi T f  %= \frac{2\pi}{f_s} f
+           \qquad\qquad    \big(\Omega = 2\pi f \big)  \qquad\qquad\qquad\qquad\qquad\\
+        \therefore\qquad   \Delta\omega &=  2\pi T\Delta f  \qquad\qquad\qquad\qquad\quad\;    \big(\Delta\omega = \frac{2\pi}{N}\big)\\
+        \therefore\qquad   \Delta f     &=  \frac{1}{2\pi T} \Delta\omega 
+                                         =  \frac{1}{2\pi T}\cdot \frac{2\pi}{N} = \frac{1}{NT}
+        \end{split}
+        \end{equation*}
+        令$F=\Delta f$，这里$F$称为频率分辨率，表示对模拟信号频谱的采样间隔。
+        $$\mbox{\textbf{结论:}} \qquad\qquad F= \frac{1}{NT} = \frac{1}{T_p}
+           \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
+\end{frame}
+  %\item
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+
+问题在于怎么用$X(k)$表示$X_a(jf)$
+$$\because\qquad X(k) \quad =  X\left(e^{j\omega}\right)\big|_{\omega = \frac{2\pi}{N} k}   \quad\mbox{且}\quad
+X\left(e^{j\omega}\right) =  \hat{X}_a(j\Omega)\big|_{ \omega = \Omega T }  \qquad\qquad\qquad $$
+\begin{equation*}
+\begin{split}
+X(k) \quad&=  \hat{X}_a(j\Omega)\big|_{ \Omega T =\frac{2\pi}{N} k  }   \quad \\
+          &=  \hat{X}_a(j\Omega)\big|_{ 2\pi f T =\frac{2\pi}{N} k  } \\
+          &=  \hat{X}_a(j\Omega)\big|_{ f  =\frac{1}{NT} k  } \quad\\
+          &=  \hat{X}_a(j\Omega)\big|_{ f  =k F  }   \qquad\quad  (F= \frac{1}{NT})\\
+          &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s\right)\Big|_{ f  = k F  }   \\
+%          &=  \frac{1}{T} X_a\left(j\Omega\right)\Big|_{ f  = k F  }     \qquad\qquad  k = 0,1,\cdots ,N-1  \\
+%          &=  \frac{1}{T} X_a\left(j 2\pi f\right)\Big|_{ f  = k F  }     \qquad\quad  k = 0,1,\cdots ,N-1\\
+%          &\quad  \qquad\mbox{令：}X_a(kf) = X_a\left(j 2\pi f\right)\big|_{ f  = k F  }  \qquad\quad k = 0,1,\cdots ,N-1 \\
 %\therefore\qquad X(k)     
-%			&=  \frac{1}{T} X_a(kf)    \qquad\qquad k = 0,1,\cdots ,N-1\\
+%         &=  \frac{1}{T} X_a(kf)    \qquad\qquad k = 0,1,\cdots ,N-1\\
 %\therefore\quad X_a(kf)   
-%			&= T\cdot X(k)             \;\qquad\qquad k = 0,1,\cdots ,N-1
-%\end{split}
-%\end{equation*}
-%\end{frame}
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{谱分析步骤}%[allowframebreaks]
-%
-%\begin{enumerate}
-%	\item [(5)] 谱分析步骤
-%\end{enumerate}  
-%  
-%        \begin{enumerate}
-%          \item 对$x_a(t)$采样，得到有限长$x(n)$，长度为$N$。
-%          \item 计算$DFT$，$\quad x(n)\longleftrightarrow X(k)$
-%          \item $X_a(kf)   = T\cdot X(k)   \qquad\qquad 0\leq k \leq N-1$
-%        \end{enumerate}
-%
-% % \item
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{采样参数的选择}%[allowframebreaks]
-%  
-%\begin{enumerate}
-%	\item [(6)] 采样参数的选择
-%\end{enumerate}   
-%        %用$DFT$对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。因此采样参数与上述三者相关。
-%        在对连续信号进行谱分析是，主要关心两个问题
-%        \begin{enumerate}
-%          \item 谱分析范围： \qquad 决定信号带宽
-%          \item 频率分辨率： \qquad 决定信号长度
-%        \end{enumerate}
-%
-%        问题：
-%        \begin{itemize}
-%          \item 已知信号频率分辨率$F$，信号最高频率$f_c$，
-%          \item 确定谱分析参数。
-%          \begin{enumerate}
-%          	\item  [(a)]最小记录时间$T_{p\: min}$
-%          	\item  [(b)]最大采样周期 $T_{max}$
-%          	\item  [(c)]最小采样点数$N_{min}$
-%        \end{enumerate}
-%        \end{itemize}
-%\end{frame}
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{谱分析参数}%[allowframebreaks]
-%        \begin{enumerate}
-%          \item 最小记录时间$T_{p\: min}$
-%            $$F=\frac{1}{T_p} \quad \Longrightarrow\quad  T_p=\frac{1}{F}  \quad \Longrightarrow\quad   T_p\geq \frac{1}{F_{max}}$$
-%            $$\therefore\qquad T_{p\:min} = \frac{1}{F_{max}}\qquad\qquad\qquad\qquad\qquad$$
-%          \item 最大采样周期 $T_{max}$
-%            $$f_s \geq 2f_c \quad \Longrightarrow\quad \frac{1}{T} \geq 2f_c \quad\Longrightarrow\quad T\leq \frac{1}{2f_c} $$
-%            $$\therefore\qquad T_{max} = \frac{1}{2f_c}\qquad\qquad\qquad\qquad\qquad$$
-%          \item 最小采样点数$N_{min}$
-%            $$\therefore\qquad N_{min} = \frac{T_{p\: min}}{T_{max}}\qquad\qquad\qquad\qquad\qquad$$
-%        \end{enumerate}
-%%\end{enumerate}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{举例说明}%[allowframebreaks]
-%\begin{example}
-%对实信号做谱分析，要求谱分辨率$F\leq10Hz$，信号最高频率为$f_c = 2.5kHz$。
-%试确定最小记录时间$T_{p\: min}$，最小记录点数$N_{min}$，最大采样周期$T_{max}$。	
-%\end{example}
-%%\textbf{例：}
-%%
-%%
-%\textbf{解：}
-%\begin{equation*}
-%\begin{split}
-%    T_{p\:min} &= \frac{1}{F_{max}}   =  \frac{1}{10} =0.1\:s \quad\qquad\qquad\qquad\qquad\qquad   \\
-%    T_{max}    &= \frac{1}{2f_c} \quad     =  \frac{1}{5000} =0.2\:ms               \\
-%    N_{min}    &= \frac{T_{p\: min}}{T_{max}}  = \frac{0.1s}{02.ms}  = 500
-%\end{split}
-%\end{equation*}
-%\end{frame}
-%
-%
-%\begin{frame}[shrink]\frametitle{用$DFT$对离散序列做谱分析}%[allowframebreaks]   \end{frame}
-%\textbf{二、用$DFT$对序列做谱分析}
-%\begin{enumerate}
-%  \item 有限长序列\par
-%        \qquad 设有限长序列$x(n)$长度为$N$，则$X(k)$是$X(e^{j\omega})$ 在$[0,2\pi]$上的$N$点等间隔采样，直接得到。
-%        频率分辨率就是采样间隔$\frac{2\pi}{N} $。
-%        序列的FT可以利用DFT来计算。
-%  \item 周期序列$\tilde{x}(n) = x((n))_N$
-%
+%         &= T\cdot X(k)             \;\qquad\qquad k = 0,1,\cdots ,N-1
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+接着前面的公式，继续推导，前述有：
+\begin{equation*}
+\begin{split}
+X(k) \quad  &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s\right)\Big|_{ f  = k F  }  \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
+			&=  \frac{1}{T} X_a\left(j\Omega\right)\Big|_{ f  = k F  }     \qquad\quad  k = 0,1,\cdots ,N-1  \\
+			&=  \frac{1}{T} X_a\left(j 2\pi f\right)\Big|_{ f  = k F  }     \qquad  k = 0,1,\cdots ,N-1\\
+	\quad   &\quad   \quad  \\
+\qquad\mbox{令}X_a(kf) =
+			&\quad   X_a\left(j 2\pi f\right)\big|_{ f  = k F  }  \qquad\quad k = 0,1,\cdots ,N-1 \\
+\therefore\qquad X(k)     
+			&=  \frac{1}{T} X_a(kf)    \qquad\qquad k = 0,1,\cdots ,N-1\\
+\therefore\quad X_a(kf)   
+			&= T\cdot X(k)             \;\qquad\qquad k = 0,1,\cdots ,N-1
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{谱分析步骤}%[allowframebreaks]
+
+\begin{enumerate}
+	\item [(5)] 谱分析步骤
+\end{enumerate}  
+  
+        \begin{enumerate}
+          \item 对$x_a(t)$采样，得到有限长$x(n)$，长度为$N$。
+          \item 计算$DFT$，$\quad x(n)\longleftrightarrow X(k)$
+          \item $X_a(kf)   = T\cdot X(k)   \qquad\qquad 0\leq k \leq N-1$
+        \end{enumerate}
+
+ % \item
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{采样参数的选择}%[allowframebreaks]
+  
+\begin{enumerate}
+	\item [(6)] 采样参数的选择
+\end{enumerate}   
+        %用$DFT$对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。因此采样参数与上述三者相关。
+        在对连续信号进行谱分析是，主要关心两个问题
+        \begin{enumerate}
+          \item 谱分析范围： \qquad 决定信号带宽
+          \item 频率分辨率： \qquad 决定信号长度
+        \end{enumerate}
+
+        问题：
+        \begin{itemize}
+          \item 已知信号频率分辨率$F$，信号最高频率$f_c$，
+          \item 确定谱分析参数。
+          \begin{enumerate}
+          	\item  [(a)]最小记录时间$T_{p\: min}$
+          	\item  [(b)]最大采样周期 $T_{max}$
+          	\item  [(c)]最小采样点数$N_{min}$
+        \end{enumerate}
+        \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{谱分析参数}%[allowframebreaks]
+        \begin{enumerate}
+          \item 最小记录时间$T_{p\: min}$
+            $$F=\frac{1}{T_p} \quad \Longrightarrow\quad  T_p=\frac{1}{F}  \quad \Longrightarrow\quad   T_p\geq \frac{1}{F_{max}}$$
+            $$\therefore\qquad T_{p\:min} = \frac{1}{F_{max}}\qquad\qquad\qquad\qquad\qquad$$
+          \item 最大采样周期 $T_{max}$
+            $$f_s \geq 2f_c \quad \Longrightarrow\quad \frac{1}{T} \geq 2f_c \quad\Longrightarrow\quad T\leq \frac{1}{2f_c} $$
+            $$\therefore\qquad T_{max} = \frac{1}{2f_c}\qquad\qquad\qquad\qquad\qquad$$
+          \item 最小采样点数$N_{min}$
+            $$\therefore\qquad N_{min} = \frac{T_{p\: min}}{T_{max}}\qquad\qquad\qquad\qquad\qquad$$
+        \end{enumerate}
 %\end{enumerate}
-%\end{frame}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{举例说明}%[allowframebreaks]
+\begin{example}
+对实信号做谱分析，要求谱分辨率$F\leq10Hz$，信号最高频率为$f_c = 2.5kHz$。
+试确定最小记录时间$T_{p\: min}$，最小记录点数$N_{min}$，最大采样周期$T_{max}$。	
+\end{example}
+%\textbf{例：}
 %
 %
-%
-%\begin{frame}[shrink]\frametitle{周期序列$\tilde{x}(n) = x((n))_N$}%[allowframebreaks]
-%
-%
-%  \begin{enumerate}
-%    \item [方法1]利用公式直接得到
-%  \end{enumerate}
-%      $$ X(e^{j\omega}) =FT[\tilde{x}(n)] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)$$
-%      其强度为$\frac{2\pi}{N}\tilde{X}(k)$，为周期为$N$ 的周期序列，只需要知道$\tilde{X}(k)$，就可以得到$FT[\tilde{x}(n)]$，而$\tilde{X}(k) = DFS[\tilde{x}(n)]$。\par
-%      \textbf{步骤：}
-%      \begin{enumerate}
-%        \item 取主值，$x(n) = x(n)R_N(n)$
-%        \item 做$DFT$变换，$X(k) = DFT[x(n)]$
-%        \item 延拓，$\tilde{X}(k) = X((n))_N$
-%        \item 代公式
-%      \end{enumerate}
-%    
-%\end{frame}
-%
-%
-%
-%
-%\begin{frame}[shrink]\frametitle{周期序列$\tilde{x}(n) = x((n))_N$}%[allowframebreaks]
-%\begin{enumerate}
-%	\item [方法2]截取$\tilde{x}(n)$的整数个周期进行DFT，可得到其频谱结构，达到谱分析的目的。
-%
-%
-%    截取$\tilde{x}(n)$的$m$个周期，设其长度为M，即
-%    $$X_M(n) = \tilde{x}(n)R_M(n)\qquad\qquad  (M=mN,m\in Z)$$
-%    $$\mbox{设}\qquad x_M(n)\longleftrightarrow X_M(k)\qquad\qquad (0\leq k \leq mN-1)$$
-%    则
-%%    有：
-%%    \begin{equation*}
-%%    X_M(k)=
-%%    \left\{\begin{array}{r@{,\quad}l}
-%%    mX\Big(\frac{k}{m}\Big)  &   \mbox{$\frac{k}{m}$为整数}\\
-%%    0                        &   \mbox{$\frac{k}{m}$不为整数}
-%%    \end{array} \right.
-%%    \end{equation*}
-%    $ X_M(k) $也能表示$ \tilde{x}(n) $的频谱结构。
-%\end{enumerate}    
-%\end{frame}    
-%    
-%\begin{frame}[shrink]\frametitle{下面推导$X(k)$与$X_M(k)$的关系。}%[allowframebreaks]    
-%截取$\tilde{x}(n)$的$m$个周期，设其长度为M，即
-%$$X_M(n) = \tilde{x}(n)R_M(n)\qquad\qquad  (M=mN,m\in Z)$$
-%$$\mbox{设}\qquad x_M(n)\longleftrightarrow X_M(k)\qquad\qquad (0\leq k \leq mN-1)$$
-%    下面给出$X(k)$与$X_M(k)$的关系。
-%  \begin{lemma}
+\textbf{解：}
+\begin{equation*}
+\begin{split}
+    T_{p\:min} &= \frac{1}{F_{max}}   =  \frac{1}{10} =0.1\:s \quad\qquad\qquad\qquad\qquad\qquad   \\
+    T_{max}    &= \frac{1}{2f_c} \quad     =  \frac{1}{5000} =0.2\:ms               \\
+    N_{min}    &= \frac{T_{p\: min}}{T_{max}}  = \frac{0.1s}{02.ms}  = 500
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}[shrink]\frametitle{用$DFT$对离散序列做谱分析}%[allowframebreaks]   \end{frame}
+\textbf{二、用$DFT$对序列做谱分析}
+\begin{enumerate}
+  \item 有限长序列\par
+        \qquad 设有限长序列$x(n)$长度为$N$，则$X(k)$是$X(e^{j\omega})$ 在$[0,2\pi]$上的$N$点等间隔采样，直接得到。
+        频率分辨率就是采样间隔$\frac{2\pi}{N} $。
+        序列的FT可以利用DFT来计算。
+  \item 周期序列$\tilde{x}(n) = x((n))_N$
+
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}[shrink]\frametitle{周期序列$\tilde{x}(n) = x((n))_N$}%[allowframebreaks]
+
+
+  \begin{enumerate}
+    \item [方法1]利用公式直接得到
+  \end{enumerate}
+      $$ X(e^{j\omega}) =FT[\tilde{x}(n)] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)$$
+      其强度为$\frac{2\pi}{N}\tilde{X}(k)$，为周期为$N$ 的周期序列，只需要知道$\tilde{X}(k)$，就可以得到$FT[\tilde{x}(n)]$，而$\tilde{X}(k) = DFS[\tilde{x}(n)]$。\par
+      \textbf{步骤：}
+      \begin{enumerate}
+        \item 取主值，$x(n) = x(n)R_N(n)$
+        \item 做$DFT$变换，$X(k) = DFT[x(n)]$
+        \item 延拓，$\tilde{X}(k) = X((n))_N$
+        \item 代公式
+      \end{enumerate}
+    
+\end{frame}
+
+
+
+
+\begin{frame}[shrink]\frametitle{周期序列$\tilde{x}(n) = x((n))_N$}%[allowframebreaks]
+\begin{enumerate}
+	\item [方法2]截取$\tilde{x}(n)$的整数个周期进行DFT，可得到其频谱结构，达到谱分析的目的。
+
+
+    截取$\tilde{x}(n)$的$m$个周期，设其长度为M，即
+    $$X_M(n) = \tilde{x}(n)R_M(n)\qquad\qquad  (M=mN,m\in Z)$$
+    $$\mbox{设}\qquad x_M(n)\longleftrightarrow X_M(k)\qquad\qquad (0\leq k \leq mN-1)$$
+    则
+%    有：
 %    \begin{equation*}
-%    \sum_{n=0}^{mN-1}f(n) = \sum_{r=0}^{m-1}\sum_{n'=0}^{N-1}f(n'+rN) \qquad\mbox{设$f(n)$的周期为$N$}
+%    X_M(k)=
+%    \left\{\begin{array}{r@{,\quad}l}
+%    mX\Big(\frac{k}{m}\Big)  &   \mbox{$\frac{k}{m}$为整数}\\
+%    0                        &   \mbox{$\frac{k}{m}$不为整数}
+%    \end{array} \right.
 %    \end{equation*}
-%  \end{lemma}
-%\end{frame} 
-%
-%\begin{frame}[shrink]\frametitle{}%[allowframebreaks]  
-%    \begin{equation*}
-%    \begin{split}
-%    X_M(k) &=  \sum_{n=0}^{mN-1}x_M(n) e^{-j\frac{2\pi}{M} kn  }   \qquad   
-%            =  \sum_{n=0}^{mN-1}\tilde{x}(n) e^{-j\frac{2\pi}{M} kn  }   \qquad   \\
-%           &=  \sum_{r=0}^{m-1}\sum_{n'=0}^{N-1}\tilde{x}(n'+rN) e^{-j\frac{2\pi}{M} k(n'+rN)  }   \qquad \left(n\rightarrow n'+rN  \right)   \\
-%           &=  \sum_{r=0}^{m-1}\left[\sum_{n'=0}^{N-1}\tilde{x}(n'+rN) e^{-j\frac{2\pi}{M} kn'} \right]  e^{-j\frac{2\pi}{M} krN  }  \\
-%           &=  \sum_{r=0}^{m-1}\left[\sum_{n'=0}^{N-1}\tilde{x}(n') e^{-j\frac{2\pi}{N}\frac{k}{m}n'}\right] e^{-j\frac{2\pi}{m} kr} \qquad (M=mN)   \\
-%           &= \sum_{r=0}^{m-1} X\Big(\frac{k}{m}\Big)\cdot e^{-j\frac{2\pi}{m} kr} \\
-%           &=  X\Big(\frac{k}{m}\Big)\cdot \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr}
-%    \end{split}
-%    \end{equation*}
-%%    而：
-%%    \begin{equation*}
-%%    \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr} = \sum_{r=0}^{m-1}\left[e^{-j\frac{2\pi}{m} k}\right]^r=
-%%    \left\{\begin{array}{r@{,\quad}l}
-%%    m  &   \mbox{$\frac{k}{m}$ 为整数}\\
-%%    0  &   \mbox{$\frac{k}{m}$ 不为整数}
-%%    \end{array} \right.
-%%    \end{equation*}
-%\end{frame}
-%
-%\begin{frame}[shrink]\frametitle{下面推导$X(k)$与$X_M(k)$的关系。}%[allowframebreaks] 
-%因为：
-%$$X_M(k)  =  X\Big(\frac{k}{m}\Big)\cdot \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr} $$
+    $ X_M(k) $也能表示$ \tilde{x}(n) $的频谱结构。
+\end{enumerate}    
+\end{frame}    
+    
+\begin{frame}[shrink]\frametitle{下面推导$X(k)$与$X_M(k)$的关系。}%[allowframebreaks]    
+截取$\tilde{x}(n)$的$m$个周期，设其长度为M，即
+$$X_M(n) = \tilde{x}(n)R_M(n)\qquad\qquad  (M=mN,m\in Z)$$
+$$\mbox{设}\qquad x_M(n)\longleftrightarrow X_M(k)\qquad\qquad (0\leq k \leq mN-1)$$
+    下面给出$X(k)$与$X_M(k)$的关系。
+  \begin{lemma}
+    \begin{equation*}
+    \sum_{n=0}^{mN-1}f(n) = \sum_{r=0}^{m-1}\sum_{n'=0}^{N-1}f(n'+rN) \qquad\mbox{设$f(n)$的周期为$N$}
+    \end{equation*}
+  \end{lemma}
+\end{frame} 
+
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]  
+    \begin{equation*}
+    \begin{split}
+    X_M(k) &=  \sum_{n=0}^{mN-1}x_M(n) e^{-j\frac{2\pi}{M} kn  }   \qquad   
+            =  \sum_{n=0}^{mN-1}\tilde{x}(n) e^{-j\frac{2\pi}{M} kn  }   \qquad   \\
+           &=  \sum_{r=0}^{m-1}\sum_{n'=0}^{N-1}\tilde{x}(n'+rN) e^{-j\frac{2\pi}{M} k(n'+rN)  }   \qquad \left(n\rightarrow n'+rN  \right)   \\
+           &=  \sum_{r=0}^{m-1}\left[\sum_{n'=0}^{N-1}\tilde{x}(n'+rN) e^{-j\frac{2\pi}{M} kn'} \right]  e^{-j\frac{2\pi}{M} krN  }  \\
+           &=  \sum_{r=0}^{m-1}\left[\sum_{n'=0}^{N-1}\tilde{x}(n') e^{-j\frac{2\pi}{N}\frac{k}{m}n'}\right] e^{-j\frac{2\pi}{m} kr} \qquad (M=mN)   \\
+           &= \sum_{r=0}^{m-1} X\Big(\frac{k}{m}\Big)\cdot e^{-j\frac{2\pi}{m} kr} \\
+           &=  X\Big(\frac{k}{m}\Big)\cdot \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr}
+    \end{split}
+    \end{equation*}
 %    而：
 %    \begin{equation*}
 %    \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr} = \sum_{r=0}^{m-1}\left[e^{-j\frac{2\pi}{m} k}\right]^r=
@@ -1982,96 +1565,109 @@
 %    0  &   \mbox{$\frac{k}{m}$ 不为整数}
 %    \end{array} \right.
 %    \end{equation*}
-%    所以有，
-%    \begin{equation*}
-%    X_M(k)=
-%    \left\{\begin{array}{r@{,\quad}l}
-%    mX\Big(\frac{k}{m}\Big)  &   \mbox{$\frac{k}{m}$为整数}\\
-%    0                        &   \mbox{$\frac{k}{m}$不为整数}
-%    \end{array} \right.
-%    \end{equation*}
-%\end{frame}
+\end{frame}
+
+\begin{frame}[shrink]\frametitle{下面推导$X(k)$与$X_M(k)$的关系。}%[allowframebreaks] 
+因为：
+$$X_M(k)  =  X\Big(\frac{k}{m}\Big)\cdot \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr} $$
+    而：
+    \begin{equation*}
+    \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr} = \sum_{r=0}^{m-1}\left[e^{-j\frac{2\pi}{m} k}\right]^r=
+    \left\{\begin{array}{r@{,\quad}l}
+    m  &   \mbox{$\frac{k}{m}$ 为整数}\\
+    0  &   \mbox{$\frac{k}{m}$ 不为整数}
+    \end{array} \right.
+    \end{equation*}
+    所以有，
+    \begin{equation*}
+    X_M(k)=
+    \left\{\begin{array}{r@{,\quad}l}
+    mX\Big(\frac{k}{m}\Big)  &   \mbox{$\frac{k}{m}$为整数}\\
+    0                        &   \mbox{$\frac{k}{m}$不为整数}
+    \end{array} \right.
+    \end{equation*}
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink]\frametitle{举例说明：$ x(n)见板书 $}%[allowframebreaks]
+%    例： 
+    设$N=4$，取$m=3$，则$M=mN= 12$.
+    \begin{equation*}
+    X_M(k)= X_{12}(k)=
+    \left\{\begin{array}{r@{,\quad}l}
+    3 X\Big(\frac{k}{3}\Big)  &   \mbox{$\frac{k}{m}$为整数}\\
+    0                        &   \mbox{$\frac{k}{m}$不为整数}
+    \end{array} \right.
+    \end{equation*}
+    则$X_M(k)= X_{12}(k)$为：
+    $$
+        \begin{array}{lll}
+        X_{12}(0) = 3X(\frac{0}{3}) = 3   &   \qquad X_{12}(1) = 0  &   X_{12}(2) = 0  \qquad\qquad\qquad\qquad\\
+        X_{12}(3) = 3X(\frac{3}{3}) = 4.5 &   \qquad X_{12}(4) = 0  &   X_{12}(5) = 0 \\
+        X_{12}(6) = 3X(\frac{6}{3}) = 6   &   \qquad X_{12}(7) = 0  &   X_{12}(8) = 0 \\
+        X_{12}(9) = 3X(\frac{9}{3}) = 7.5 &   \qquad X_{12}(10) = 0  &   X_{12}(11) = 0 \\
+        \end{array}
+    $$
+
+
+
+    \textbf{注：}
+    由此可见，$X_M(k)$也能代表$\tilde{x}(n)$的频谱结构，只是当$k=rm$时，有$X_M(rm)= mX(r)$。因此只要截取$\tilde{x}(n)$的整数倍周期做$DFT$，就可以得到它的频率结构进行谱分析。
+
+
+\end{frame}
+
+
+\subsection{用DFT进行谱分析的误差问题}
+\begin{frame}[shrink]\frametitle{用DFT进行谱分析的误差问题}%[allowframebreaks]
+
+ 实际应用中，DFT用于对连续信号做谱分析时，需对其进行截断和采样，其必将引起某些误差。
+\begin{enumerate}
+  \item 混叠现象
+  \item 栅栏效应
+  \item 截断效应
+\end{enumerate}
+
+\end{frame}
+%
+%
+\begin{frame}[shrink]\frametitle{混叠现象}%[allowframebreaks]
+
+ 混叠现象  \par
+     \begin{enumerate}
+       \item  在$x_a(t)$进行采样时，存在采样定理的限制，
+              $$f_s \geq 2 f_c\quad\qquad\qquad\qquad\qquad\qquad$$
+              否则将在$\omega = \pi\quad\:$$(f=\frac{f_s}{2})$ 处存在一个频率混叠的问题。
+       \item  措施：\par
+              采样之前进行预滤波，滤除高于折叠频率$\frac{f_s}{2}$ 的频率成分，避免频率混叠现象。
+     \end{enumerate}
+\end{frame}
+%
+%
+%
+\begin{frame}[shrink]\frametitle{栅栏效应}%[allowframebreaks]
+ 栅栏效应
+     \begin{enumerate}
+       \item  N点DFT$X(k)$是对$X(e^{j\omega})$在$[0,2\pi]$ 上的$N$点等间隔采样，仅能得到连续频谱的N个采样点，采样点之间的频率看不到。这种现象称为栅栏效应。
+       \item  措施：\par 为使得栅栏变细，可加大采样点数，对有限长序列来说，可在原序列尾部补0。
+              采样之前进行预滤波，滤除高于折叠频率$\frac{f_s}{2}$ 的频率成分，避免频率混叠现象。
+     \end{enumerate}
+\end{frame}
 %
 %
 %
 %
-%
-%\begin{frame}[shrink]\frametitle{举例说明：$ x(n)见板书 $}%[allowframebreaks]
-%%    例： 
-%    设$N=4$，取$m=3$，则$M=mN= 12$.
-%    \begin{equation*}
-%    X_M(k)= X_{12}(k)=
-%    \left\{\begin{array}{r@{,\quad}l}
-%    3 X\Big(\frac{k}{3}\Big)  &   \mbox{$\frac{k}{m}$为整数}\\
-%    0                        &   \mbox{$\frac{k}{m}$不为整数}
-%    \end{array} \right.
-%    \end{equation*}
-%    则$X_M(k)= X_{12}(k)$为：
-%    $$
-%        \begin{array}{lll}
-%        X_{12}(0) = 3X(\frac{0}{3}) = 3   &   \qquad X_{12}(1) = 0  &   X_{12}(2) = 0  \qquad\qquad\qquad\qquad\\
-%        X_{12}(3) = 3X(\frac{3}{3}) = 4.5 &   \qquad X_{12}(4) = 0  &   X_{12}(5) = 0 \\
-%        X_{12}(6) = 3X(\frac{6}{3}) = 6   &   \qquad X_{12}(7) = 0  &   X_{12}(8) = 0 \\
-%        X_{12}(9) = 3X(\frac{9}{3}) = 7.5 &   \qquad X_{12}(10) = 0  &   X_{12}(11) = 0 \\
-%        \end{array}
-%    $$
-%
-%
-%
-%    \textbf{注：}
-%    由此可见，$X_M(k)$也能代表$\tilde{x}(n)$的频谱结构，只是当$k=rm$时，有$X_M(rm)= mX(r)$。因此只要截取$\tilde{x}(n)$的整数倍周期做$DFT$，就可以得到它的频率结构进行谱分析。
-%
-%
-%\end{frame}
-%
-%
-%\subsection{用DFT进行谱分析的误差问题}
-%\begin{frame}[shrink]\frametitle{用DFT进行谱分析的误差问题}%[allowframebreaks]
-%
-% 实际应用中，DFT用于对连续信号做谱分析时，需对其进行截断和采样，其必将引起某些误差。
-%\begin{enumerate}
-%  \item 混叠现象
-%  \item 栅栏效应
-%  \item 截断效应
-%\end{enumerate}
-%
-%\end{frame}
-%%
-%%
-%\begin{frame}[shrink]\frametitle{混叠现象}%[allowframebreaks]
-%
-% 混叠现象  \par
-%     \begin{enumerate}
-%       \item  在$x_a(t)$进行采样时，存在采样定理的限制，
-%              $$f_s \geq 2 f_c\quad\qquad\qquad\qquad\qquad\qquad$$
-%              否则将在$\omega = \pi\quad\:$$(f=\frac{f_s}{2})$ 处存在一个频率混叠的问题。
-%       \item  措施：\par
-%              采样之前进行预滤波，滤除高于折叠频率$\frac{f_s}{2}$ 的频率成分，避免频率混叠现象。
-%     \end{enumerate}
-%\end{frame}
-%%
-%%
-%%
-%\begin{frame}[shrink]\frametitle{栅栏效应}%[allowframebreaks]
-% 栅栏效应
-%     \begin{enumerate}
-%       \item  N点DFT$X(k)$是对$X(e^{j\omega})$在$[0,2\pi]$ 上的$N$点等间隔采样，仅能得到连续频谱的N个采样点，采样点之间的频率看不到。这种现象称为栅栏效应。
-%       \item  措施：\par 为使得栅栏变细，可加大采样点数，对有限长序列来说，可在原序列尾部补0。
-%              采样之前进行预滤波，滤除高于折叠频率$\frac{f_s}{2}$ 的频率成分，避免频率混叠现象。
-%     \end{enumerate}
-%\end{frame}
-%%
-%%
-%%
-%%
-%\begin{frame}[shrink]\frametitle{截断效应}%[allowframebreaks]
-%   截断效应  \qquad(自己看)
-%  \begin{enumerate}
-%    \item 泄露
-%    \item 谱间干扰
-%  \end{enumerate}
-%
-%\end{frame}
+\begin{frame}[shrink]\frametitle{截断效应}%[allowframebreaks]
+   截断效应  \qquad(自己看)
+  \begin{enumerate}
+    \item 泄露
+    \item 谱间干扰
+  \end{enumerate}
+
+\end{frame}
 
 
 \end{document}

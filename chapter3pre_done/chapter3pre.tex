@@ -100,8 +100,8 @@
 \end{split}
 \end{equation*}
 式中：
-$$ a_n = \frac{2}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)\cos \left(n\Omega_s t\right) $$
-$$ b_n = \frac{2}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)\sin \left(n\Omega_s t\right) $$
+$$ a_n = \frac{2}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)\cos \left(n\Omega_s t\right) dt$$
+$$ b_n = \frac{2}{T}\int_{t_1}^{t_1+T}\tilde{x}_a(t)\sin \left(n\Omega_s t\right) dt$$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 %
@@ -134,8 +134,8 @@ $$\mbox{而} \quad a_n \cos(n \Omega_s t)+ b_n \sin(n\Omega_s t)\qquad\qquad\qqu
 令式中：
 \begin{equation*}
 \begin{split}
+       \dot{A}_n = \sqrt{a^2_n +b^2_n}\qquad      &\quad    \varphi_n = - \arctan\Big(\frac{b_n}{a_n}\Big)\\
        a_n= \dot{A}_n \cos(\varphi_n)\qquad        &\quad    b_n = \dot{A}_n \sin(\varphi_n) \\
-       \dot{A}_n = \sqrt{a^2_n +b^2_n}\qquad      &\quad    \varphi_n = - \arctan\Big(\frac{b_n}{a_n}\Big)
  \end{split}
 \end{equation*}
 \end{frame}
@@ -377,6 +377,7 @@ $$
 如前所述：
 \begin{equation*}
 \begin{split}
+ FT\big[\tilde{x}_a(t)\big]  &= 2\pi \sum_{n=-\infty}^{\infty} A_n \delta(n-n\Omega_s) \\
 A_n     &= \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot e^{-jn\Omega_s t}dt\\
 %			&= \frac{1}{T_p}\int_{0}^{T_p}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\quad\mbox{(取一个周期)}\\
 %			&= \frac{1}{T_p}\int_{-\infty}^{\infty}x_a(t)\cdot e^{-jn\Omega_s t}dt \quad\quad\mbox{\big($x_a(t)$ 为有限长信号\big)}\\
@@ -388,7 +389,7 @@ A_n     &= \frac{1}{T_p}\int_{-\frac{T_p}{2}}^{\frac{T_p}{2}}\tilde{x}_a(t)\cdot
 
 \begin{jielun}	
  \begin{enumerate}
-     \item [(1)]  即$\tilde{x}_a(t)$的傅里叶变换是$X_a(j\Omega)$的间隔为$ \Omega_s  $的采样，其幅度变为$X_a(j\Omega)$的$ \frac{1}{T_p}$倍。
+     \item [(1)]  即$\tilde{x}_a(t)$的傅里叶变换是$X_a(j\Omega)$的间隔为$ \Omega_s  $的采样，其幅度变为$X_a(j\Omega)$的$ \frac{2\pi}{T_p}$倍。
      \item [(2)] 信号在时域的周期化，对应其在频域的离散化。
       %幅度变为原信号的$ \frac{1}{T_p} $
     \end{enumerate}
@@ -419,7 +420,7 @@ $x(n)$可视为对原信号$x_a(t)$ 进行采样得到，这里设采样周期�
 $$                     x(n)\:   =\:  x_a(nT)  =\: x_a(t)|_{t=nT}$$
 
         所以$x(n)$的频谱与采样信号$\hat{x}_a(t)$的频谱有关。\\
-        x结论先给出：
+        结论先给出：
         $$ X(e^{j\omega})  = \hat{X}_a(j\Omega)\big|_{\omega = \Omega T}\quad\quad\quad(\mbox{或：}\Omega = \frac{\omega}{T})$$%
 \end{frame}
 
