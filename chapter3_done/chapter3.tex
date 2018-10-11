@@ -520,11 +520,16 @@ $$\mbox{即： \quad\quad }W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdo
 %
 \begin{frame}[shrink]\frametitle{时域循环卷积定理}%[allowframebreaks][shrink]
 \textbf{二、时域循环卷积定理}
-\quad\newline\quad
+%\quad\newline\quad
 \begin{theorem}
 设长度均为N的有限长序列$x_1(n)\leftrightarrow X_1(k)$，$x_2(n)\leftrightarrow X_2(k)$，则有：
 $$x_1(n)\otimes x_2(n) \longleftrightarrow X_1(k)\cdot X_2(k) \quad\quad (\mbox{$N$点循环卷积})$$
 \end{theorem}
+\begin{zhuyi}
+时域循环移位性质：
+$$x((n+m))R_N(n)\longleftrightarrow W_N^{-km}X(k)$$
+$$x((n-m))R_N(n)\longleftrightarrow W_N^{km}X(k)\quad$$
+\end{zhuyi}
 \end{frame}
 
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks][shrink]
@@ -542,8 +547,8 @@ $DFT\big[ x_1(n)\otimes x_2(n)\big]$
          &= X_1(k)\cdot X_2(k)
 \end{split}
 \end{equation*}
-注意时域循环移位性质：
-$$x((n+m))R_N(n)\leftrightarrow W_N^{-km}X(k)  \qquad\qquad   x((n-m))R_N(n)\leftrightarrow W_N^{km}X(k) $$
+%注意时域循环移位性质：
+%$$x((n+m))R_N(n)\leftrightarrow W_N^{-km}X(k)  \qquad\qquad   x((n-m))R_N(n)\leftrightarrow W_N^{km}X(k) $$
 \end{frame}
 %
 %
@@ -554,11 +559,17 @@ $$x((n+m))R_N(n)\leftrightarrow W_N^{-km}X(k)  \qquad\qquad   x((n-m))R_N(n)\lef
 
 \begin{frame}[shrink]\frametitle{频域循环卷积定理}%[allowframebreaks][shrink]
 \textbf{三、频域循环卷积定理}
-\quad\newline\quad
+%\quad\newline\quad
 \begin{theorem}
 设长度均为N的有限长序列$x_1(n)\leftrightarrow X_1(k)$，$x_2(n)\leftrightarrow X_2(k)$，则有：
 $$x_1(n)\cdot x_2(n)\longleftrightarrow\frac{1}{N}X_1(k)\otimes X_2(k)\quad\quad(\mbox{$N$点循环卷积})$$
 \end{theorem}
+\begin{zhuyi}
+频域移位性质
+$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
+$$W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
+\end{zhuyi}
+
 \end{frame}
 
 
@@ -582,9 +593,9 @@ $IDFT\big[ \frac{1}{N}X_1(k) \otimes X_2(k)\big]$
          &= x_1(n)\cdot x_2(n)
 \end{split}
 \end{equation*}
-注意频域移位性质：
-$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)  \qquad\qquad
-  W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
+%注意频域移位性质：
+%$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)  \qquad\qquad
+%  W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
 \end{frame}
 %
 \subsection{复共轭序列的DFT}
