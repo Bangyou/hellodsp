@@ -452,7 +452,7 @@ $$x((n+m))_N R_N(n) \longleftrightarrow W_N^{-km}X(k)$$
 三、频域循环移位定理
 
 设有限长序列$x(n)$长度为N，$X(k)$为其N点DFT，则有：
-$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
+$$W_N^{\ mn}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
 
 
 \end{frame}
@@ -468,18 +468,18 @@ $IDFT\big[ X((k+m))_N R_N(k)\big]$
 \begin{equation*}
 \begin{split}
     \quad
-         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N R_N(k)\bigg]W_N^{-kn}
-          = \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N \bigg]W_N^{-kn} \quad\mbox{(主值区间)}\quad\\
+         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N R_N(k)\bigg]W_N^{\:-kn}
+          = \frac{1}{N}\sum_{k=0}^{N-1}\bigg[X((k+m))_N \bigg]W_N^{\:-kn} \quad\mbox{(主值区间)}\quad\\
          &\quad  \quad\quad\quad\quad\mbox{令} k' =k+m,\mbox{则有：}  \\
-         &= \frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n}W_N^{km}\\
-         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n} \qquad \\
-         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}\bigg[X((k'))_N\bigg]W_N^{-k'n}\quad\mbox{(一个周期内求和相等)}\\
-         &= W_N^{km}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}X(k') W_N^{-kn'}  \quad\quad\quad\quad\mbox{(主值区间)}\\
-         &= W_N^{km}\cdot x(n)
+         &= \frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{\:-k'n}W_N^{\:mn}\\
+         &= W_N^{\: mn}\cdot\frac{1}{N}\sum_{k'=m}^{m+N-1}\bigg[X((k'))_N\bigg]W_N^{\:-k'n} \qquad \\
+         &= W_N^{\: mn}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}\bigg[X((k'))_N\bigg]W_N^{\:-k'n}\quad\mbox{(一个周期内求和相等)}\\
+         &= W_N^{\: mn}\cdot\frac{1}{N}\sum_{k'=0}^{N-1}X(k') W_N^{\:-kn'}  \quad\quad\quad\quad\mbox{(主值区间)}\\
+         &= W_N^{\: mn}\cdot x(n)
 \end{split}
 \end{equation*}
 
-$$\mbox{即： \quad\quad }W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
+$$\mbox{即： \quad\quad }W_N^{\:mn}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -503,7 +503,7 @@ $$\mbox{即： \quad\quad }W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdo
 式中L称为循环卷积区间长度，且有$L\geq \{N,M\}$。
 \end{definition}
 \begin{enumerate}
-  \item 延拓 \quad\quad\quad\quad $x(n)\longrightarrow \tilde{x}(n)=x((n))_L$
+  \item 延拓 \quad\quad\quad\quad $x(n)\rightarrow \tilde{x}(n)=x((n))_L$
   \item 线性卷积  \quad\quad $h(n)* \tilde{x}(n)$
   \item 取主值
 \end{enumerate}
@@ -527,8 +527,8 @@ $$x_1(n)\otimes x_2(n) \longleftrightarrow X_1(k)\cdot X_2(k) \quad\quad (\mbox{
 \end{theorem}
 \begin{zhuyi}
 时域循环移位性质：
-$$x((n+m))R_N(n)\longleftrightarrow W_N^{-km}X(k)$$
-$$x((n-m))R_N(n)\longleftrightarrow W_N^{km}X(k)\quad$$
+$$x((n+m))R_N(n)\longleftrightarrow W_N^{\:-km}X(k)$$
+$$x((n-m))R_N(n)\longleftrightarrow W_N^{\:km}X(k)\quad$$
 \end{zhuyi}
 \end{frame}
 
@@ -539,11 +539,11 @@ $DFT\big[ x_1(n)\otimes x_2(n)\big]$
 \begin{equation*}
 \begin{split}
     \quad
-         &= \sum_{n=0}^{N-1}\bigg[x_1(n)\otimes x_2(n)\bigg]W_N^{kn} \\
-         &= \sum_{n=0}^{N-1}\left[\sum_{m=0}^{N-1}x_1(m) x_2((n-m))_N R_N(n) \right] W_N^{kn}   \\
-         &= \sum_{m=0}^{N-1}x_1(m)\left[ \sum_{n=0}^{N-1} x_2((n-m))_N R_N(n) W_N^{kn} \right]   \\
-         &= \sum_{m=0}^{N-1}x_1(m) DFT\bigg[  x_2((n-m))_N R_N(n) \bigg]  \quad   \\
-         &= \sum_{m=0}^{N-1}x_1(m)W_N^{km} X_2(k)  \;\qquad\qquad      \\
+         &= \sum_{n=0}^{N-1}\bigg[x_1(n)\otimes x_2(n)\bigg]W_N^{\:kn} \\
+         &= \sum_{n=0}^{N-1}\left[\sum_{m=0}^{N-1}x_1(m) x_2((n-m))_N R_N(n) \right] W_N^{\:kn}   \\
+         &= \sum_{m=0}^{N-1}x_1(m)\left[ \sum_{n=0}^{N-1} x_2((n-m))_N R_N(n) W_N^{\:kn} \right]   \\
+         &= \sum_{m=0}^{N-1}x_1(m) \cdot\;  DFT\Big[  x_2((n-m))_N R_N(n) \Big]  \quad   \\
+         &= \sum_{m=0}^{N-1}x_1(m)W_N^{\:km} X_2(k)  \;\qquad\qquad      \\
          &= X_1(k)\cdot X_2(k)
 \end{split}
 \end{equation*}
@@ -566,8 +566,8 @@ $$x_1(n)\cdot x_2(n)\longleftrightarrow\frac{1}{N}X_1(k)\otimes X_2(k)\quad\quad
 \end{theorem}
 \begin{zhuyi}
 频域移位性质
-$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
-$$W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
+$$W_N^{\:mn}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)$$
+$$W_N^{\:-mn}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
 \end{zhuyi}
 
 \end{frame}
@@ -583,19 +583,16 @@ $IDFT\big[ \frac{1}{N}X_1(k) \otimes X_2(k)\big]$
 \begin{equation*}
 \begin{split}
     \quad
-         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[ \frac{1}{N}X_1(k) \otimes X_2(k) \bigg]W_N^{-kn} \\
-         &= \frac{1}{N}\sum_{k=0}^{N-1}\left[\frac{1}{N}\sum_{m=0}^{N-1}X_1(m) X_2((k-m))_N \right] R_N(k) W_N^{-kn}   \\
-         &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\left[ \frac{1}{N}\sum_{k=0}^{N-1} X_2((k-m))_N R_N(k) W_N^{-kn} \right]   \\
+         &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[ \frac{1}{N}X_1(k) \otimes X_2(k) \bigg]W_N^{\:-kn} \\
+         &= \frac{1}{N}\sum_{k=0}^{N-1}\left[\frac{1}{N}\sum_{m=0}^{N-1}X_1(m) X_2((k-m))_N \right] R_N(k) W_N^{\:-kn}   \\
+         &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\left[ \frac{1}{N}\sum_{k=0}^{N-1} X_2((k-m))_N R_N(k) W_N^{\:-kn} \right]   \\
          &= \frac{1}{N}\sum_{m=0}^{N-1}X_1(m)\cdot IDFT\Big[  X_2((k-m))_N R_N(k) \Big]  \quad \\
-                %\Big(W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)\Big)\\
-         &= \Big[\frac{1}{N}\sum_{m=0}^{N-1} X_1(m)W_N^{-km}\Big] x_2(n) \\
-                %\quad\quad\quad\quad\quad\quad\quad\quad \Big(W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k)\Big)    \\
+         &= \Bigg[\frac{1}{N}\sum_{m=0}^{N-1} X_1(m)W_N^{\:-mn}\Bigg] \cdot x_2(n)  = \Bigg[\frac{1}{N}\sum_{k=0}^{N-1} X_1(k)W_N^{\:-kn}\Bigg] \cdot x_2(n)  \\
          &= x_1(n)\cdot x_2(n)
 \end{split}
 \end{equation*}
 %注意频域移位性质：
-%$$W_N^{km}\cdot x(n) \longleftrightarrow X((k+m))_N\cdot R_N(k)  \qquad\qquad
-%  W_N^{-km}\cdot x(n) \longleftrightarrow X((k-m))_N\cdot R_N(k) $$
+
 \end{frame}
 %
 \subsection{复共轭序列的DFT}
@@ -715,7 +712,7 @@ $2^o$ 定义：
 \end{frame}
 
 
-\begin{frame}[shrink]\frametitle{ 有限长序列的分解}%[allowframebreaks][shrink]
+\begin{frame}[allowframebreaks]\frametitle{ 有限长序列的分解}%[allowframebreaks][shrink]
 $3^o$ 讨论：
 \begin{enumerate}
   \item 有限长序列可分解为共轭对称序列和共轭反对称序列。
@@ -734,6 +731,7 @@ $3^o$ 讨论：
             x_{op}(n) &= \frac{1}{2}\big[x(n) - x^{*}(N-n)\big]
         \end{aligned} \right.
         \end{equation*}
+\newpage        
         
 \item 同样，有限长序列可分解为实数部分序列和虚数部分序列。
         \begin{equation*} %\label{fol2218}
@@ -769,14 +767,14 @@ $3^o$ 讨论：
           \item [(a)] \qquad $x_r(n)\leftrightarrow X_{ep}(k)$
                 \begin{equation*}
                 \begin{split}
-                \because \quad  x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]  \quad\quad\big(x^*(n)\leftrightarrow X^*(N-k)\big)\\
+                \because \quad  x_{r}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(n)\big]  \quad\quad\mbox{注意：}\textcolor{red}{x^*(n)\leftrightarrow X^*(N-k)}\\
                     DFT\big[x_{r}(n)\big] &= \frac{1}{2}\big[X(k) + X^{*}(N-k)\big]  = X_{ep}(k)
                 \end{split}
                 \end{equation*}
 \item  [(b)] \qquad $jx_i(n)\leftrightarrow X_{op}(k)$
         \begin{equation*}
         \begin{split}
-        \because \quad  jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]  \quad\quad\big(x^*(n)\leftrightarrow X^*(N-k)\big)\\
+        \because \quad  jx_{i}(n) &= \frac{1}{2}\big[x(n) - x^{*}(n)\big]  \qquad\qquad\qquad\qquad\qquad\qquad\quad \\
             DFT\big[jx_{i}(n)\big] &= \frac{1}{2}\big[X(k) - X^{*}(N-k)\big]  = X_{op}(k)
         \end{split}
         \end{equation*}
@@ -793,14 +791,14 @@ $3^o$ 讨论：
           \item [(a)] $\quad x_{ep}(n)\leftrightarrow X_{R}(k)$
             \begin{equation*}
             \begin{split}
-            \because \quad  x_{ep}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(N-n)\big]  \quad\quad\big(x^*(N-n)\leftrightarrow X^*(k)\big)\\
+            \because \quad  x_{ep}(n)  &= \frac{1}{2}\big[x(n) + x^{*}(N-n)\big]  \quad\quad\mbox{注意：}\textcolor{red}{x^*(N-n)\leftrightarrow X^*(k))}\\
                 DFT\big[x_{ep}(n)\big] &= \frac{1}{2}\bigg[X(k) + X^{*}(k)\bigg]  = X_{R}(k)
             \end{split}
             \end{equation*}
         \item [(b)]   $\quad x_{op}(n)\leftrightarrow jX_{I}(k)$
             \begin{equation*}
             \begin{split}
-           \because \quad  x_{op}(n)  &= \frac{1}{2}\bigg[x(n) - x^{*}(N-n)\bigg]     \quad\quad\big(x^*(N-n)\leftrightarrow X^*(k)\big)\\
+           \because \quad  x_{op}(n)  &= \frac{1}{2}\bigg[x(n) - x^{*}(N-n)\bigg] \\%    \quad\quad\textcolor{red}{\bigg(x^*(N-n)\leftrightarrow X^*(k)\bigg)}\\
                 DFT\big[x_{op}(n)\big] &= \frac{1}{2}\bigg[X(k) - X^{*}(k)\bigg]  = jX_{I}(k)
             \end{split}
             \end{equation*}
@@ -825,8 +823,8 @@ $3^o$ 讨论：
 \begin{frame}[allowframebreaks]\frametitle{实序列$x(n)$的对称性讨论}%[allowframebreaks][shrink]
 \begin{dablock}
   % 实序列$x(n)$的对称性讨论
-      设$x(n)\leftrightarrow X)k)$，因为$x(n)\in R$，\quad\newline\newline\quad
-      则有$X(k)=X^*(N-k)$, 即$X(k)$ 为共轭对称序列。
+      设$x(n)\leftrightarrow X(k)$，\quad\newline\newline\quad
+      因$x(n)\in R$，则有$X(k)=X^*(N-k)$, 即$X(k)$为共轭对称序列。
 \end{dablock}
 
       \begin{enumerate}
@@ -873,8 +871,8 @@ $3^o$ 讨论：
               根据$DFT$对称性，有：
               \begin{equation*}
                 \begin{split}
-                X_1(k)  &= DFT\big[x_1(n)\big]   = X_{ep}(k) = \quad \frac{1}{2} \bigg[X(k) + X^{*}(N-k)\bigg]  \\
-                X_2(k)  &= DFT\big[x_2(n)\big]   = \frac{1}{j}X_{op}(k) = \frac{1}{2j}\bigg[X(k) - X^{*}(N-k)\bigg]
+                X_1(k)  &= DFT\big[x_1(n)\big]   = X_{ep}(k) = \quad \dfrac{1}{2} \bigg[X(k) + X^{*}(N-k)\bigg]  \\
+                X_2(k)  &= DFT\big[x_2(n)\big]   = \frac{1}{j}X_{op}(k) = \dfrac{1}{2j}\bigg[X(k) - X^{*}(N-k)\bigg]
                 \end{split}
               \end{equation*}
       \end{enumerate}
@@ -891,7 +889,7 @@ $3^o$ 讨论：
 
 \begin{wenti}
 \begin{enumerate}
-	\item 那么能否也由频域采样信号$ X(k) $恢复原来的信号$ x(n) $，或原频域连续函数$ X(e^{j\omega}) $？
+	\item 那么能否也由频域采样信号$ X(k) $恢复原来的信号$ x(n) $，或原连续频域函数$ X(e^{j\omega}) $？
 	\item 如果可以，其条件是什么？
 	\item 内插公式什么形式？
 \end{enumerate}
@@ -924,12 +922,12 @@ X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(
 
 
 %-----------------------------------------------------------------------------------------------------------------------------------------
-\begin{frame}[shrink]\frametitle{举例说明Z}%[allowframebreaks][shrink]
+\begin{frame}[shrink]\frametitle{举例说明}%[allowframebreaks][shrink]
 回顾一下例子，求$R_4(n)$的8点，16 点的DFT。
 \newline\newline
-从例子中可以看出，$R_4(n)$的长度为4，而DFT的的点数，也就是采样的点数为8，和16.
+从例子中可以看出，$R_4(n)$的长度为4，而DFT的的点数，也就是采样的点数为8点和16点。
 \newline\newline
-则有：
+回顾最初DFT的定义：
 \begin{dablock}
 	设$ x(n) $长度为M, DFT的变换区间长度为N，则有DFT为：
 	
@@ -954,7 +952,8 @@ X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(
 $X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
 
 \begin{wenti}
-	对于$X(k)$来说，其反变换长度为N，而时域序列$x(n)$的长度为M，显然不能直接说相等，不妨设$IDFT[X(k)]=x_N(n)$，那么，$x_N(n)$和$x(n)$之间存在什么关系？
+	对于$X(k)$来说，其反变换长度为N，而时域序列$x(n)$的长度为M，显然不能直接说相等。\\
+	不妨设$IDFT[X(k)]=x_N(n)$，那么，$x_N(n)$和$x(n)$之间存在什么关系？
 \end{wenti}
 根据DFS和DFT的关系可知：
  $$x_N(n)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{x}(n)
@@ -1054,11 +1053,11 @@ $$x(n) = IDFT[X(k)] = \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}$$
 
 \begin{equation*}
 \begin{split}
-X(z) &= \sum_{n=-\infty}^{\infty}x(n) z^{-n} = \sum_{n=0}^{N-1}x(n) z^{-n} \\
-     &= \sum_{n=0}^{N-1}\left[\frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}\right] z^{-n} \\
-     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\sum_{n=0}^{N-1}W_N^{-kn}z^{-n} \right] \\
-     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-W_{N}^{-kN}z^{-N}}{1-W_N^{-k}z^{-1}} \right] \\
-     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}} \right] 
+X(z) &= \sum_{n=-\infty}^{\infty}x(n) z^{-n} = \sum_{n=0}^{N-1}x(n) z^{-n} \qquad\mbox{因为$x(n)$有限长}\\
+     &= \sum_{n=0}^{N-1}\left[\frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{\:-kn}\right] z^{-n} \\
+     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\sum_{n=0}^{N-1}W_N^{\:-kn}z^{-n} \right] \\
+     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-W_{N}^{\:-kN}z^{-N}}{1-W_N^{-k}z^{-1}} \right] \\
+     &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)\: \dfrac{1-z^{-N}}{1-W_N^{\:-k}z^{-1}}  
 \end{split}
 \end{equation*}
 
@@ -1088,7 +1087,7 @@ $$X(z) =  \frac{1}{N}\sum_{k=0}^{N-1}X(k)\left[\dfrac{1-z^{-N}}{1-W_N^{-k}z^{-1}
 \begin{split}
 X(e^{j\omega})  &= \sum_{k=0}^{N-1}X(k) \varphi\left(\omega - \frac{2\pi}{N}k \right) \\
 \mbox{其中:}    & \quad  \\
-\varphi(\omega) &= \frac{1}{N} \dfrac{\sin(\omega N/2)}{sin(\omega /2)}e^{-j\omega \frac{N-1}{2}}  
+\varphi(\omega) &= \frac{1}{N} \dfrac{\sin(\frac{N}{2}\omega )}{sin(\frac{\omega}{2})}e^{-j\frac{N-1}{2}\omega }  
 \end{split}
 \end{equation*}
 上式称为频域内插公式，$ \varphi(\omega) $称为{\Large 频域内插函数}。
