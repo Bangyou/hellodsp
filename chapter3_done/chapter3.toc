@@ -10,7 +10,7 @@
 \beamer@subsectionintoc {4}{4}{复共轭序列的DFT}{30}{0}{2}
 \beamer@subsectionintoc {4}{5}{DFT的共轭对称性}{32}{0}{2}
 \beamer@sectionintoc {5}{频率域采样}{44}{0}{3}
-\beamer@sectionintoc {6}{DFT的应用举例}{57}{0}{4}
-\beamer@subsectionintoc {6}{1}{用DFT计算线性卷积}{57}{0}{4}
-\beamer@subsectionintoc {6}{2}{用$DFT$对信号进行谱分析}{67}{0}{4}
-\beamer@subsectionintoc {6}{3}{用DFT进行谱分析的误差问题}{84}{0}{4}
+\beamer@sectionintoc {6}{DFT的应用举例}{58}{0}{4}
+\beamer@subsectionintoc {6}{1}{用DFT计算线性卷积}{58}{0}{4}
+\beamer@subsectionintoc {6}{2}{用$DFT$对信号进行谱分析}{68}{0}{4}
+\beamer@subsectionintoc {6}{3}{用DFT进行谱分析的误差问题}{86}{0}{4}

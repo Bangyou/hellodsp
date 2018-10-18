@@ -889,7 +889,7 @@ $3^o$ 讨论：
 
 \begin{wenti}
 \begin{enumerate}
-	\item 那么能否也由频域采样信号$ X(k) $恢复原来的信号$ x(n) $，或原连续频域函数$ X(e^{j\omega}) $？
+	\item 那么能否也由频域采样信号$ X(k) $恢复原连续频域函数$ X(e^{j\omega}) $？%原来的信号$ x(n) $，或
 	\item 如果可以，其条件是什么？
 	\item 内插公式什么形式？
 \end{enumerate}
@@ -923,10 +923,6 @@ X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(
 
 %-----------------------------------------------------------------------------------------------------------------------------------------
 \begin{frame}[shrink]\frametitle{举例说明}%[allowframebreaks][shrink]
-回顾一下例子，求$R_4(n)$的8点，16 点的DFT。
-\newline\newline
-从例子中可以看出，$R_4(n)$的长度为4，而DFT的的点数，也就是采样的点数为8点和16点。
-\newline\newline
 回顾最初DFT的定义：
 \begin{dablock}
 	设$ x(n) $长度为M, DFT的变换区间长度为N，则有DFT为：
@@ -936,6 +932,11 @@ X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(
 
 即：$X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
 \end{dablock}
+回顾一下例子，求$R_4(n)$的8点，16 点的DFT。
+\newline\newline
+从例子中可以看出，信号$R_4(n)$的长度为4，\\
+而DFT的变换区间，也就是采样的点数为8点或16点。
+\newline\newline
 \end{frame}
 
 
@@ -952,8 +953,8 @@ X(k) &= X(z)\Big|_{z = e^{j\frac{2\pi}{N}k}} = \left[\sum_{n=-\infty}^{\infty}x(
 $X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
 
 \begin{wenti}
-	对于$X(k)$来说，其反变换长度为N，而时域序列$x(n)$的长度为M，显然不能直接说相等。\\
-	不妨设$IDFT[X(k)]=x_N(n)$，那么，$x_N(n)$和$x(n)$之间存在什么关系？
+	对于$X(k)$来说，其反变换的长度为N，而时域序列$x(n)$的长度为M，显然不能直接说相等。\\
+	不妨设其反变换$IDFT[X(k)]=x_N(n)$，那么，$x_N(n)$和$x(n)$之间存在什么关系？
 \end{wenti}
 根据DFS和DFT的关系可知：
  $$x_N(n)\quad \stackrel{\mbox{延拓}}{\longrightarrow}\quad  \tilde{x}(n)
@@ -973,33 +974,51 @@ $X(k)$是其Z变换$X(z)$在Z域单位圆上的$N$点等间隔采样。
 
 %-----------------------------------------------------------------------------------------------------------------------------------------
 \begin{frame}[shrink]\frametitle{推导过程}%[allowframebreaks][shrink]
+\quad 如前所述：
 \begin{equation*}
 \begin{split}
-x_N(n)  &= \tilde{x}(n)\cdot R_N(n) = IDFT\Big[\tilde{X}(k)\Big]\cdot R_N(n) \\
-        &= \left[\frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)W_N^{-kn}\right]\cdot R_N(n)\\
-        &= \left[\frac{1}{N}\sum_{k=0}^{N-1}\Big[\sum_{m=-\infty}^{\infty}x(m)W_N^{km}\Big]W_N^{-kn}\right]\cdot R_N(n)\\ 
-        &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\cdot R_N(n)\\
+x_N(n)  &= \tilde{x}(n)\cdot R_N(n) \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
+\mbox{而：} \qquad \tilde{x}(n) \:      
+        &= IDFT\Big[\tilde{X}(k)\Big] 
+        = \frac{1}{N}\sum_{k=0}^{N-1}\tilde{X}(k)W_N^{-kn}\\ 
+        &= \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}\\
+        &= \frac{1}{N}\sum_{k=0}^{N-1}\bigg[\sum_{m=-\infty}^{\infty}x(m)W_N^{km}\bigg]W_N^{-kn}\\ 
+        &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\\
 \end{split}
 \end{equation*}
-\begin{equation*}
-\mbox{而：\quad}    \frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)} =
-\left\{\begin{array}{r@{,\quad}l}
-1  & m= n+l\cdot N \quad\quad  l\in Z\\
-0     &\mbox{其他m}
-\end{array} \right.
-\end{equation*}
+%\begin{equation*}
+%\mbox{而：\quad}    \frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)} =
+%\left\{\begin{array}{r@{,\quad}l}
+%1  & m= n+l\cdot N \quad\qquad  l\in Z\\
+%0     &\mbox{其他m}
+%\end{array} \right.
+%\end{equation*}
 \end{frame}
 
 
 %-----------------------------------------------------------------------------------------------------------------------------------------
 \begin{frame}[shrink]\frametitle{推导过程}%[allowframebreaks][shrink]
+\quad 如前所述：
+$$\tilde{x}(n)= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\qquad \qquad\qquad$$
+\begin{equation*}
+\mbox{而：\quad}    
+\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)} =
+\left\{\begin{array}{r@{,\quad}l}
+1  & m= n+l\cdot N \quad\quad  l\in Z\\
+0     &\mbox{其他m}
+\end{array} \right.
+\end{equation*}
 \begin{equation*}
 \begin{split}
 \therefore\quad x_N(n)  &= \sum_{m=-\infty}^{\infty}x(m)\left[\frac{1}{N}\sum_{k=0}^{N-1}W_N^{k(m-n)}\right]\cdot R_N(n)\\
 \therefore\quad   x_N(n)      &= \left[\sum_{l=-\infty}^{\infty}x(n+l N)\right]\cdot R_N(n)\\
+                         & = x((n))_N\cdot R_N(n)\\
 \end{split}
 \end{equation*}
+\end{frame}
 
+\begin{frame}[shrink]\frametitle{结论}%[allowframebreaks][shrink]
+$$ x_N(n)  = \left[\sum_{l=-\infty}^{\infty}x(n+l N)\right]\cdot R_N(n) = x((n))_N\cdot R_N(n)$$
 \begin{shuoming}
 \begin{enumerate}
 	\item 这说明$ X(z) $在单位圆上的N点等间隔采样$X(k)$的N点DFT反变换$ x_N(n) $
@@ -1035,14 +1054,9 @@ x_N(n)  &= \tilde{x}(n)\cdot R_N(n) = IDFT\Big[\tilde{X}(k)\Big]\cdot R_N(n) \\
 既然可以用$ X(k) $恢复$ X(z) $和$ X(e^{j\omega})$，那怎么得到呢？\par
 下面将推导用频域采样$ X(k) $表示$ X(z) $和$ X(e^{j\omega}) $的内插公式和内插函数。
 \end{dablock}
-设序列$ x(n) $长度为M，在频域$ [0,2\pi] $上等间隔采样N点，
-$ N\geq M $，则有。
+设序列$ x(n) $长度为M，在频域$ [0,2\pi] $上等间隔采样N点，$ N\geq M $，则有:
 \begin{equation*}
-\begin{split}
-X(k)  &= X(z)\;\:\Big|_{z = e^{j\frac{2\pi}{N}k}}  \qquad \\
-%\quad &\quad\\
-      &= X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad\qquad\quad k = 0,1,2,\cdots , N-1\\
-\end{split}
+X(k) = X(z)\;\Big|_{z = e^{j\frac{2\pi}{N}k}}\quad  = X(e^{j\omega})\Big|_{\omega = \frac{2\pi}{N}k} \qquad (k = 0,1,\cdots , N-1)
 \end{equation*}
 当$N\geq M$时，满足频域采样定理，有：
 $$x(n) = IDFT[X(k)] = \frac{1}{N}\sum_{k=0}^{N-1}X(k)W_N^{-kn}$$
@@ -1233,8 +1247,8 @@ $$\mbox{下面将验证}\varphi\Big(\omega-\frac{2\pi}{N}k\Big) =\varphi_k(e^{j\
     \begin{enumerate}
       \item 当$L\geq N+M-1$ 时，则有: \vspace{-0.3cm}
       $$y_c(n) = y_l(n)$$%\vspace{-0.3cm}
-      说明：\quad
-      公式本身是有$y_l(n)$得到$y_c(n)$的过程，且在$L\leq N+M-1$时两者相等，而实际应用中是利用循环卷积计算线性卷积。
+      %说明：\quad
+      %公式本身是有$y_l(n)$得到$y_c(n)$的过程，且在$L\leq N+M-1$时两者相等，而实际应用中是利用循环卷积计算线性卷积。
       \item 当$L < N+M-1$时，周期延拓会导致混叠现象。
     \end{enumerate}
 
@@ -1358,62 +1372,83 @@ $$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\mbox{则：}\quad  x_k(n) = x(n)\cdot R
 \begin{enumerate}
 	\item [(3)]采样参数的说明\par
 
-        \qquad 用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。因此采样参数与上述三者相关。
+        用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。因此采样参数与上述三者相关。
         \begin{equation*} %\label{fol2218}
-            \left. \begin{aligned}
-                T   \quad   &: \mbox{采样间隔}\\
+            \left\{ \begin{aligned}
                 f_s \quad   &: \mbox{采样频率}\\
-            \end{aligned}  \right\}
+                T   \quad   &: \mbox{采样间隔}\\                
+            \end{aligned}  \right.
             \qquad\qquad   T = \frac{1}{f_s},\quad f_s = \frac{1}{T}    % \right.
             \qquad \qquad\qquad\qquad\quad
         \end{equation*}
         \begin{equation*} %\label{fol2218}
-            \left. \begin{aligned}
-                N   \quad   &: \mbox{采样点数}\\
+            \left\{ \begin{aligned}
                 T_p \quad   &: \mbox{信号长度}\\
-            \end{aligned}  \right\}
+                N   \quad   &: \mbox{采样点数}\\
+            \end{aligned}  \right.
             \qquad\qquad  T_p  =  NT,\quad  N = \frac{T_p}{T}    % \right.
             \qquad \qquad\qquad\qquad
         \end{equation*}
 \end{enumerate}        
 \end{frame}
 
-
-
-
-%\begin{frame}[shrink]\frametitle{title}%[allowframebreaks]
-%
-%图示
+%\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+%\begin{enumerate}
+%	\item [(4)]参数之间的关系 
+%\end{enumerate}      
+%  
+%  
+%  
+%        \qquad 在2.4节中，我们有 $X(e^{j\omega})=\hat{X}_a(j\Omega)\big|_{\omega = \Omega T}$，则有：
+%        $$X(e^{j\omega})=X_a(j\Omega)\big|_{\omega = \Omega T} =X_a(jf)\big|_{\omega = 2\pi fT}$$
+%        \begin{equation*}
+%        \begin{split}
+%        \because\qquad\quad \omega      &= \Omega T = 2\pi f T =2\pi T f  %= \frac{2\pi}{f_s} f
+%           \qquad\qquad    \big(\Omega = 2\pi f \big)  \qquad\qquad\qquad\qquad\qquad\\
+%        \therefore\qquad   \Delta\omega &=  2\pi T\Delta f  \qquad\qquad\qquad\qquad\quad\;    \big(\Delta\omega = \frac{2\pi}{N}\big)\\
+%        \therefore\qquad   \Delta f     &=  \frac{1}{2\pi T} \Delta\omega 
+%                                         =  \frac{1}{2\pi T}\cdot \frac{2\pi}{N} = \frac{1}{NT}
+%        \end{split}
+%        \end{equation*}
+%        令$F=\Delta f$，这里$F$称为频率分辨率，表示对模拟信号频谱的采样间隔。
+%        $$\mbox{\textbf{结论:}} \qquad\qquad F= \frac{1}{NT} = \frac{1}{T_p}
+%           \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
 %\end{frame}
-
 
 
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks]
 \begin{enumerate}
 	\item [(4)]参数之间的关系 
 \end{enumerate}      
-  
-  
-  
-        \qquad 在2.4节中，我们有 $X(e^{j\omega})=\hat{X}_a(j\Omega)\big|_{\omega = \Omega T}$，则有：
-        $$X(e^{j\omega})=X_a(j\Omega)\big|_{\omega = \Omega T} =X_a(jf)\big|_{\omega = 2\pi fT}$$
-        \begin{equation*}
-        \begin{split}
-        \because\qquad\quad \omega      &= \Omega T = 2\pi f T =2\pi T f  %= \frac{2\pi}{f_s} f
-           \qquad\qquad    \big(\Omega = 2\pi f \big)  \qquad\qquad\qquad\qquad\qquad\\
-        \therefore\qquad   \Delta\omega &=  2\pi T\Delta f  \qquad\qquad\qquad\qquad\quad\;    \big(\Delta\omega = \frac{2\pi}{N}\big)\\
-        \therefore\qquad   \Delta f     &=  \frac{1}{2\pi T} \Delta\omega 
-                                         =  \frac{1}{2\pi T}\cdot \frac{2\pi}{N} = \frac{1}{NT}
-        \end{split}
-        \end{equation*}
-        令$F=\Delta f$，这里$F$称为频率分辨率，表示对模拟信号频谱的采样间隔。
-        $$\mbox{\textbf{结论:}} \qquad\qquad F= \frac{1}{NT} = \frac{1}{T_p}
-           \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
+\qquad 在2.4节中，我们有:
+$$X(e^{j\omega})= \hat{X}_a(j\Omega)\big|_{\omega = \Omega T} = \hat{X}_a(jf)\big|_{\omega = 2\pi fT}$$
+\qquad 数字域频率$ \omega $与模拟域频率对应关系为：
+$$\because\qquad \omega      = \Omega T = 2\pi f T =2\pi T f \qquad\big(\Omega = 2\pi f \big) $$
+\qquad 等式两边同时取微分可得：
+\begin{equation*}
+\begin{split}
+\therefore\qquad   \Delta\omega &=  2\pi T\Delta f  \qquad\qquad\qquad\quad\;    \big(\Delta\omega = \frac{2\pi}{N}\big)\\
+\therefore\qquad   \Delta f     &=  \frac{1}{2\pi T} \Delta\omega 
+=  \frac{1}{2\pi T}\cdot \frac{2\pi}{N} = \frac{1}{NT}
+\end{split}
+\end{equation*}
+%令$F=\Delta f$，这里$F$称为频率分辨率，表示对模拟信号频谱的采样间隔。
+%$$\mbox{\textbf{结论:}} \qquad\qquad F= \frac{1}{NT} = \frac{1}{T_p}
+%\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
 \end{frame}
-  %\item
 
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+前述可得：
+$$\Delta f     =  \frac{1}{2\pi T} \Delta\omega 
+=  \frac{1}{2\pi T}\cdot \frac{2\pi}{N} = \frac{1}{NT} \qquad $$
+\begin{definition}
+令$F=\Delta f$，这里$F$称为频率分辨率，表示对模拟信号频谱的采样间隔。
+\end{definition}
 
+$$\mbox{\textbf{结论:}} \qquad\qquad F= \frac{1}{NT} = \frac{1}{T_p}
+\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad$$
 
+\end{frame}
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks]
 
 问题在于怎么用$X(k)$表示$X_a(jf)$
@@ -1446,15 +1481,15 @@ X(k) \quad&=  \hat{X}_a(j\Omega)\big|_{ \Omega T =\frac{2\pi}{N} k  }   \quad \\
 \begin{equation*}
 \begin{split}
 X(k) \quad  &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s\right)\Big|_{ f  = k F  }  \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
-			&=  \frac{1}{T} X_a\left(j\Omega\right)\Big|_{ f  = k F  }     \qquad\quad  k = 0,1,\cdots ,N-1  \\
-			&=  \frac{1}{T} X_a\left(j 2\pi f\right)\Big|_{ f  = k F  }     \qquad  k = 0,1,\cdots ,N-1\\
+			&=  \frac{1}{T} X_a\left(j\Omega\right)\Big|_{ f  = k F  }     \qquad\quad  (k = 0,1,\cdots ,N-1)  \\
+			&=  \frac{1}{T} X_a\left(j 2\pi f\right)\Big|_{ f  = k F  }     \qquad ( k = 0,1,\cdots ,N-1)\\
 	\quad   &\quad   \quad  \\
-\qquad\mbox{令}X_a(kf) =
-			&\quad   X_a\left(j 2\pi f\right)\big|_{ f  = k F  }  \qquad\quad k = 0,1,\cdots ,N-1 \\
+\qquad\mbox{令}X_a(kF) =
+			&\quad   X_a\left(j 2\pi f\right)\big|_{ f  = k F  }  \qquad\quad (k = 0,1,\cdots ,N-1) \\
 \therefore\qquad X(k)     
-			&=  \frac{1}{T} X_a(kf)    \qquad\qquad k = 0,1,\cdots ,N-1\\
-\therefore\quad X_a(kf)   
-			&= T\cdot X(k)             \;\qquad\qquad k = 0,1,\cdots ,N-1
+			&=  \frac{1}{T} X_a(kF)    \qquad\qquad (k = 0,1,\cdots ,N-1)\\
+\therefore\quad X_a(kF)   
+			&= T\cdot X(k)             \;\qquad\qquad (k = 0,1,\cdots ,N-1)
 \end{split}
 \end{equation*}
 \end{frame}
@@ -1466,12 +1501,15 @@ X(k) \quad  &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s
 \begin{enumerate}
 	\item [(5)] 谱分析步骤
 \end{enumerate}  
-  
-        \begin{enumerate}
-          \item 对$x_a(t)$采样，得到有限长$x(n)$，长度为$N$。
-          \item 计算$DFT$，$\quad x(n)\longleftrightarrow X(k)$
-          \item $X_a(kf)   = T\cdot X(k)   \qquad\qquad 0\leq k \leq N-1$
-        \end{enumerate}
+
+\begin{enumerate}
+	\item 对$x_a(t)$采样，得到有限长$x(n)$，长度为$N$。
+    \item 计算$DFT$，$\quad x(n)\longleftrightarrow X(k)$
+    \item $X_a(kF)   = T\cdot X(k)   \qquad\qquad 0\leq k \leq N-1$
+\end{enumerate}
+%\begin{zhuyi}
+%直接由分析结果$ X(k) $看不到$ X_a(j\Omega) $的全部频谱特性，只能看到N个离散采样点的谱线，这就是所谓的栅栏效应。
+%\end{zhuyi}
 
  % \item
 \end{frame}
@@ -1562,7 +1600,7 @@ X(k) \quad  &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s
       \begin{enumerate}
         \item 取主值，$x(n) = x(n)R_N(n)$
         \item 做$DFT$变换，$X(k) = DFT[x(n)]$
-        \item 延拓，$\tilde{X}(k) = X((n))_N$
+        \item 延拓，$\tilde{X}(k) = X((k))_N$
         \item 代公式
       \end{enumerate}
     
