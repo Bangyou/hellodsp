@@ -1335,23 +1335,24 @@ $$x(n) = \sum_{k=0}^{\infty}x_k(n) \quad\mbox{则：}\quad  x_k(n) = x(n)\cdot R
 %
 %
 %\newpage
-\subsection{用$DFT$对信号进行谱分析}
-\begin{frame}[shrink]\frametitle{信号的谱分析}%[allowframebreaks]
+\subsection[shrink]{用$DFT$对信号进行谱分析}
+\begin{frame}\frametitle{信号的谱分析}%[allowframebreaks]
 \begin{dablock}
 所谓信号的谱分析，就是计算信号的傅里叶变换。对于连续信号和系统，可以通过时域采样，应用DFT进行近似谱分析。
 \end{dablock}
-
-
+\quad \newline\quad 
+主要考虑以下两个问题
+\quad \newline\newline \quad 
 \textbf{一、用$DFT$对连续信号进行谱分析}
-
-   用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。
-
+\quad \newline\newline \quad 
+   %用DFT对连续信号进行谱分析必然是近似的，其近似程度与信号带宽、采样频率和截取长度有关。
+\textbf{二、用$DFT$对序列做谱分析}
 \end{frame}
 
 
 
 \begin{frame}[shrink]\frametitle{用$DFT$对连续信号进行谱分析}%[allowframebreaks]
-
+\textbf{一、用$DFT$对连续信号进行谱分析}
 \begin{enumerate}
   \item [(1)]  问题 \par
         给定有限长带限信号$x_a(t)$，如何得到$X_a(jf)$\newline
@@ -1596,9 +1597,10 @@ X(k) \quad  &=  \frac{1}{T}\sum_{m=-\infty}^{\infty}X_a\left(j\Omega-j m\Omega_s
   \end{enumerate}
       $$ X(e^{j\omega}) =FT[\tilde{x}(n)] = \frac{2\pi}{N}\sum_{k=-\infty}^{\infty}\tilde{X}(k)\delta(\omega-\frac{2\pi}{N}k)$$
       其强度为$\frac{2\pi}{N}\tilde{X}(k)$，为周期为$N$ 的周期序列，只需要知道$\tilde{X}(k)$，就可以得到$FT[\tilde{x}(n)]$，而$\tilde{X}(k) = DFS[\tilde{x}(n)]$。\par
+      \quad \newline \quad
       \textbf{步骤：}
       \begin{enumerate}
-        \item 取主值，$x(n) = x(n)R_N(n)$
+        \item 取主值，$x(n) = \hat{x}(n)R_N(n)$
         \item 做$DFT$变换，$X(k) = DFT[x(n)]$
         \item 延拓，$\tilde{X}(k) = X((k))_N$
         \item 代公式
@@ -1689,7 +1691,7 @@ $$X_M(k)  =  X\Big(\frac{k}{m}\Big)\cdot \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr}
 
 
 
-\begin{frame}[shrink]\frametitle{举例说明：$ x(n)见板书 $}%[allowframebreaks]
+\begin{frame}[shrink]\frametitle{举例说明：$ X(k) $见板书}%[allowframebreaks]
 %    例： 
     设$N=4$，取$m=3$，则$M=mN= 12$.
     \begin{equation*}
@@ -1748,9 +1750,9 @@ $$X_M(k)  =  X\Big(\frac{k}{m}\Big)\cdot \sum_{r=0}^{m-1}e^{-j\frac{2\pi}{m} kr}
 \begin{frame}[shrink]\frametitle{栅栏效应}%[allowframebreaks]
  栅栏效应
      \begin{enumerate}
-       \item  N点DFT$X(k)$是对$X(e^{j\omega})$在$[0,2\pi]$ 上的$N$点等间隔采样，仅能得到连续频谱的N个采样点，采样点之间的频率看不到。这种现象称为栅栏效应。
+       \item  $X(k)$是对$X(e^{j\omega})$在$[0,2\pi]$ 上的$N$点等间隔采样，仅能得到连续频谱的N个采样点，采样点之间的频率看不到。这种现象称为栅栏效应。
        \item  措施：\par 为使得栅栏变细，可加大采样点数，对有限长序列来说，可在原序列尾部补0。
-              采样之前进行预滤波，滤除高于折叠频率$\frac{f_s}{2}$ 的频率成分，避免频率混叠现象。
+              %采样之前进行预滤波，滤除高于折叠频率$\frac{f_s}{2}$ 的频率成分，避免频率混叠现象。
      \end{enumerate}
 \end{frame}
 %

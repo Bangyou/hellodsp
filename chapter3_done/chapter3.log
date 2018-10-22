@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  18 OCT 2018 23:27
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.28)  22 OCT 2018 22:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2462,13 +2462,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ] [69
 
 ]
-Overfull \hbox (20.76512pt too wide) detected at line 1393
+Overfull \hbox (20.76512pt too wide) detected at line 1394
 []   [] \OT1/cmr/m/n/10.95 = []\OML/cmm/m/it/10.95 ;  [][] \OT1/cmr/m/n/10.95 =
  []     
  []
 
 
-Overfull \hbox (31.45573pt too wide) detected at line 1393
+Overfull \hbox (31.45573pt too wide) detected at line 1394
 []   [][] \OT1/cmr/m/n/10.95 = [][]\OML/cmm/m/it/10.95 ;  [] \OT1/cmr/m/n/10.95
  = []    
  []
@@ -2478,14 +2478,14 @@ Overfull \hbox (31.45573pt too wide) detected at line 1393
 ] [71
 
 ]
-Overfull \hbox (6.9615pt too wide) detected at line 1451
+Overfull \hbox (6.9615pt too wide) detected at line 1452
 []  [] \OT1/cmr/m/n/10.95 = [] = []        
  []
 
 [72
 
 ]
-Overfull \hbox (47.00414pt too wide) detected at line 1473
+Overfull \hbox (47.00414pt too wide) detected at line 1474
 \U/msa/m/n/10.95 *  []\OT1/cmr/m/n/10.95 ([])  = [] [] [][] [] [] [] = []([]
 )[][]   
  []
@@ -2493,7 +2493,7 @@ Overfull \hbox (47.00414pt too wide) detected at line 1473
 [73
 
 ]
-Overfull \hbox (100.31885pt too wide) detected at line 1495
+Overfull \hbox (100.31885pt too wide) detected at line 1496
 []
  []
 
@@ -2506,7 +2506,7 @@ Overfull \hbox (100.31885pt too wide) detected at line 1495
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 16.2445 percent inste
-ad of 0 percent on input line 1556.
+ad of 0 percent on input line 1557.
 
 [77
 
@@ -2523,20 +2523,17 @@ ad of 0 percent on input line 1556.
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 8.35724 percent inste
-ad of 0 percent on input line 1665.
+ad of 0 percent on input line 1667.
 
 [83
 
 ] [84
 
 ]
-Overfull \hbox (21.28708pt too wide) detected at line 1718
+Overfull \hbox (21.28708pt too wide) detected at line 1720
 []
  []
 
-Missing character: There is no 见 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 板 in font [lmroman12-regular]:mapping=tex-text;!
-Missing character: There is no 书 in font [lmroman12-regular]:mapping=tex-text;!
 [85
 
 ] [86
@@ -2557,11 +2554,11 @@ Missing character: There is no 书 in font [lmroman12-regular]:mapping=tex-text;
 \tf@snm=\write8
 \openout8 = `chapter3.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1770.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1770.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1772.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1772.
  (./chapter3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1770.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1770.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1772.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1772.
 
 Package rerunfilecheck Info: File `chapter3.out' has not changed.
 (rerunfilecheck)             Checksum: E056023A652731BC453A2D18C6A7346D.
@@ -2571,9 +2568,9 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 34404 strings out of 492970
- 713568 string characters out of 6137298
- 788260 words of memory out of 5000000
+ 34406 strings out of 492970
+ 713576 string characters out of 6137298
+ 788108 words of memory out of 5000000
  37787 multiletter control sequences out of 15000+600000
  546522 words of font info for 121 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
