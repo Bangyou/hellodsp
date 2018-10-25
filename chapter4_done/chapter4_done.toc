@@ -1,7 +1,7 @@
 \beamer@sectionintoc {2}{ 引言}{3}{0}{1}
 \beamer@sectionintoc {3}{ 基2FFT算法}{4}{0}{2}
 \beamer@subsectionintoc {3}{1}{直接计算DFT的特点及减少运算量的基本途径}{4}{0}{2}
-\beamer@subsectionintoc {3}{2}{时域抽取法基2FFT基本原理（DIT-FFT）}{9}{0}{2}
+\beamer@subsectionintoc {3}{2}{时域抽取法基2FFT基本原理（DIT-FFT）}{8}{0}{2}
 \beamer@subsectionintoc {3}{3}{DIT-FFT算法计算量}{26}{0}{2}
 \beamer@sectionintoc {4}{DIT-FFT的运算规律与编程思想}{27}{0}{3}
 \beamer@subsectionintoc {4}{1}{原位计算（同址计算）}{27}{0}{3}

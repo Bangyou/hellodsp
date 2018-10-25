@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  22 OCT 2018 11:41
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.28)  26 OCT 2018 00:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2125,14 +2125,14 @@ Overfull \vbox (24.28271pt too high) detected at line 68
 
 ] [4
 
+] [5
+
 ]
 
 LaTeX Font Warning: Font shape `TU/KaiTi(0)/bx/n' undefined
-(Font)              using `TU/KaiTi(0)/m/n' instead on input line 121.
+(Font)              using `TU/KaiTi(0)/m/n' instead on input line 138.
 
-[5
-
-] [6
+[6
 
 ] [7
 
@@ -2140,52 +2140,55 @@ LaTeX Font Warning: Font shape `TU/KaiTi(0)/bx/n' undefined
 
 ] [9
 
-] [10
+]
+Overfull \hbox (14.20155pt too wide) detected at line 209
+[][] [][]
+ []
 
-] [11
+[10
 
 ]
-Overfull \hbox (3.09114pt too wide) detected at line 238
+Overfull \hbox (3.09114pt too wide) detected at line 230
 []
  []
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 15.91034 percent inst
-ead of 0 percent on input line 238.
+ead of 0 percent on input line 230.
 
-[12
+[11
 
 ]
-Overfull \hbox (2.17767pt too wide) detected at line 258
+Overfull \hbox (2.17767pt too wide) detected at line 249
 [][]\OT1/cmr/m/n/10.95 ([]) = [] [][]([])[][] + [][] [] [][]([])[][]        
  []
 
 
-Class beamer Warning: Frame text is shrunk by a factor of 6.56586 percent inste
-ad of 0 percent on input line 258.
+Class beamer Warning: Frame text is shrunk by a factor of 4.87518 percent inste
+ad of 0 percent on input line 249.
 
-[13
+[12
+
+] [13
 
 ]
-Overfull \hbox (40.52197pt too wide) detected at line 285
+Overfull \hbox (40.52197pt too wide) detected at line 298
 []
  []
 
 
-Overfull \hbox (21.9pt too wide) detected at line 285
+Overfull \hbox (21.9pt too wide) detected at line 298
 []
  []
 
 
-Overfull \hbox (28.2863pt too wide) detected at line 285
-  []\OT1/cmr/m/n/10.95 ([] + []) = [] [][]([])[][] \OMS/cmsy/m/n/10.95 ^^@ [][]
- [] [][]\OT1/cmr/m/n/10.95 ([])[][]  (0 \OMS/cmsy/m/n/10.95 ^^T [] ^^T [] ^^@ \
-OT1/cmr/m/n/10.95 1)
+Overfull \hbox (31.93604pt too wide) detected at line 298
+[]
  []
 
 
-Class beamer Warning: Frame text is shrunk by a factor of 15.91034 percent inst
-ead of 0 percent on input line 285.
+Class beamer Warning: Frame text is shrunk by a factor of 14.19373 percent inst
+ead of 0 percent on input line 298.
 
 [14
 
@@ -2194,8 +2197,8 @@ File: diexingyunsuan.jpg Graphic file (type bmp)
 <diexingyunsuan.jpg>
 
 
-Class beamer Warning: Frame text is shrunk by a factor of 13.13019 percent inst
-ead of 0 percent on input line 313.
+Class beamer Warning: Frame text is shrunk by a factor of 1.3031 percent instea
+d of 0 percent on input line 326.
 
 [15
 
@@ -2204,15 +2207,15 @@ File: diexingyunsuan.jpg Graphic file (type bmp)
 <diexingyunsuan.jpg>
 
 
-Class beamer Warning: Frame text is shrunk by a factor of 13.13019 percent inst
-ead of 0 percent on input line 313.
+Class beamer Warning: Frame text is shrunk by a factor of 1.3031 percent instea
+d of 0 percent on input line 326.
 
 [16
 
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 22.71118 percent inst
-ead of 0 percent on input line 348.
+ead of 0 percent on input line 361.
 
 [17
 
@@ -2231,7 +2234,7 @@ File: 8dftFirst.jpg Graphic file (type bmp)
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 6.97937 percent inste
-ad of 0 percent on input line 468.
+ad of 0 percent on input line 481.
 
 [21
 
@@ -2257,26 +2260,26 @@ File: 8dftThird.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 6.97937 percent inste
-ad of 0 percent on input line 598.
+ad of 0 percent on input line 612.
 
 [27
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 604.
+(hyperref)                removing `math shift' on input line 618.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 604.
+(hyperref)                removing `subscript' on input line 618.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 604.
+(hyperref)                removing `superscript' on input line 618.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 604.
+(hyperref)                removing `math shift' on input line 618.
 
 File: 8dftThird.jpg Graphic file (type bmp)
 <8dftThird.jpg>
@@ -2298,7 +2301,7 @@ File: 8dftThird.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 2.67334 percent inste
-ad of 0 percent on input line 699.
+ad of 0 percent on input line 713.
 
 [34
 
@@ -2317,7 +2320,7 @@ File: 8dftThird.jpg Graphic file (type bmp)
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 4.44336 percent inste
-ad of 0 percent on input line 785.
+ad of 0 percent on input line 799.
 
 [38
 
@@ -2326,7 +2329,7 @@ Missing character: There is no ， in font [lmroman10-regular]:mapping=tex-text;
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 6.14929 percent inste
-ad of 0 percent on input line 810.
+ad of 0 percent on input line 824.
 
 [39
 
@@ -2343,7 +2346,7 @@ File: daoxun.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 11.2976 percent inste
-ad of 0 percent on input line 881.
+ad of 0 percent on input line 895.
 
 [42
 
@@ -2353,7 +2356,7 @@ File: daoxun.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 2.22015 percent inste
-ad of 0 percent on input line 900.
+ad of 0 percent on input line 914.
 
 [43
 
@@ -2363,7 +2366,7 @@ File: daoxubianchen.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 3.56598 percent inste
-ad of 0 percent on input line 921.
+ad of 0 percent on input line 935.
 
 [44
 
@@ -2373,7 +2376,7 @@ File: daoxuguilv.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 0.36621 percent inste
-ad of 0 percent on input line 948.
+ad of 0 percent on input line 962.
 
 [45
 
@@ -2388,12 +2391,12 @@ ad of 0 percent on input line 948.
 ] [50
 
 ]
-Overfull \hbox (7.21179pt too wide) detected at line 1065
+Overfull \hbox (7.21179pt too wide) detected at line 1079
 [][] [][]
  []
 
 
-Overfull \hbox (7.78952pt too wide) detected at line 1065
+Overfull \hbox (7.78952pt too wide) detected at line 1079
 []
  []
 
@@ -2433,21 +2436,15 @@ File: dif8dftthird.jpg Graphic file (type bmp)
 \tf@snm=\write8
 \openout8 = `chapter4_done.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1167.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1167.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1181.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1181.
  (./chapter4_done.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1167.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1167.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1181.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1181.
 
+Package rerunfilecheck Info: File `chapter4_done.out' has not changed.
+(rerunfilecheck)             Checksum: 494C119CE3A5F7111D648B57D9247A6F.
 
-
-Package rerunfilecheck Warning: File `chapter4_done.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `chapter4_done.out':
-(rerunfilecheck)             Before: F79BEAD246F6815A25F890032E342B2E
-(rerunfilecheck)             After:  9374E5A049C8B5A9A4257B654CE41A6F.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -2456,11 +2453,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 34445 strings out of 492970
- 716554 string characters out of 6137298
- 779323 words of memory out of 5000000
- 37814 multiletter control sequences out of 15000+600000
- 546530 words of font info for 122 fonts, out of 8000000 for 9000
+ 34472 strings out of 492970
+ 717927 string characters out of 6137298
+ 779375 words of memory out of 5000000
+ 37838 multiletter control sequences out of 15000+600000
+ 546538 words of font info for 123 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  55i,18n,72p,10466b,714s stack positions out of 5000i,500n,10000p,200000b,80000s
 
