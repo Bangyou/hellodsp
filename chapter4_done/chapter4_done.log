@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.28)  26 OCT 2018 00:07
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  27 OCT 2018 17:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2442,9 +2442,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 1181.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1181.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1181.
 
-Package rerunfilecheck Info: File `chapter4_done.out' has not changed.
-(rerunfilecheck)             Checksum: 494C119CE3A5F7111D648B57D9247A6F.
 
+
+Package rerunfilecheck Warning: File `chapter4_done.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `chapter4_done.out':
+(rerunfilecheck)             Before: CD0D26966C253339500E553F18F2D165
+(rerunfilecheck)             After:  494C119CE3A5F7111D648B57D9247A6F.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -2453,9 +2459,9 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 34472 strings out of 492970
- 717927 string characters out of 6137298
- 779375 words of memory out of 5000000
+ 34470 strings out of 492970
+ 717919 string characters out of 6137298
+ 779377 words of memory out of 5000000
  37838 multiletter control sequences out of 15000+600000
  546538 words of font info for 123 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
