@@ -847,6 +847,7 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
                     A(4) - W_N^{0}A(6) &\longrightarrow A(6)
                     \end{aligned} \right.
                 $$
+      \item [(c)] $J=0,p=0,k=8,B=2$,此时$ k\geq N-1 $,跳出循环。
       \end{enumerate}
       \newpage
   \item [2] $J=1$
@@ -857,7 +858,7 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
                     A(1) + W_N^{2}A(3) &\longrightarrow A(1)\quad\quad\quad\quad\quad\quad\quad\quad \\
                     A(1) - W_N^{2}A(3) &\longrightarrow A(3)
                     \end{aligned} \right.
-                $$
+                $$                
       \item [(b)]$J=1,p=2,k=5,B=2$
                 $$
                     \left\{ \begin{aligned}
@@ -865,6 +866,7 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
                     A(5) - W_N^{2}A(7) &\longrightarrow A(7)
                     \end{aligned} \right.
                 $$
+      \item [(c)]$J=1,p=2,k=9,B=2$，此时$ k\geq N-1 $,跳出循环。
       \end{enumerate}
 \end{enumerate}
 \end{frame}
@@ -972,10 +974,10 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
 %%
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[shrink]\frametitle{频域域抽取法基2FFT将长序列分解为短序列所遵循的原则}%[allowframebreaks]
+\begin{frame}[shrink]\frametitle{频域域抽取法基2$FFT$将长序列分解为短序列所遵循的原则}%[allowframebreaks]
 \begin{enumerate}
-  \item 对时间前后分(n)
-  \item 对频率分奇偶(k)
+  \item 对时间前后分$(n)$
+  \item 对频率分奇偶$(k)$
 \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -985,8 +987,8 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]
 
-\par 假设序列$x(n)$长度为N，且满足$N=2^{M}$，M为自然数。（不是的补0）
-\par 按n的前后把$x(n)$分解为两个$N/2$长的子序列
+\par 假设序列$x(n)$长度为$N$，且满足$N=2^{M}$，$M$为自然数。（不是的补0）
+\par 按$n$的前后把$x(n)$分解为两个$N/2$长的子序列
     \begin{equation*} \label{eq:4}
     \begin{split}
     X(k)&= DFT[x(n)] \\
