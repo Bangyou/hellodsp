@@ -847,7 +847,7 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
                     A(4) - W_N^{0}A(6) &\longrightarrow A(6)
                     \end{aligned} \right.
                 $$
-      \item [(c)] $J=0,p=0,k=8,B=2$,此时$ k\geq N-1 $,跳出循环。
+      \item [(c)] $J=0,p=0,k=8,B=2$,此时$ k> N-1 $,跳出循环。
       \end{enumerate}
       \newpage
   \item [2] $J=1$
@@ -866,7 +866,7 @@ $$L=2，\quad\quad\therefore B=2^{L-1}=2\quad\quad\quad\quad\quad\quad\quad\quad
                     A(5) - W_N^{2}A(7) &\longrightarrow A(7)
                     \end{aligned} \right.
                 $$
-      \item [(c)]$J=1,p=2,k=9,B=2$，此时$ k\geq N-1 $,跳出循环。
+      \item [(c)]$J=1,p=2,k=9,B=2$，此时$ k> N-1 $,跳出循环。
       \end{enumerate}
 \end{enumerate}
 \end{frame}
@@ -1065,7 +1065,7 @@ $$X(2m+1)=\sum_{n=0}^{\frac{N}{2}-1}\left[x(n)-x(n+\frac{N}{2})\right]W_{N}^{(2m
 \left \{
 \begin{aligned}
     X(2m)\quad &= \sum_{n=0}^{\frac{N}{2}-1}\left[x(n)+x(n+\frac{N}{2})\right]W_{\frac{N}{2}}^{mn} \quad\quad(0\leq m\leq\frac{N}{2}-1)\\
-    X(2m+1)    &= \sum_{n=0}^{\frac{N}{2}-1}\left[(x(n)-x(n+\frac{N}{2}))W_N^n \right]W_{\frac{N}{2}}^{mn}\\
+    X(2m+1)    &= \sum_{n=0}^{\frac{N}{2}-1}\left[\Big(x(n)-x(n+\frac{N}{2})\Big)W_N^n \right]W_{\frac{N}{2}}^{mn}\\
 \end{aligned}
 \right.
 \end{equation*}
@@ -1164,7 +1164,7 @@ $$
         \begin{split}
         x(n)&= \frac{1}{N}\sum_{n=0}^{N-1}X(k)W_{N}^{-kn} \quad\quad\quad\quad\quad\quad\quad\quad\quad\\
             &= \frac{1}{N}\left[\sum_{n=0}^{N-1}X^*(k)W_{N}^{kn} \right]^*\\
-            &= \frac{1}{N}\left[DFT[X^*(k)]\right]^*\\
+            &= \frac{1}{N}\Big[DFT\big[X^*(k)\big]\Big]^*\\
         \end{split}
         \end{equation}
        % $$
