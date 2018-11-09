@@ -1,15 +1,15 @@
-\beamer@sectionintoc {2}{引言}{3}{0}{1}
-\beamer@sectionintoc {3}{用信号流图表示网络结构}{7}{0}{2}
-\beamer@subsectionintoc {3}{1}{基本信号流图}{7}{0}{2}
-\beamer@subsectionintoc {3}{2}{数字滤波器的分类}{12}{0}{2}
-\beamer@sectionintoc {4}{IIR系统的基本网络结构}{21}{0}{3}
-\beamer@subsectionintoc {4}{1}{直接型}{21}{0}{3}
-\beamer@subsectionintoc {4}{2}{级联型（串联型）}{26}{0}{3}
-\beamer@subsectionintoc {4}{3}{并联型}{27}{0}{3}
-\beamer@sectionintoc {5}{FIR系统的基本网络结构}{32}{0}{4}
-\beamer@subsectionintoc {5}{1}{直接型网络结构（卷积型）}{34}{0}{4}
-\beamer@subsectionintoc {5}{2}{级联型网络结构（串联型）}{36}{0}{4}
-\beamer@subsectionintoc {5}{3}{线性相位结构}{39}{0}{4}
+\beamer@sectionintoc {2}{5.1 引言}{3}{0}{1}
+\beamer@sectionintoc {3}{5.2 用信号流图表示网络结构}{7}{0}{2}
+\beamer@subsectionintoc {3}{1}{5.2.1 基本信号流图}{7}{0}{2}
+\beamer@subsectionintoc {3}{2}{5.2.2 数字滤波器的分类}{12}{0}{2}
+\beamer@sectionintoc {4}{5.3 IIR系统的基本网络结构}{21}{0}{3}
+\beamer@subsectionintoc {4}{1}{5.3.1 直接型}{21}{0}{3}
+\beamer@subsectionintoc {4}{2}{5.3.2 级联型（串联型）}{26}{0}{3}
+\beamer@subsectionintoc {4}{3}{5.3.3 并联型}{27}{0}{3}
+\beamer@sectionintoc {5}{5.4 FIR系统的基本网络结构}{32}{0}{4}
+\beamer@subsectionintoc {5}{1}{5.4.1 直接型网络结构（卷积型）}{34}{0}{4}
+\beamer@subsectionintoc {5}{2}{5.4.2 级联型网络结构（串联型）}{36}{0}{4}
+\beamer@subsectionintoc {5}{3}{5.4.3 线性相位结构}{39}{0}{4}
 \beamer@subsubsectionintoc {5}{3}{1}{线性相位结构的概念}{40}{0}{4}
 \beamer@subsubsectionintoc {5}{3}{2}{FIR-DF的线性相位结构}{41}{0}{4}
 \beamer@subsubsectionintoc {5}{3}{3}{线性相位结构的零点分布特性}{49}{0}{4}
