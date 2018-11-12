@@ -65,7 +65,7 @@
 	\frame{ \titlepage }
 	%%---------------------------------------------------------------------------------------------------
 	\section*{目录}
-	\frame{\kaishu\frametitle{\kaishu 目录}\tableofcontents}
+	\frame[shrink]{\kaishu\frametitle{\kaishu 目录}\tableofcontents}
 	
 %\section{ 引言}
 \section{6.1 滤波器概述}
@@ -76,7 +76,7 @@
 \subsection{6.1.1 滤波器的概念}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]6.1 滤波器概述
-\textbf{一、滤波器的概念}
+\textbf{\heiti 一、滤波器的概念}
 \newline
 滤波器是一种对信号频率具有选择性的系统。
 \begin{figure}[h]
@@ -97,7 +97,7 @@
 \subsection{6.1.2 理想滤波器与实际滤波器}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]
-\textbf{二、理想滤波器与实际滤波器}
+\textbf{\heiti 二、理想滤波器与实际滤波器}
 $$\mbox{设}\quad\quad\quad\quad  H_{a}(j\Omega)=|H_{a}(j\Omega)|\cdot e^{jarg[H_{a}(j\Omega)]}$$
 
  (1) 理想滤波器
@@ -141,7 +141,7 @@ $$\mbox{设}\quad\quad\quad\quad  H_{a}(j\Omega)=|H_{a}(j\Omega)|\cdot e^{jarg[H
 \subsection{6.1.3 滤波器的分类}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks]
-\textbf{三、滤波器的分类}
+\textbf{\heiti 三、滤波器的分类}
 
 \begin{enumerate}
   \item[1]
@@ -176,23 +176,23 @@ $$\mbox{设}\quad\quad\quad\quad  H_{a}(j\Omega)=|H_{a}(j\Omega)|\cdot e^{jarg[H
 \subsection{6.1.4 数字滤波器的设计}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]
-\textbf{四、数字滤波器的设计}
+\textbf{\heiti 四、数字滤波器的设计}
 \newline
 
-一、直接法（不讲）
+1、直接法（不讲）
 \begin{enumerate}
-\item [1] 在时域中设计
-\item [2] 在频域中设计
+\item [(1)] 在时域中设计
+\item [(2)] 在频域中设计
 \end{enumerate}
-二、从AF设计DF
+2、从AF设计DF
 \begin{enumerate}
-\item [1]  根据$DF$技术指标要求设计模拟滤波器，得到$H_{a}(s)$(6.2节)
-\item [2] 利用一种映射方法，将    $$H_{a}(s)\underrightarrow{\quad\quad\mbox{映射为}\quad\quad}
+\item [(1)]  根据$DF$技术指标要求设计模拟滤波器，得到$H_{a}(s)$(6.2节)
+\item [(2)] 利用一种映射方法，将    $$H_{a}(s)\underrightarrow{\quad\quad\mbox{映射为}\quad\quad}
 {\quad\quad}H(z)$$
 映射方法
 \begin{enumerate}
-\item [(1)] 脉冲响应不变法 \quad (6.3节)
-\item [(2)] 双线性变换法  \qquad (6.4节)
+\item [(a)] 脉冲响应不变法 \quad (6.3节)
+\item [(b)] 双线性变换法  \qquad (6.4节)
 \end{enumerate}
 \end{enumerate}
 \end{frame}
@@ -202,7 +202,7 @@ $$\mbox{设}\quad\quad\quad\quad  H_{a}(j\Omega)=|H_{a}(j\Omega)|\cdot e^{jarg[H
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]6.2 模拟滤波器的设计方法
 %\textbf{一、模拟选频滤波器}
-\textbf{一、模拟选频滤波器的概念}
+\textbf{\heiti 一、模拟选频滤波器的概念}
 \begin{enumerate}
        \item 模拟选频滤波器
         \begin{figure}[h]
@@ -218,7 +218,7 @@ $$\mbox{设}\quad\quad\quad\quad  H_{a}(j\Omega)=|H_{a}(j\Omega)|\cdot e^{jarg[H
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks]
 
-\textbf{二、设计方法（逼近法）}
+\textbf{\heiti 二、设计方法（逼近法）}
 
 \begin{enumerate}
       \item  [1]  理想滤波器无法用模拟滤波器实现
@@ -254,9 +254,11 @@ $$\mbox{如何由}\quad\quad \left|H_{a}(j\Omega)\right| \longrightarrow H_{a}(s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks]
-\textbf{三、实因果系统传输函数的设计}
+\textbf{\heiti 三、实因果系统传输函数的设计}\\
+\quad\\
 \textbf{对于实因果系统，如何由$|H_a(j\Omega)|^2$得到$H_a(s)$。}
-\par （注意： 此处，$H_a(j\Omega)$与$H_a(s)$可相互等价）
+
+\quad\\
 \begin{enumerate}
   \item [1] 特点：
       设某因果系统，$h_a(t)$为实函数，有：
@@ -266,6 +268,13 @@ $$\mbox{如何由}\quad\quad \left|H_{a}(j\Omega)\right| \longrightarrow H_{a}(s
          H_{a}(j\Omega)&=|H_{a}(j\Omega)|\cdot e^{jarg[H_{a}(j\Omega)]}\\
         \end{split}
       \end{equation*}
+%      \quad\\
+%      \quad\\
+%      \quad\\
+%      \quad\\
+\begin{zhuyi}
+\quad\qquad      注意： 此处，$H_a(j\Omega)$与$H_a(s)$可相互等价
+\end{zhuyi}
    \newpage
 
       \textbf{重要结论(自证)}
@@ -287,7 +296,7 @@ $$\mbox{如何由}\quad\quad \left|H_{a}(j\Omega)\right| \longrightarrow H_{a}(s
             %\par（注：$H_{a}(j\Omega)= H_{a}(s)|_{s=\j\Omega}$）
             %$|H_{a}(j\Omega)|^{2}\rightarrow H_{a}(j\Omega)\quad$
             \newline
-            \par 设$|H_{a}(s)|^{2}$是全极点函数，有$2N$个极点，则可由幅度平方函数$|H_{a}(j\Omega)|^{2}$求出系统函数。
+            \par 假设$|H_{a}(s)|^{2}$是{\heiti 全极点函数}，有$2N$个极点，则可由幅度平方函数$|H_{a}(j\Omega)|^{2}$求出系统函数。
 
 %      \texttt{分析：}
 %        $$|H_a(s)|^{2} = H_a(s)H_a(-s)$$
@@ -334,11 +343,11 @@ $$\mbox{如何由}\quad\quad \left|H_{a}(j\Omega)\right| \longrightarrow H_{a}(s
 
 \subsection{6.2.2 模拟低通滤波器的技术要求及逼近方法}
 
-\subsubsection{LP-AF的技术要求（技术指标）}
+\subsubsection*{LP-AF的技术要求（技术指标）}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{LP-AF的技术要求}%[allowframebreaks]
-一、LP-AF的技术要求（技术指标）
+{\heiti 一、LP-AF的技术要求（技术指标）}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.55\textwidth]{fig6_lpafjszb.jpg}
@@ -395,7 +404,7 @@ $$\alpha(\Omega_{c})\thickapprox 3dB \quad\quad\Rightarrow\quad\quad
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]
-\textbf{二、Butterworth逼近方法}
+{\heiti 二、Butterworth逼近方法}
     \par\par\par 设$H_{d}(s)$是理想滤波器
 \begin{enumerate}
    \item [1]
@@ -420,7 +429,7 @@ $$\alpha(\Omega_{c})\thickapprox 3dB \quad\quad\Rightarrow\quad\quad
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[shrink]\frametitle{最平响应Butterworth系统}%[allowframebreaks]
 
-\textbf{一、最平响应Butterworth系统}
+\textbf{\heiti 一、最平响应Butterworth系统}
 $$|H_{a}(j\Omega)|^{2}= \frac{1}{1+C^{2}\Omega^{2N}}$$
 $$  \mbox{两个未知参数C，N，确定之即可得$|H_{a}(j\Omega)|^{2}$} $$
 \end{frame}
@@ -583,7 +592,7 @@ $$  \mbox{两个未知参数C，N，确定之即可得$|H_{a}(j\Omega)|^{2}$} $$
       \end{figure}
 
       可见，$s_{0},s_{1},s_{2},s_{3}$在s平面左边，$s_{4},s_{5},s_{6},s_{7}$在s平面
-      右边，$s_{k}$分布在半径为$\Omega_{c}$的圆上，且以纵轴对称。
+      右边，$s_{k}$分布在半径为$\Omega_{c}$的圆上，且关于原点对称。
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -616,23 +625,11 @@ $$  \mbox{两个未知参数C，N，确定之即可得$|H_{a}(j\Omega)|^{2}$} $$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks]
-\textbf{二、设计过程}
+\textbf{\heiti 二、设计过程}
 
 \begin{enumerate}
-  \item  由$(\Omega_{p},\alpha_{p})$，$(\Omega_{s},\alpha_{s})$得到：
-      $$        |H_{a}(j\Omega)|^{2}= \frac{1}{1+(\frac{\Omega}{\Omega_{c}})^{2N}}         $$
-%      $$
-%        \left\{
-%        \begin{aligned}
-%        (\Omega_{p},\alpha_{p})  &\Longrightarrow |H_{a}(j\Omega)|^{2}= \frac{1}{1+(\frac{\Omega}{\Omega_{c}})^{2N}}\\
-%        (\Omega_{s},\alpha_{s})  &\quad \\
-%        \end{aligned}
-%        \right.
-%      $$
-%      $$\mbox{得到：}\quad\quad\quad\quad
-%      |H_{a}(j\Omega)|^{2}= \frac{1}{1+(\frac{\Omega}{\Omega_{c}})^{2N}}
-%      \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad$$
-
+\item  由$(\Omega_{p},\alpha_{p})$，$(\Omega_{s},\alpha_{s})$得到：
+      $$|H_{a}(j\Omega)|^{2}= \frac{1}{1+(\frac{\Omega}{\Omega_{c}})^{2N}}$$
       即求解$N,\Omega_{c}$
   \item   由
   $|H_a(j\Omega)|^{2}\longrightarrow H_{a}(s)$
@@ -703,13 +700,13 @@ $$
         联立求解得：
         $$(\frac{\Omega_{p}}{\Omega_{s}})^{2N} = \frac{10^{\frac{3}{10}}-1}{10^{3}-1}$$
         $$\mbox{$N=4.98$}$$
-        又N必须为整数，有
-        $$
-        \left\{ \begin{aligned}
-            N          &= 5\\
-            \Omega_{c} &= 10^{4}\pi\quad rad/s\\
-        \end{aligned} \right.
-        $$
+        但N为阶数，必须为整数。
+%        $$
+%        \left\{ \begin{aligned}
+%            N          &= 5\\
+%            \Omega_{c} &= 10^{4}\pi\quad rad/s\\
+%        \end{aligned} \right.
+%        $$
 \end{dablock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -718,7 +715,7 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks]
 \begin{dablock}
-又N必须为整数，有
+因为N必须为整数，有
 $$
 \left\{ \begin{aligned}
 N          &= 5\\
@@ -726,8 +723,8 @@ N          &= 5\\
 \end{aligned} \right.
 $$
 计算$s_k$:
-$$s_{k}=\Omega_{c}\cdot e^{j\pi[\frac{1}{2}+\frac{2k+1)}{2N}]}     \quad\quad (k=0,1,2,3,4)$$
-$$\therefore\quad\quad H(s)= \frac{\Omega^{5}_{c}}{\prod^4_{0}(s-s_k)}$$
+$$s_{k}=\Omega_{c}\cdot e^{j\pi[\frac{1}{2}+\frac{2k+1)}{2N}]} \qquad (k=0,1,2,3,4)$$
+$$\therefore\quad\quad H(s)= \frac{\Omega^{5}_{c}}{\prod^4_{0}(s-s_k)}\qquad\qquad\qquad\qquad$$
 
 %$$H(s)= \frac{\pi^{5}\cdot 10^{20}}{(s+10^4\pi)[s^2+0.618\pi\times10^4s+(\pi\times10^4)^2]}\\
 %\frac{1}{
@@ -775,7 +772,7 @@ $$\therefore\quad\quad H(s)= \frac{\Omega^{5}_{c}}{\prod^4_{0}(s-s_k)}$$
          令 $p=\frac{s}{\Omega_c}$  (归一化广义频率）
          则：
          $$s_k= \Omega_c\cdot e^{j\pi[\frac{1}{2}+\frac{2k+1}{2N}]}\quad  \Longrightarrow\quad
-         p_k= e^{j\pi[\frac{1}{2}+\frac{2k+1}{2N}]}\mbox{\quad\quad  与$\Omega_c$无关}
+         p_k= \dfrac{s_k}{\Omega_c} = e^{j\pi[\frac{1}{2}+\frac{2k+1}{2N}]}\mbox{\quad 与$\Omega_c$无关}
          $$
          而
          $$H_{a}(s) = \frac{\Omega_{c}^{N}}{\prod^{N-1}_{k=0}(s-s_{k})}
@@ -805,9 +802,10 @@ $$\therefore\quad\quad H(s)= \frac{\Omega^{5}_{c}}{\prod^4_{0}(s-s_k)}$$
 \section{6.3 IIR-DF的设计—脉冲响应不变法}
 
 \subsection{6.3.1 IIR-DF设计的基本概念}
-\subsubsection{基本概念}
+\subsubsection*{基本概念}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[shrink]\frametitle{一、基本概念}%[allowframebreaks]
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+{\heiti 一、基本概念}
 \begin{enumerate}
   \item [(1)]
     技术要求 $H(e^{j\omega})$，即：    $\quad\quad(\omega_p,\alpha_p),(\omega_s,\alpha_s)$
@@ -844,10 +842,10 @@ $$\therefore\quad\quad H(s)= \frac{\Omega^{5}_{c}}{\prod^4_{0}(s-s_k)}$$
    \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{从AF设计DF的基本思想}
+\subsubsection*{从AF设计DF的基本思想}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[shrink]\frametitle{二、从AF设计DF的基本思想}%[allowframebreaks]
-
+\begin{frame}[shrink]\frametitle{}%[allowframebreaks]
+{\heiti 二、从AF设计DF的基本思想}
 \begin{enumerate}
   \item [1] 将数字滤波器的技术指标转化为模拟滤波器的技术指标。 \newline
   \item [2] 设计模拟滤波器，得到其系统函数$H_a(s)$。 \newline
@@ -1762,9 +1760,9 @@ $\mbox{对比可得：}$
 \end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{例题}
+\section*{例题}
 %
-\subsection{例题1}
+\subsection*{例题1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks][shrink]
 \begin{example}
@@ -1903,7 +1901,7 @@ $1^0\quad$ 技术指标的转换：
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{例题2}
+\subsection*{例题2}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
 \begin{example}
@@ -1995,7 +1993,7 @@ $1^0\quad$ 技术指标的转换：
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{例题3}
+\subsection*{例题3}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[allowframebreaks]\frametitle{}%[allowframebreaks][shrink]
 \begin{example}

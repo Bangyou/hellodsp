@@ -6,18 +6,11 @@
 \beamer@sectionintoc {3}{6.2 模拟滤波器的设计方法}{9}{0}{2}
 \beamer@subsectionintoc {3}{1}{6.2.1 模拟低通滤波器的设计}{9}{0}{2}
 \beamer@subsectionintoc {3}{2}{6.2.2 模拟低通滤波器的技术要求及逼近方法}{14}{0}{2}
-\beamer@subsubsectionintoc {3}{2}{1}{LP-AF的技术要求（技术指标）}{14}{0}{2}
 \beamer@subsectionintoc {3}{3}{6.2.3 最平响应Butterworth Filter设计}{18}{0}{2}
 \beamer@sectionintoc {4}{6.3 IIR-DF的设计—脉冲响应不变法}{35}{0}{3}
 \beamer@subsectionintoc {4}{1}{6.3.1 IIR-DF设计的基本概念}{35}{0}{3}
-\beamer@subsubsectionintoc {4}{1}{1}{基本概念}{35}{0}{3}
-\beamer@subsubsectionintoc {4}{1}{2}{从AF设计DF的基本思想}{37}{0}{3}
 \beamer@subsectionintoc {4}{2}{6.3.2 脉冲响应不变法}{40}{0}{3}
 \beamer@sectionintoc {5}{6.4 IIR-DF的设计—双线性变换法（BLT）}{59}{0}{4}
 \beamer@subsectionintoc {5}{1}{6.4.1 双线性变换法}{60}{0}{4}
 \beamer@subsectionintoc {5}{2}{6.4.2 LP-DF完整设计方法}{71}{0}{4}
 \beamer@subsectionintoc {5}{3}{6.4.3 其他需要注意的问题}{72}{0}{4}
-\beamer@sectionintoc {6}{例题}{76}{0}{5}
-\beamer@subsectionintoc {6}{1}{例题1}{76}{0}{5}
-\beamer@subsectionintoc {6}{2}{例题2}{83}{0}{5}
-\beamer@subsectionintoc {6}{3}{例题3}{87}{0}{5}

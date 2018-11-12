@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  28 SEP 2018 19:54
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  12 NOV 2018 16:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2525,9 +2525,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 3832.
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3832.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3832.
 
-Package rerunfilecheck Info: File `chapter2.out' has not changed.
-(rerunfilecheck)             Checksum: B3FC8251A07A2FD5B131BD97CC221D24.
 
+
+Package rerunfilecheck Warning: File `chapter2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `chapter2.out':
+(rerunfilecheck)             Before: BDD98B03690DECF42EAE4B751150A85C
+(rerunfilecheck)             After:  B3FC8251A07A2FD5B131BD97CC221D24.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
