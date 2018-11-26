@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  12 NOV 2018 22:36
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.9.23)  22 NOV 2018 22:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2282,26 +2282,16 @@ ead of 0 percent on input line 937.
 
 ] [46
 
-]
+] [47
 
-Class beamer Warning: Frame text is shrunk by a factor of 3.59192 percent inste
-ad of 0 percent on input line 1097.
-
-[47
-
-]
-
-Class beamer Warning: Frame text is shrunk by a factor of 8.70361 percent inste
-ad of 0 percent on input line 1130.
-
-[48
+] [48
 
 ] [49
 
 ]
 
 LaTeX Font Warning: Font shape `TU/SimSun(0)/bx/it' undefined
-(Font)              using `TU/SimSun(0)/bx/n' instead on input line 1185.
+(Font)              using `TU/SimSun(0)/bx/n' instead on input line 1187.
 
 [50
 
@@ -2316,18 +2306,18 @@ File: fig14_MZzhijiaojizuobiao.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 12.67395 percent inst
-ead of 0 percent on input line 1240.
+ead of 0 percent on input line 1242.
 
 [52
 
 ]
-Overfull \hbox (33.70993pt too wide) detected at line 1282
+Overfull \hbox (33.70993pt too wide) detected at line 1284
 []
  []
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 6.58112 percent inste
-ad of 0 percent on input line 1282.
+ad of 0 percent on input line 1284.
 
 [53
 
@@ -2353,7 +2343,12 @@ File: fig17_MZdiejiajieguo.jpg Graphic file (type bmp)
 
 ] [59
 
-] [60
+]
+Overfull \hbox (10.26004pt too wide) detected at line 1425
+[][][]
+ []
+
+[60
 
 ]
 Overfull \hbox (6.71983pt too wide) detected at line 1465
@@ -2370,7 +2365,7 @@ Overfull \hbox (6.71983pt too wide) detected at line 1465
 
 
 ]
-Overfull \hbox (2.23813pt too wide) detected at line 1610
+Overfull \hbox (2.23813pt too wide) detected at line 1595
 []
  []
 
@@ -2403,7 +2398,7 @@ File: fig21_BLT_feijunyunyasuo.jpg Graphic file (type bmp)
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 8.00629 percent inste
-ad of 0 percent on input line 1635.
+ad of 0 percent on input line 1620.
 
 [70
 
@@ -2412,12 +2407,12 @@ ad of 0 percent on input line 1635.
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 13.48724 percent inst
-ead of 0 percent on input line 1694.
+ead of 0 percent on input line 1679.
 
 [72
 
 ]
-Overfull \hbox (57.22348pt too wide) detected at line 1726
+Overfull \hbox (57.22348pt too wide) detected at line 1711
 []
  []
 
@@ -2426,7 +2421,7 @@ Overfull \hbox (57.22348pt too wide) detected at line 1726
 ]
 
 Class beamer Warning: Frame text is shrunk by a factor of 8.70361 percent inste
-ad of 0 percent on input line 1747.
+ad of 0 percent on input line 1732.
 
 [74
 
@@ -2435,31 +2430,31 @@ File: fig22_BLT_yujibian.jpg Graphic file (type bmp)
 <fig22_BLT_yujibian.jpg>
 
 
-Package hyperref Warning: Ignoring empty anchor on input line 1761.
+Package hyperref Warning: Ignoring empty anchor on input line 1746.
 
 [75
 
 ] [76
 
 ]
-Overfull \hbox (10.0901pt too wide) detected at line 1901
+Overfull \hbox (10.0901pt too wide) detected at line 1886
 []
  []
 
 
-Overfull \hbox (21.9pt too wide) detected at line 1901
+Overfull \hbox (21.9pt too wide) detected at line 1886
 []
  []
 
 
-Overfull \hbox (15.24391pt too wide) detected at line 1901
+Overfull \hbox (15.24391pt too wide) detected at line 1886
 []
  []
 
 File: fig23_example1.jpg Graphic file (type bmp)
 <fig23_example1.jpg>
 
-Package hyperref Warning: Ignoring empty anchor on input line 1901.
+Package hyperref Warning: Ignoring empty anchor on input line 1886.
 
 [77
 
@@ -2484,13 +2479,13 @@ Package hyperref Warning: Ignoring empty anchor on input line 1901.
 
 
 ]
-Overfull \hbox (52.10626pt too wide) detected at line 1978
+Overfull \hbox (52.10626pt too wide) detected at line 1963
 []
  []
 
 
 Class beamer Warning: Frame text is shrunk by a factor of 10.73303 percent inst
-ead of 0 percent on input line 1978.
+ead of 0 percent on input line 1963.
 
 [85
 
@@ -2499,19 +2494,19 @@ File: fig24_example2.jpg Graphic file (type bmp)
 <fig24_example2.jpg>
 
 
-Package hyperref Warning: Ignoring empty anchor on input line 1993.
+Package hyperref Warning: Ignoring empty anchor on input line 1978.
 
 [86
 
 ]
-Overfull \hbox (14.96852pt too wide) detected at line 2039
+Overfull \hbox (14.96852pt too wide) detected at line 2024
 []
  []
 
 File: fig25_example3.jpg Graphic file (type bmp)
 <fig25_example3.jpg>
 
-Package hyperref Warning: Ignoring empty anchor on input line 2039.
+Package hyperref Warning: Ignoring empty anchor on input line 2024.
 
 [87
 
@@ -2531,11 +2526,11 @@ Package hyperref Warning: Ignoring empty anchor on input line 2039.
 \tf@snm=\write8
 \openout8 = `chapter6_done.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2045.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2045.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2030.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2030.
  (./chapter6_done.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 2045.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2045.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 2030.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2030.
 
 Package rerunfilecheck Info: File `chapter6_done.out' has not changed.
 (rerunfilecheck)             Checksum: 367E4605C7D3CF59EB4512BAE03D8A12.

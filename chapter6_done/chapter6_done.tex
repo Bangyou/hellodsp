@@ -1091,7 +1091,7 @@ $$H_a(s)= \sum_{i=1}^{M}\frac{A_i}{s-s_i}\longrightarrow H(z) = \sum_{i=1}^{M}\f
                             \sum_{n=-\infty}^{\infty}h(n)\delta(t-nT)\right]e^{-st}dt\\
                      &=\sum_{n=-\infty}^{\infty}h(n)\int_{-\infty}^{\infty}
                              \delta(t-nT)e^{-st}dt\\
-                     &= \sum_{n=-\infty}^{\infty}h(n)e^{-snT} =H(z)|_{z=e^{sT}}
+                    % &= \sum_{n=-\infty}^{\infty}h(n)e^{-snT} =H(z)|_{z=e^{sT}}
               \end{split}
             \end{equation*}
 \end{frame}
@@ -1101,7 +1101,7 @@ $$H_a(s)= \sum_{i=1}^{M}\frac{A_i}{s-s_i}\longrightarrow H(z) = \sum_{i=1}^{M}\f
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[shrink]\frametitle{}%[allowframebreaks]
 %\begin{enumerate}
-\begin{explain}
+%\begin{explain}
  注意:分配函数的取样性质:
  $$\int_{-\infty}^{\infty}f(t)\delta(t-t_0)dt = f(t_0)$$
  令$f(t) = e^{-st},t_0 =nT $，可得：
@@ -1112,10 +1112,12 @@ $$H_a(s)= \sum_{i=1}^{M}\frac{A_i}{s-s_i}\longrightarrow H(z) = \sum_{i=1}^{M}\f
                &= \sum_{n=-\infty}^{\infty}h(n)e^{-snT} =H(z)|_{z=e^{sT}}
   \end{split}
   \end{equation*}
- \end{explain}
+ %\end{explain}
  %$$\therefore\quad\quad \hat{H}_a(s)= \sum_{n=-\infty}^{\infty}h(n)e^{-snT}  = H(z)|_{z=e^{sT}}$$
- $\mbox{即：}$
- $$\quad\quad \hat{H}_a(s)= H(z)|_{z=e^{sT}}$$
+% $\mbox{即：}$
+ \begin{dablock}
+ $$\mbox{即：}\qquad\qquad\qquad \hat{H}_a(s)= H(z)|_{z=e^{sT}}\qquad\qquad\qquad\qquad$$
+\end{dablock}
  %$$\quad\quad\quad  H(z) = \hat{H}_a(s)|_{z=e^{sT}}\quad\quad\quad\quad\quad\quad\quad\quad\quad$$
 % $$\mbox{前述有：}\quad \hat{H}_a(s) = \frac{1}{T}\sum_{r=-\infty}^{\infty}H_a(s-j\frac{2\pi}{T}r)
 % \quad\quad\quad\quad\quad\quad\quad\quad$$
@@ -1412,15 +1414,13 @@ $\mbox{对比可得：}$
 
 
   \begin{enumerate}
-    \item 思路：\par
-      将
-        $$\mbox{连续系统的微分方程} \underrightarrow{\quad\mbox{利用数值积分方法转化为}\quad} \mbox{差分方程}$$
+    \item 思路：\par      
+        $$\mbox{将连续系统的微分方程} \underrightarrow{\quad\mbox{利用数值积分方法转化为}\quad} \mbox{差分方程}$$
        从而完成离散系统的设计。
     \item 推导：
-
-    \par [注：]这里以一阶系统为例推导，这种关系在高阶系统中依然存在。\par
     设一个一阶连续时间系统，其传输函数为：
     $$H_a(s) = \frac{d}{s+c}=\frac{Y(s)}{X(s)}$$
+    \par [注：]这里以一阶系统为例推导，这种关系在高阶系统中依然存在。\par
 \end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1508,23 +1508,8 @@ $\mbox{对比可得：}$
                        &= \frac{2}{T}\cdot j\cdot tg(\frac{\Omega_1}{2}T)
              \end{split}
           \end{equation*}
-          %$$
-%          j\Omega = \frac{2}{T}\frac{1-e^{-j\Omega_1 T}}{1+e^{-j\Omega_1 T}}
-%           = \frac{2}{T}\frac{e^{-j\frac{\Omega_1}{2}T}\left[
-%             e^{j\frac{\Omega_1}{2}T}-e^{-j\frac{\Omega_1}{2}T}\right]}
-%             {e^{-j\frac{\Omega_1}{2}T}\left[
-%             e^{j\frac{\Omega_1}{2}T}+e^{-j\frac{\Omega_1}{2}T}\right]}
-%           = \frac{2}{T}\cdot j\cdot tg(\frac{\Omega_1}{2}T)
-%          $$
           $$\therefore\quad\quad
           \Omega = \frac{2}{T} \cdot tg(\frac{\Omega_1}{2}T)\quad\quad\quad\quad\quad\quad\quad\quad$$
-%          \begin{figure}[h]
-%               \centering
-%               \includegraphics[width=0.80\textwidth]{fig18_BLT_yinsheguanxi.jpg}
-%               \caption{s到s1到z平面的映射示意图}
-%               %\vspace{-1.2cm}
-%               %\label{}
-%          \end{figure}
           \newpage
           $$\quad\quad
           \Omega = \frac{2}{T} \cdot tg(\frac{\Omega_1}{2}T)\quad\quad\quad\quad\quad\quad\quad\quad$$
@@ -1545,10 +1530,11 @@ $\mbox{对比可得：}$
           $$
           %当$\Omega$从$(0\rightarrow\infty)$变化时，
           %$\Omega_1$从$(0\rightarrow)\frac{\pi}{T}）$变化。
-          注意，这些变换与$\sigma$无关，S平面的横坐标可取任意值。也就说可以看做是水平横带。
+          %注意，这些变换与$\sigma$无关，S平面的横坐标可取任意值。也就说可以看做是水平横带。
+          即：
           $$\mbox{s平面}\quad  \rightarrow  \quad \mbox{水平横带区域（宽$\frac{2\pi}{T}$）}$$
       \newpage
-      \item [2] $s_1 \longrightarrow z\quad\quad$  （单值的，脉冲响应不变）
+      \item [2] $s_1 \longrightarrow z\quad\quad   z =e^{s_{1}T}$  （单值的，脉冲响应不变）
           \begin{figure}[h]
                \centering
                \includegraphics[width=0.5\textwidth]{fig19_BLT_shiyitu.jpg}
@@ -1570,7 +1556,7 @@ $\mbox{对比可得：}$
           s到s1到z平面的映射示意图
           \end{center}
       \newpage
-      \item  $\omega \longrightarrow \Omega$的关系
+      \item [3] $\omega \longrightarrow \Omega$的关系
           $$
           \left\{\begin{aligned}
             \Omega &= \frac{2}{T} \cdot tg(\frac{\Omega_1}{2}T)\\
@@ -1583,13 +1569,12 @@ $\mbox{对比可得：}$
           %\end{dablock}
           \textbf{说明}
           \begin{enumerate}
-            \item $\omega = \Omega_1 T$是脉冲响应不变法得到的映射。
-            \item 且有：
+            \item [(1)] $\omega = \Omega_1 T$是脉冲响应不变法得到的映射。
+            \item [(2)] 且有：
           $$
           \left\{\begin{aligned}
-            \Omega:(0\rightarrow\infty) &\Rightarrow \Omega_1:(0\rightarrow\frac{\pi}{T})\Rightarrow \omega:(0\rightarrow\pi)\\
-            \Omega:(-\infty\rightarrow 0)&\Rightarrow \Omega_1:(-\frac{\pi}{T}\rightarrow 0)\Rightarrow
-            \omega:(-\pi \rightarrow 0)\\
+            \Omega:(0\rightarrow\infty)\quad &\Rightarrow \Omega_1:(0\rightarrow\frac{\pi}{T})  \Rightarrow \omega:(0\rightarrow\pi)\\
+            \Omega:(-\infty\rightarrow 0)    &\Rightarrow \Omega_1:(-\frac{\pi}{T}\rightarrow 0)\Rightarrow \omega:(-\pi \rightarrow 0)\\
           \end{aligned} \right.
           $$
           \end{enumerate}
