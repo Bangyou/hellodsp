@@ -1,0 +1,14 @@
+\beamer@sectionintoc {2}{绪论}{3}{0}{1}
+\beamer@sectionintoc {3}{线性相位FIR数字滤波器的条件与特点}{6}{0}{2}
+\beamer@subsectionintoc {3}{1}{线性相位FIR数字滤波器}{7}{0}{2}
+\beamer@subsectionintoc {3}{2}{具有第一类线性相位结构的FIR-DF}{13}{0}{2}
+\beamer@subsectionintoc {3}{3}{具有第二类线性相位结构的FIR-DF}{27}{0}{2}
+\beamer@subsectionintoc {3}{4}{线性相位FIR-DF的零点分布特性}{28}{0}{2}
+\beamer@sectionintoc {4}{用窗函数法设计FIR-DF}{32}{0}{3}
+\beamer@subsectionintoc {4}{1}{概述}{33}{0}{3}
+\beamer@subsectionintoc {4}{2}{窗函数法设计原理}{34}{0}{3}
+\beamer@subsectionintoc {4}{3}{$h(n)$的幅度特性与截断效应}{40}{0}{3}
+\beamer@sectionintoc {5}{频率采样法}{53}{0}{4}
+\beamer@subsectionintoc {5}{1}{频率域采样回顾}{53}{0}{4}
+\beamer@sectionintoc {6}{IIR和FIR数字滤波器的比较}{53}{0}{5}
+\beamer@subsectionintoc {6}{1}{频率域采样回顾}{53}{0}{5}
