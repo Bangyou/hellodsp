@@ -74,15 +74,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{7.1 绪论 }%[allowframebreaks][shrink]
 \begin{flushleft}
-\textbf{一、IIR数字滤波器的设计}
+{\heiti 一、IIR数字滤波器的设计}
 \end{flushleft}
 
     IIR-DF的设计方法是：
     $$AF\underrightarrow{\quad \mbox{映射}\quad }DF$$
 
     \begin{itemize}
-      \item 优点：\par 利用模拟滤波器设计成熟的理论、设计图表，保留了其优良的幅度特性；
-      \item 缺点：\par 只考虑了幅度特性，没有考虑相位特性。（一般非线性）
+      \item [1]优点：\par 利用模拟滤波器设计成熟的理论、设计图表，保留了其优良的幅度特性；
+      \item [2]缺点：\par 只考虑了幅度特性，没有考虑相位特性。（一般非线性）
     \end{itemize}
 
 \end{frame}
@@ -93,14 +93,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks][shrink]
-\textbf{二、FIR数字滤波器设计}
+{\heiti 二、$FIR$数字滤波器设计}
 
   \begin{enumerate}
-    \item
-        FIR-DF在保证幅度特性的同时，很容易做到严格的线性相位。
+    \item [(1)]
+        $FIR-DF$在保证幅度特性的同时，很容易做到严格的线性相位。
 
-    \item
-        对于FIR-DF：
+    \item [(2)]
+        对于$FIR-DF$：
         \begin{equation*}
             \begin{split}
             H(z) &=\sum_{n=0}^{N-1}h(n)z^{-n}\\
@@ -108,11 +108,11 @@
                  &= \frac{h(0)z^{N-1} + h(1)z^{N-2} +\cdots + H(N-1)}{z^{N-1}}\\
             \end{split}
         \end{equation*}
-        可见：H(z)在z平面上有N-1个零点，仅在z=0处有一个N-1阶极点。
-        所以，H(z)永远稳定。
+        可见：$H(z)$在$z$平面上有$N-1$个零点，仅在$z=0$处有一个$N-1$阶极点。
+        所以，$H(z)$永远稳定。
   \end{enumerate}
 
-  \textbf{结论：} \textbf{稳定}和\textbf{线性相位}是FIR-DF最突出的优点。
+  {\heiti 结论：} {\heiti 稳定}和{\heiti 线性相位}是FIR-DF最突出的优点。
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,13 +122,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}\frametitle{}%[allowframebreaks][shrink]
-\textbf{三、设计方法}
+{\heiti 三、设计方法}
 
-    \begin{description}
-      \item[1] 窗函数法
-      \item[2] 频率采样法
-      \item[3] 等波纹逼近法
-    \end{description}
+\begin{description}
+  \item[1] 窗函数法
+  \item[2] 频率采样法
+  \item[3] 等波纹逼近法
+\end{description}
 
 
     本章仅讲述窗函数法。
@@ -160,10 +160,10 @@
 
     对于数字系统，其表达方式有：
     \begin{enumerate}
-      \item \quad\quad 差分方程：
+      \item \quad 差分方程：
           $$y(n)=\sum_{i=0}^{M}b_ix(n-i) - \sum_{i=1}^{N}a_iy(n-i)$$
 
-      \item \quad\quad 系统函数：
+      \item \quad 系统函数：
           $$H(z)=\frac{Y(z)}{X(z)}= \frac{\sum_{i=0}^{M}b_iz^{-i}}{1+\sum_{i=1}^{N}a_i z^{-i}}$$
     \end{enumerate}
 \end{frame}
@@ -374,7 +374,9 @@ $$h(n) = h(N-1-n)$$
   \item [(a)] $sin(\omega(n-\tau))$关于$n=\tau$奇对称；
   \item [(b)] 我们猜想，如果取$\tau =\frac{N-1}{2}$，$h(n)$要关于$\frac{N-1}{2}$偶对称。
 \end{enumerate}
-令$\tau = \frac{N-1}{2}$，则有：
+
+\quad \newline\quad 
+下面，令$\tau = \frac{N-1}{2}$，则有：
 
 $$\sum_{n=0}^{N-1}h(n)sin\left(\omega\Big(\frac{N-1}{2}-n\Big)\right)=0$$
 \end{frame}
@@ -1007,7 +1009,7 @@ $$h_d(n)=\frac{\omega_c}{\pi}Sa\left[\omega_c(n-\alpha)\right]$$
 \end{enumerate}
 
       $$\mbox{即：}\quad H_{dg}(\omega)\ast R_{Ng}(\omega)\quad\mbox{形成}\quad H_g(\omega)\quad\mbox{的过程。}$$
-      $$p205：\quad\quad
+      $$p223：\quad\quad
       (a)\ast (b)\longrightarrow (f)
       \quad\quad\mbox{的过程}$$
       \begin{enumerate}
