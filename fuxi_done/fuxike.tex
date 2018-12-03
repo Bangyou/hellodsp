@@ -1,0 +1,196 @@
+\documentclass[notheorems,compress,mathserif,table]{beamer}
+
+\useoutertheme{tree}
+\usecolortheme{whale}      % Outer color themes, 其他选择: whale, seahorse, dolphin . 换一个编译看看有什么不同.
+\usecolortheme{orchid}     % Inner color themes, 其他选择: lily, orchid
+\useinnertheme[shadow]{rounded} % 对 box 的设置: 圆角、有阴影.
+\setbeamercolor{sidebar}{bg=blue!50} % sidebar的颜色, 50%的蓝色.
+%\setbeamercolor{background canvas}{bg=blue!9} % 背景色, 9%的蓝色. 去掉下一行, 试一试这个.
+\setbeamertemplate{background canvas}[vertical shading][bottom=white,top=structure.fg!25] %%背景色, 上25%的蓝, 过渡到下白.
+\usefonttheme{serif}  % 字体. 个人偏好有轮廓的字体. 去掉这个设置编译, 就看到不同了.
+\setbeamertemplate{navigation symbols}{}   %% 去掉页面下方默认的导航条.
+%%------------------------常用宏包---------------------------------------------------------------------
+%%注意, beamer 会默认使用下列宏包: amsthm, graphicx, hyperref, color, xcolor, 等等
+%\usepackage{CJK}
+\usepackage{ctex}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,bm}
+\usepackage{mathrsfs}
+\usepackage{subfigure} %%图形或表格并排排列
+\usepackage{xmpmulti}  %%支持文中的 \multiinclude 等命令, 使 mp 文件逐帧出现. 具体讨论见 beamer 手册.
+\usepackage{colortbl,dcolumn}     %% 彩色表格
+%\logo{\includegraphics[height=0.09\textwidth]{ajln.jpg}}   %左上角科大logo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%重定义字体、字号命令 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\songti}{\CJKfamily{song}}        % 宋体
+%\newcommand{\fangsong}{\CJKfamily{fs}}        % 仿宋体
+%\newcommand{\kaishu}{\CJKfamily{kai}}         % 楷体
+%\newcommand{\heiti}{\CJKfamily{hei}}          % 黑体
+%\newcommand{\lishu}{\CJKfamily{li}}           % 隶书
+\newcommand{\youyuang}{\CJKfamily{you}}       % 幼圆
+\newcommand{\sanhao}{\fontsize{16pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}    % 字号设置
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%----------------------- Theorems ---------------------------------------------------------------------
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定义}
+\newtheorem{lemma}{引理}
+\newtheorem{example}{例题}
+\newtheorem{answer}{解：}
+\newtheorem{dablock}{}
+\newtheorem{jytg}{提纲}
+\newtheorem{daproof}{证明}
+\newtheorem{explain}{说明}
+\newtheorem{summary}{小结}
+
+\newtheorem{zhuyi}{注意}
+\newtheorem{shuoming}{说明}
+\newtheorem{wenti}{问题}
+\newtheorem{jielun}{结论}
+\newtheorem{yinli}{引理}
+%%----------------------------------------------------------------------------------------------------
+\title{\heiti 复习课}
+\author[\textcolor{blue}]{{\sihao\kaishu  笪邦友}}
+\institute{\sihao\lishu  \textcolor{violet}{中南民族大学~~ 电子信息工程学院}}
+\date{\fangsong\today} 
+
+\begin{document}
+	%  \begin{CJK*}{GBK}{kai}
+\kaishu
+\frame{ \titlepage }
+	%%---------------------------------------------------------------------------------------------------
+%\section*{目录}
+%\frame{\kaishu\frametitle{\kaishu 目录}\tableofcontents}
+\section*{前言}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第1章  \quad 习题：1,3,5,6,13  }%[allowframebreaks][shrink]
+\begin{enumerate}
+	\item [(1)] 线性时不变系统零状态响应$$ y(n)= x(n)*h(n)= \sum_{m=-\infty}^{\infty}x(m)h(n-m) $$ 
+		掌握两个卷积的计算，卷积计算的结合律与分配律。
+	\item [(2)] 序列用单位取样序列$\delta(n) $及其加权和表示。
+		$$ x(n) = \sum_{m=-\infty}^{\infty}x(m) \delta (n-m) $$
+ 	\item [(3)] 判断序列是否为周期序列，并会求周期。
+	\item [(4)] 已知系统的差分方程，判断系统的线性、是不变性、因果性、稳定性。
+    \item [(5)] 采样信号的表示，采样定理。
+\end{enumerate}
+
+%\begin{dablock}
+%习题：1，3，5，6，13
+%\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第2章  \quad 习题：1,5,6,7,10,11,12,16,18  }%[allowframebreaks][shrink]
+\begin{enumerate}
+	\item [(1)] 掌握序列的傅里叶变换表达式，会求简单的傅里叶变换。
+	\item [(2)] 能够根据序列傅里叶变换的定义和性质求解一些问题。
+	\item [(3)] 序列傅里叶变换对称性的应用。2-10,11,12
+	\item [(4)] 因果系统、稳定系统，因果稳定系统的极点（或收敛域）的特点。
+	\item [(5)] 已知系统的差分方程，求系统函数$ H(z) $,求$ h(n) $，分析系统的因果性、稳定性。
+	\item [(6)] Z变换的性质，初值定理，终值定理，移位性质等。
+\end{enumerate}
+
+%\begin{dablock}
+%习题：1，3，5，6，13
+%\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第3章  \quad 习题：1,2,5,7,12,14,15，18 }%[allowframebreaks][shrink]
+\begin{enumerate}
+    \item [(1)] DFT的定义，简单序列DFT的计算。
+	\item [(2)] 用DFT计算线性卷积，循环卷积与线性卷积的关系。
+		\[y_c(n) = y_l((n))_L\cdots R_L(n)  \mbox{当} L\geq N+M-1 , y_c(n) =y_l(n)   \]
+	\item [(3)] 用DFT对信号做谱分析。 （例3.4.2）
+	\item [(4)] 会利用循环卷积定理求两个序列的循环卷积。
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第4章 }%[allowframebreaks][shrink]
+\begin{enumerate}
+	\item [(1)] 基2-FFT算法将长序列分解为短序列所遵循的原则。\\
+	            \qquad 时域抽取法：对时间奇偶分，对频率前后分\\
+	            \qquad 频域抽取法：对时间前后分，对频率奇偶分
+	\item [(2)] 直接计算DFT的计算量，（$ N^2 $次复数乘法，$ N(N-1) $次复数加法）
+	\item [(3)] 设$ N=2^M $，FFT运算流图中有多少级蝶形，每级蝶形需要多少个蝶形运算，共有多少个蝶形运算。
+	            以及FFT算法需要的计算量。
+	\item [(4)] 基2-FFT算法运算流图中，输入输出中的倒序顺序关系。
+	\item [(5)] 时域抽取、频域抽取的分解流图。
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第5章  }%[allowframebreaks][shrink]
+\begin{enumerate}
+	\item [(1)] 结合后两章的内容，已知IIR系统，FIR系统的系统函数，\\
+	     能画出IIR系统的直接性，级联型，并联型网络结构。\\
+	     能画出FIR系统的直接型，线性相位型网络结构。
+\end{enumerate}
+
+%\begin{dablock}
+%习题：1，3，5，6，13
+%\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第6章   }%[allowframebreaks][shrink]
+\begin{enumerate}
+	\item [(1)] 将模拟滤波器映射成数字滤波器所遵循的原则：
+	\item [(2)] 脉冲响应不变法和双线性不变法各自的优缺点，适用范围。
+	\item [(3)] 已知$ H_a(s) $,利用脉冲响应不变法和双线性变换法将其转化为数字滤波器的系统函数$ H(z) $
+	\item [(4)] 已知$ H_a(p) $,利用脉冲响应不变法和双线性变换法将其转化为数字滤波器的系统函数$ H(z) $
+\end{enumerate}
+
+%\begin{dablock}
+%习题：1，3，5，6，13
+%\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink]\frametitle{第7章  }%[allowframebreaks][shrink]
+\begin{enumerate}
+	\item [(1)] FIR-DF的特点：{\heiti 稳定}与{\heiti 线性相位}
+	\item [(2)] 具有第一类、第二类线性相位的FIR-DF的$ h(n) $应满足的条件，相位特点。
+	\item [(3)] 利用窗函数设计FIR-DF的吉布斯效应的特点。\\
+	            减小吉布斯效应的措施。
+	\item [(4)] 已知$ H_d(e^{j\omega}) $表达式，($ \omega_c $以及相位特性)，利用窗函数法设计线性相位低通滤波器，
+	            会求滤波器的幅度特性与相位特性的函数表达式。画出其网络结构。
+	\item [(5)] 已知$ H(z) $表达式，判断其是否满足线性相位，求滤波器的幅度特性与相位特	性的函数表达式。画出其网络结构。
+\end{enumerate}
+
+%\begin{dablock}
+%习题：1，3，5，6，13
+%\end{dablock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}
+
